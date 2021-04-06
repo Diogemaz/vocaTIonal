@@ -61,3 +61,63 @@
   });
 
 })(jQuery); // End of use strict
+var local = window.location.pathname;
+var localArray = local.split("/");
+if(localArray[localArray.length - 1] == "cadastro.php"){
+  form = document.getElementById('form-cadastro');
+} else if(localArray[localArray.length - 1] == "entra.php"){
+  form = document.getElementById('form-login');
+}
+form.addEventListener('submit', e => {
+    e.preventDefault()
+    console.log('Deu certo')
+})
+function cadastrar(){
+    var form = $('#form-cadastro').serialize();
+    console.log(form);
+    $.ajax({
+        type:'POST',
+        url:'../controller/cadastrarUsuario.php',
+        dataType: "json",
+        data: form,
+        success: function(response){
+          if(response == 0){
+            alert("Falha ao cadastrar, tente novamente ou entre em contato com o suporte do site");
+          }else if(response == -1){
+            alert("As senhas digitadas não são iguais");
+          }else{
+            console.log(response);
+            window.location.href = "../view/areaUsuario.php";
+          }
+        },
+        error: function(response){
+          alert("erro");
+          console.log("erro"+response);
+        }
+    });
+};
+function login(){
+  alert("entrou");
+  var form = $('#form-login').serialize();
+  alert(form);
+  console.log(form)
+  $.ajax({
+      type:'POST',
+      url:'../controller/login.php',
+      dataType: "json",
+      data: form,
+      success:function(response){
+        alert("sucesso");
+        if(response == 1){
+          window.location.href = "../view/areaUsuario.php";
+        } else if(response == -1){
+          alert("Falha ao Logar, tente novamente ou entre em contato com o suporte do site");
+        } else {
+          alert("Usuário ou senha incorreto.");
+        }
+      },
+      error: function(response){
+          console.log("erro"+response);
+      }
+  });
+};
