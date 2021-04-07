@@ -6,11 +6,19 @@
         require_once "conexao.php";
         $senha = md5($senha);
         try{
-            $sql = "SELECT * FROM usuario WHERE email='$email' AND senha=$senha";
+            $sql = "SELECT * FROM usuario WHERE email='$email' AND senha='$senha';";
             $resultado = $con->query($sql);
-            $row = $resultado->fetch_assoc();
-            $user = new Usuario($row['email'], $row['nome'], $row['areas']);
-            return $user;
+            if($resultado->num_rows == 1){
+                while ($row = $resultado->fetch_assoc()){
+                    $user = new Usuario($row['email'], $row['nome_usuario'], $row['areas']);
+                }
+                $_SESSION['user'] = serialize($user);
+                return 1;
+            }else if($resultado->num_rows > 1){
+                return -2; 
+            }else if($resultado->num_rows < 1){
+                return -1;
+            }
         }catch(Exception $e){
             return 0;
         }

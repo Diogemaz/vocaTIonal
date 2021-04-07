@@ -99,21 +99,20 @@ function cadastrar(){
 function login(){
   alert("entrou");
   var form = $('#form-login').serialize();
-  alert(form);
-  console.log(form)
+  console.log(form);
   $.ajax({
       type:'POST',
       url:'../controller/login.php',
       dataType: "json",
       data: form,
-      success:function(response){
+      success: function(response){
         alert("sucesso");
         if(response == 1){
           window.location.href = "../view/areaUsuario.php";
         } else if(response == -1){
-          alert("Falha ao Logar, tente novamente ou entre em contato com o suporte do site");
-        } else {
-          alert("Usuário ou senha incorreto.");
+          alert("Email ou senha incorretos");
+        } else if(response == -2 || response == -3 || response == 0){
+          alert("Falha no login, tente novamente ou entre em contato");
         }
       },
       error: function(response){

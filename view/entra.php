@@ -32,7 +32,7 @@
                 </div>
             </div>
         </nav>
-        <form id="form-login" method="POST" action="">
+        <form id="form-login" method="POST" action="../controller/login.php">
         <section class="page-section entrar" id="form">
             <div class="container">
                 <div class="d-flex justify-content-center h-100">
@@ -49,16 +49,16 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="email" id="email" class="form-control" placeholder="Email">
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Email">
                             </div>
                             <div class="input-group form-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                                 </div>
-                                <input type="password" id="senha" class="form-control" placeholder="Senha">
+                                <input type="password" id="senha" name="senha" class="form-control" placeholder="Senha">
                             </div>
                             <div class="form-group">
-                                <button onclick="login()" class="btn float-right login_btn">Logar</button>
+                                <button type="submit" onclick="login();" class="btn float-right login_btn">Logar</button>
                             </div>
                         </div>
                         <div class="card-footer">
