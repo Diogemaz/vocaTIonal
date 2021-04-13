@@ -5,6 +5,5 @@ if(isset($_SESSION['user'])){
 }else{
     echo "Acesso negado";
 }
-
-
 ?>
+<button href="entra.php">Sair</button>
