@@ -97,7 +97,6 @@ function cadastrar(){
     });
 };
 function login(){
-  alert("entrou");
   var form = $('#form-login').serialize();
   console.log(form);
   $.ajax({
@@ -106,7 +105,6 @@ function login(){
       dataType: "json",
       data: form,
       success: function(response){
-        alert("sucesso");
         if(response == 1){
           window.location.href = "../view/areaUsuario.php";
         } else if(response == -1){
