@@ -1,14 +1,14 @@
 <?php
 if(!($_POST)){ header('location: ../view/entra.php'); }
     session_start();
-    require_once "../model/consultas.php";
     require_once "../model/usuario.php";
 
     $email = $_POST['email'];
     $senha = $_POST['senha'];
+    $usuario = new Usuario;
 
     try{
-        $user = login($email, $senha);
+        $user = $usuario->login($email, $senha);
         if($user == 0){
             $response = 0;
         }else if($user == -2){

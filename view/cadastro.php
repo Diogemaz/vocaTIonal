@@ -58,7 +58,7 @@
                                 <input type="password" name="confSenha" id="confSenha" class="form-control" placeholder="Confirmar senha">
                             </div>
                             <div class="form-group">
-                                <button onclick="cadastrar()" class="btn float-right login_btn">Enviar</button>
+                                <button type="submit" onclick="cadastrar();" class="btn float-right login_btn">Enviar</button>
                             </div>
                         </div>
                     </div>
