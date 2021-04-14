@@ -61,25 +61,9 @@
             </div>
         </section>
         <!-- Contact-->
-        <section class="page-section" id="contact">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 ml-auto text-center mb-5 mb-lg-0">
-                        <i class="fas fa-phone fa-3x mb-3 text-muted"></i>
-                        <div>+55(13) ####-####</div>
-                    </div>
-                    <div class="col-lg-4 mr-auto text-center">
-                        <i class="fas fa-envelope fa-3x mb-3 text-muted"></i>
-                        <!-- Make sure to change the email address in BOTH the anchor text and the link target below!-->
-                        <a class="d-block" href="mailto:contact@yourwebsite.com">suport@vocational.com.br</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <?php include_once "includes/contato.php"; ?>
         <!-- Footer-->
-        <footer class="bg-light py-5">
-            <div class="container"><div class="small text-center text-muted">Copyright © 2021 - vocaTIonal</div></div>
-        </footer>
+        <?php include_once "includes/footer.php"; ?>
         <!-- Bootstrap core JS-->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>

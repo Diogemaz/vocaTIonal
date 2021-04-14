@@ -3,7 +3,7 @@ require_once "funcoes.php";
 
 class Usuario
 {
-    private string $nomeUsuario;
+    public ?string $nomeUsuario = null;
     private string $email;
     private string $senha;
     private int $adm = 0;
@@ -86,7 +86,10 @@ class Usuario
             $resultado->execute();
             if($resultado->rowCount() == 1){
                 while ($row = $resultado->fetch()){
-                    $user = new Usuario($row['email'], $row['nome_usuario'], $row['areas']);
+                    $user = new Usuario();
+                    $user->setNome($row['nome_usuario']);
+                    $user->setEmail($row['email']);
+                    $user->setAreas($row['areas']);
                 }
                 $_SESSION['user'] = serialize($user);
                 return 1;

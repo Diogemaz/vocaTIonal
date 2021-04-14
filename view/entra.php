@@ -1,3 +1,13 @@
+<?php
+    session_start();
+    if(isset($_GET['logout']) == 1){
+        session_destroy();
+        $_SESSION['user'] = null;
+    }
+    if(isset($_SESSION['user']) != null){
+        header('location: areaUsuario.php');
+    }
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
