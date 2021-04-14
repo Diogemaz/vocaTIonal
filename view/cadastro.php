@@ -32,7 +32,7 @@
                 </div>
             </div>
         </nav>
-        <form id="form-cadastro" method="POST" action="">
+        <form id="form-cadastro" method="POST" onSubmit="cadastrar();" action="../controller/cadastrarUsuario.php">
         <section class="page-section entrar" id="form">
             <div class="container">
                 <div class="d-flex justify-content-center h-100">
@@ -46,19 +46,19 @@
                         </div>
                         <div class="card-body">
                             <div class="input-group form-group">
-                                <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome de Usuário">
+                                <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome de Usuário" required>
                             </div>
                             <div class="input-group form-group">
-                                <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Email" onblur="checarEmail();" required>
                             </div>
                             <div class="input-group form-group">
-                                <input type="password" name="senha" id="senha" class="form-control" placeholder="Senha">
+                                <input type="password" name="senha" id="senha" class="form-control" placeholder="Senha" required>
                             </div>
                             <div class="input-group form-group">
-                                <input type="password" name="confSenha" id="confSenha" class="form-control" placeholder="Confirmar senha">
+                                <input type="password" name="confSenha" id="confSenha" class="form-control" placeholder="Confirmar senha" required>
                             </div>
                             <div class="form-group">
-                                <button type="submit" onclick="cadastrar();" class="btn float-right login_btn">Enviar</button>
+                                <button type="submit" class="btn float-right login_btn">Enviar</button>
                             </div>
                         </div>
                     </div>

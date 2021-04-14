@@ -1,5 +1,5 @@
 <?php
-require_once "conexao.php";
+require_once "funcoes.php";
 
 class Usuario
 {
@@ -9,13 +9,21 @@ class Usuario
     private int $adm = 0;
     private $areas = array(); 
 
-    public function setSenha($senha){
-        $this->senha = $senha;
+    public function setNome($nome){
+        $this->nomeUsuario = $nome;
+    }
+    public function setEmail($email){
+        $this->email = $email;
     }
 
     public function setAreas($areas)
     {
         $this->areas = $areas;
+    }
+
+    public function setAdm($adm)
+    {
+        $this->adm = $adm;
     }
 
     public function getNomeUsuario()
@@ -28,11 +36,6 @@ class Usuario
         return $this->email;
     }
     
-    public function getSenha()
-    {
-        return $this->senha;
-    }
-    
     public function getAdm()
     {
         return $this->adm;
@@ -43,20 +46,31 @@ class Usuario
         return $this->areas;
     }
 
-    public function cadastrarUsuario($nome, $email, $senha, $adm){
+    public function cadastrarUsuario($nome, $email, $senha){
         $con = conexao();
         $senha = md5($senha);
+        $token = md5($email);
         try{
-            $stmt = $con->prepare("INSERT INTO usuario (nome_usuario, email, senha, administrador) VALUES (:nome, :email, :senha, :adm)");
-            $stmt->bindParam(':nome', $email, PDO::PARAM_STR, 50);
-            $stmt->bindParam(':email', $email, PDO::PARAM_STR, 50);
-            $stmt->bindParam(':senha', $senha, PDO::PARAM_STR, 32);
-            $stmt->bindParam(':adm', $email, PDO::PARAM_INT);
-            $stmt->execute();
-            $user = new Usuario($email, $nome); 
-            return $user;
+            $resultado = $con->prepare("SELECT email FROM usuario WHERE email=:email");
+            $resultado->bindParam(':email', $email, PDO::PARAM_STR, 50);
+            $resultado->execute();
+            if($resultado->rowCount() == 0){
+                $stmt = $con->prepare("INSERT INTO usuario (nome_usuario, email, senha, token) VALUES (:nome, :email, :senha, :token)");
+                $stmt->bindParam(':nome', $nome, PDO::PARAM_STR, 50);
+                $stmt->bindParam(':email', $email, PDO::PARAM_STR, 50);
+                $stmt->bindParam(':senha', $senha, PDO::PARAM_STR, 32);
+                $stmt->bindParam(':token', $token, PDO::PARAM_STR, 32);
+                $stmt->execute();
+                //if(verificarEmail($email, $nome, $token) == 1){
+                    return 1;
+                //}else{
+                  //  return 2;
+                //}
+            }else{
+                return 0;
+            }
         }catch(Exception $e){
-            return null;
+            return -1;
         }
     }
 
