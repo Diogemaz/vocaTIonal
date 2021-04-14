@@ -12,14 +12,21 @@ if(!$_POST){ header('location: ../view/cadastro.php'); }
     if($senha == $confSenha)
     {
         try{
-            $user = $usuario->cadastrarUsuario($nomeUser, $email, $senha, 0);
-            $_SESSION['user'] = serialize($user);
-            $response = 1;
+            $cadastro = $usuario->cadastrarUsuario($nomeUser, $email, $senha);
+            if($cadastro == 1){
+                $user = new Usuario;
+                $user->setNome($nomeUser);
+                $user->setEmail($email);
+                $_SESSION['user'] = serialize($user);
+                $response = 1;
+            }else{
+                $response = $cadastro;
+            }
         }catch (Exception $e){
-            $response = 0;
+            $response = -1;
         }
     } else {
-        $response = -1;
+        $response = -2;
     }
 
     echo json_encode($response);

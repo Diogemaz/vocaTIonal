@@ -73,6 +73,7 @@ form.addEventListener('submit', e => {
     console.log('Deu certo')
 })
 function cadastrar(){
+  if(verifica()){
     var form = $('#form-cadastro').serialize();
     console.log(form);
     $.ajax({
@@ -81,11 +82,13 @@ function cadastrar(){
         dataType: "json",
         data: form,
         success: function(response){
-          if(response == 0){
-            alert("Falha ao cadastrar, tente novamente ou entre em contato com o suporte do site");
-          }else if(response == -1){
+          if(response == -2){
             alert("As senhas digitadas não são iguais");
-          }else{
+          }else if(response == -1){
+            alert("Falha ao cadastrar, tente novamente ou entre em contato com o suporte do site");
+          }else if(response == 0){
+            alert("Email já cadastrado no site");
+          }else if(response == 1){
             console.log(response);
             window.location.href = "../view/areaUsuario.php";
           }
@@ -95,7 +98,34 @@ function cadastrar(){
           console.log("erro"+response);
         }
     });
+  }else{}
 };
+function checarEmail(){
+  if($('#email').val()=="" || $('#email').val().indexOf('@')==-1 || $('#email').val().indexOf('.')==-1){
+    alert("Por favor, informe um E-MAIL válido!");
+    return false;
+  }
+}
+function verifica() {
+  if($('#email').val() == ''){
+    alert('Por favor, informe o seu EMAIL.');
+    $('#email').focus();
+    return false;
+  }else if($('#nome').val() == ''){
+    alert('Por favor, informe o seu NOME DE USUÁRIO.');
+    $('#nome').focus();
+    return false;
+  }else if($('#senha').val() == ''){
+    alert('Por favor, informe o sua SENHA.');
+    $('#senha').focus();
+    return false;
+  }else if($('#confSenha').val() == ''){
+    alert('Por favor, Preencha o campo CONFIRMAR SENHA.');
+    $('#confSenha').focus();
+    return false;
+  }
+  return true;
+}
 function login(){
   var form = $('#form-login').serialize();
   console.log(form);
