@@ -16,7 +16,12 @@ if(!($_POST)){ header('location: ../view/entra.php'); }
         }else if(($user == -1)){
             $response = -1;
         }else{
-            $response = 1;
+            $adm = unserialize($_SESSION['user']);
+            if($adm->getAdm() == 1){
+                $response = 2;
+            }else{
+                $response = 1;
+            }
         }
     } catch (Exception $e){
         $response = -3;

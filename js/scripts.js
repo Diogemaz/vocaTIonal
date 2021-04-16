@@ -67,6 +67,8 @@ if(localArray[localArray.length - 1] == "cadastro.php"){
   form = document.getElementById('form-cadastro');
 } else if(localArray[localArray.length - 1] == "entra.php"){
   form = document.getElementById('form-login');
+}else if(localArray[localArray.length - 1] == "entra.php"){
+  form = document.getElementById('form-area');
 }
 form.addEventListener('submit', e => {
     e.preventDefault()
@@ -141,10 +143,34 @@ function login(){
           alert("Email ou senha incorretos");
         } else if(response == -2 || response == -3 || response == 0){
           alert("Falha no login, tente novamente ou entre em contato");
+        } else if(response == 2){
+          console.log(response);
+          window.location.href = "../view/areaAdm.php";
         }
       },
       error: function(response){
           console.log("erro"+response);
       }
   });
+};
+function cadastrarArea(){
+    var form = $('#form-area').serialize();
+    console.log(form);
+    $.ajax({
+        type:'POST',
+        url:'../controller/cadastrarArea.php',
+        dataType: "json",
+        data: form,
+        success: function(response){
+          if(response == 1){
+            alert("cadastrado com sucesso!");
+          }else if(response == 0){
+            alert("Falha ao cadastrar, tente novamente");
+          }
+        },
+        error: function(response){
+          alert("erro");
+          console.log("erro"+response);
+        }
+    });
 };

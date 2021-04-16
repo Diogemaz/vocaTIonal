@@ -30,7 +30,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="../assets/img/voc2.png" width="140" height="50"></a>
+                <a class="navbar-brand js-scroll-trigger" href="../index.php"><img src="../assets/img/voc2.png" width="140" height="50"></a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
@@ -42,7 +42,7 @@
                 </div>
             </div>
         </nav>
-        <form id="form-login" method="POST" action="../controller/login.php">
+        <form id="form-login" onSubmit="login();" method="POST" action="../controller/login.php">
         <section class="page-section entrar" id="form">
             <div class="container">
                 <div class="d-flex justify-content-center h-100">
@@ -68,7 +68,7 @@
                                 <input type="password" id="senha" name="senha" class="form-control" placeholder="Senha">
                             </div>
                             <div class="form-group">
-                                <button type="submit" onclick="login();" class="btn float-right login_btn">Logar</button>
+                                <button type="submit" class="btn float-right login_btn">Logar</button>
                             </div>
                         </div>
                         <div class="card-footer">

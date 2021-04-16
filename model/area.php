@@ -1,7 +1,7 @@
 <?php
 require_once "funcoes.php";
 
-class profissao
+class Area
 {
     public $nome;
     public $descricao;
@@ -15,8 +15,9 @@ class profissao
             $stmt->bindParam(':nome', $nome, PDO::PARAM_STR, 50);
             $stmt->bindParam(':descricao', $descricao, PDO::PARAM_STR);
             $stmt->execute();
+            return 1;
         }catch(Exception $e){
-            return null;
+            return 0;
         }
     }
 }

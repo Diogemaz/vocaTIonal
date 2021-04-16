@@ -90,6 +90,7 @@ class Usuario
                     $user->setNome($row['nome_usuario']);
                     $user->setEmail($row['email']);
                     $user->setAreas($row['areas']);
+                    $user->setAdm($row['administrador']);
                 }
                 $_SESSION['user'] = serialize($user);
                 return 1;
