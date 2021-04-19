@@ -1,6 +1,8 @@
 <?php 
 session_start();
 include_once "../model/usuario.php";
+include_once "../model/area.php";
+include_once "../model/profissao.php";
 if(isset($_SESSION['user'])){
     $user = unserialize($_SESSION['user']);
 ?>
@@ -58,162 +60,37 @@ if(isset($_SESSION['user'])){
          <link rel="stylesheet" href="../css/estilo.css">
          <nav class="categories--home">
          <div class="categories__elements--home">
-         <!-- Cubinho 0 -->
-         <div class="categories__wrapper__links--home --mobile" style="--color-var: #ffba05">
+         <?php
+            $area = new area;
+            $QtdArea = $area->QtdArea();
+            $i = 0; 
+            while($i < $QtdArea){
+               if($area->consultarArea($i)){
+         ?>
+          <!-- Cubinho 0 -->
+          <div class="categories__wrapper__links--home --<?php $area->getNome(); ?>" style="--color-var: #ffba05">
             <a class="categories__link--home" href="cursos-online-mobile.html">
                <div class="categories__link-wrapper--home">
                   <div class="categories__svg-wrapper--home" style="background:#ffba0552;"></div>
                   <div class="categories__texts" style="color:#ffba05;">
-                     <h4 class="categories__link__category-name">Segurança da Informação</h4>
+                     <h4 class="categories__link__category-name"><?php echo ucfirst($area->getNome()); ?></h4>
                   </div>
                </div>
             </a>
             <nav class="categories__calls--home">
                <a href="cursos-online-mobile/multiplataforma.html" class="categories__calls__description--home">
-                    Flutter, React Native
+                    <?php echo substr($area->getDescricao(), 0, 80); ?>...
                </a>
-               <span class="categories__calls__description-separator">, </span>
-               <a href="cursos-online-mobile/ios.html" class="categories__calls__description--home">
-                    iOS e Swift
+               <a href="cursos-online-mobile/multiplataforma.html" class="categories__calls__description--home">
+                  Ver mais
                </a>
-               <span class="categories__calls__description-separator">, </span>
-               <a href="cursos-online-mobile/android.html" class="categories__calls__description--home">
-                    Android, Kotlin
-               </a>
-               <span class="categories__calls__description-separator">, </span>
-               <a href="cursos-online-mobile/jogos.html" class="categories__calls__description--home">
-                    Jogos
-               </a>
-               <span class="categories__calls__description-separator"></span>
-               <a href="cursos-online-mobile.html" class="categories__calls__link-see-more--home">
-                    e mais...
-                </a>
             </nav>
          </div>
-         <!-- Cubinho 1 -->
-         <div class="categories__wrapper__links--home --programacao" style="--color-var: #00c86f">
-            <a class="categories__link--home" href="cursos-online-mobile.html">
-               <div class="categories__link-wrapper--home">
-                  <div class="categories__svg-wrapper--home" style="background:#ffba0552;"></div>
-                  <div class="categories__texts" style="color:#ffba05;">
-                     <h4 class="categories__link__category-name">Banco de dados</h4>
-                  </div>
-               </div>
-            </a>
-            <nav class="categories__calls--home">
-               <a
-                  href="cursos-online-mobile/multiplataforma.html"
-                  class="categories__calls__description--home">Flutter, React Native</a><span
-                  class="categories__calls__description-separator">, </span>
-               <a
-                  href="cursos-online-mobile/ios.html"
-                  class="categories__calls__description--home">iOS e Swift</a><span
-                  class="categories__calls__description-separator">, </span>
-               <a
-                  href="cursos-online-mobile/android.html"
-                  class="categories__calls__description--home">Android, Kotlin</a><span
-                  class="categories__calls__description-separator">, </span>
-               <a
-                  href="cursos-online-mobile/jogos.html"
-                  class="categories__calls__description--home">Jogos</a><span
-                  class="categories__calls__description-separator"></span>
-               <a
-                  href="cursos-online-mobile.html"
-                  class="categories__calls__link-see-more--home">e mais...</a>
-            </nav>
-         </div>
-         <!-- Cubinho 2 -->
-         <div class="categories__wrapper__links--home --FRONT-END" style="--color-var: #00c86f">
-            <a class="categories__link--home" href="cursos-online-mobile.html">
-               <div class="categories__link-wrapper--home">
-                  <div class="categories__svg-wrapper--home" style="background:#ffba0552;"></div>
-                  <div class="categories__texts" style="color:#ffba05;">
-                     <h4 class="categories__link__category-name">Administração de redes</h4>
-                  </div>
-               </div>
-            </a>
-            <nav class="categories__calls--home">
-               <a
-                  href="cursos-online-mobile/multiplataforma.html"
-                  class="categories__calls__description--home">Flutter, React Native</a><span
-                  class="categories__calls__description-separator">, </span>
-               <a
-                  href="cursos-online-mobile/ios.html"
-                  class="categories__calls__description--home">iOS e Swift</a><span
-                  class="categories__calls__description-separator">, </span>
-               <a
-                  href="cursos-online-mobile/android.html"
-                  class="categories__calls__description--home">Android, Kotlin</a><span
-                  class="categories__calls__description-separator">, </span>
-               <a
-                  href="cursos-online-mobile/jogos.html"
-                  class="categories__calls__description--home">Jogos</a><span
-                  class="categories__calls__description-separator"></span>
-               <a
-                  href="cursos-online-mobile.html"
-                  class="categories__calls__link-see-more--home">e mais...</a>
-            </nav>
-         </div>
-         <!-- Cubinho 3 -->
-         <div class="categories__wrapper__links--home --DEVOPS" style="--color-var: #00c86f">
-            <a class="categories__link--home" href="cursos-online-mobile.html">
-               <div class="categories__link-wrapper--home">
-                  <div class="categories__svg-wrapper--home" style="background:#ffba0552;"></div>
-                  <div class="categories__texts" style="color:#ffba05;">
-                     <h4 class="categories__link__category-name">Qualidade de software</h4>
-                  </div>
-               </div>
-            </a>
-            <nav class="categories__calls--home">
-               <a
-                  href="cursos-online-mobile/multiplataforma.html"
-                  class="categories__calls__description--home">Flutter, React Native</a><span
-                  class="categories__calls__description-separator">, </span>
-               <a
-                  href="cursos-online-mobile/ios.html"
-                  class="categories__calls__description--home">iOS e Swift</a><span
-                  class="categories__calls__description-separator">, </span>
-               <a
-                  href="cursos-online-mobile/android.html"
-                  class="categories__calls__description--home">Android, Kotlin</a><span
-                  class="categories__calls__description-separator">, </span>
-               <a
-                  href="cursos-online-mobile/jogos.html"
-                  class="categories__calls__description--home">Jogos</a><span
-                  class="categories__calls__description-separator"></span>
-               <a
-                  href="cursos-online-mobile.html"
-                  class="categories__calls__link-see-more--home">e mais...</a>
-            </nav>
-         </div>
-         <!-- Cubinho 4 -->
-         <div class="categories__wrapper__links--home --DESIGN" style="--color-var: #00c86f">
-            <a class="categories__link--home" href="cursos-online-mobile.html">
-               <div class="categories__link-wrapper--home">
-                  <div class="categories__svg-wrapper--home" style="background:#ffba0552;"></div>
-                  <div class="categories__texts" style="color:#ffba05;">
-                     <h4 class="categories__link__category-name">Programação</h4>
-                  </div>
-               </div>
-            </a>
-            <nav class="categories__calls--home">
-               <a
-                  href="cursos-online-mobile/multiplataforma.html"
-                  class="categories__calls__description--home">Flutter, React Native</a><span
-                  class="categories__calls__description-separator">, </span>
-               <a
-                  href="cursos-online-mobile/ios.html"
-                  class="categories__calls__description--home">iOS e Swift</a><span
-                  class="categories__calls__description-separator">, </span>
-               <a
-                  href="cursos-online-mobile/android.html"
-                  class="categories__calls__description--home">Android, Kotlin</a><span
-                  class="categories__calls__description-separator">, </span>
-               <a href="cursos-online-mobile/jogos.html" class="categories__calls__description--home">Jogos</a>
-               <span class="categories__calls__description-separator"></span>
-               <a href="cursos-online-mobile.html" class="categories__calls__link-see-more--home">e mais...</a>
-            </nav>
-         </div>
+         <?php
+               }
+            $i++;
+            }
+         ?>
       </section>
       <!-- Contact-->
       <?php include_once "../includes/contato.php" ?>

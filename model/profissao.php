@@ -7,6 +7,11 @@ class profissao
     public $salario;
     public $cursos = [];
 
+    public function __construct($nome, $salario)
+    {
+        $this->nome = $nome;
+        $this->salario = $salario;
+    }
 
     public function cadastrarProfissao($nome, $salario){
         $con = conexao();
