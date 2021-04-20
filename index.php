@@ -25,7 +25,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">Sobre</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Áreas</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="view/areas.php">Áreas</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contato</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="view/entra.php">Entrar</a></li>
                     </ul>
@@ -42,7 +42,6 @@
                     </div>
                     <div class="col-lg-8 align-self-baseline">
                         <p class="text-white-75 font-weight-light mb-5">Aqui você vai encontrar o que precisar sobre as áreas e profissões de TI e entender que esse universo não é só codigo.</p>
-                        <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Sobre a vocaTIonal</a>
                     </div>
                 </div>
             </div>
@@ -51,11 +50,36 @@
         <section class="page-section bg-primary" id="about">
             <div class="container">
                 <div class="row justify-content-center">
+                    <div class="col-lg-3 text-center mr-5">
+                        <h2 class="text-white mt-0">Equipe</h2>
+                        <div class="row justify-content-center">
+                            <div class="col">
+                                <img>
+                                <p class="text-white-50 mb-4">Bruno Ricardo</p>
+                            </div>
+                            <div class="col">
+                                <img>
+                                <p class="text-white-50 mb-4">Diogenes Paulino</p>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col">
+                                    <img>
+                                    <p class="text-white-50 mb-4">Henrique Pereira</p>
+                                </div>
+                                <div class="col">
+                                    <img>
+                                    <p class="text-white-50 mb-4">Rógerio Gongora</p>
+                                </div>
+                            </div>
+                    </div>
                     <div class="col-lg-8 text-center">
                         <h2 class="text-white mt-0">Sobre a vocaTIonal</h2>
                         <hr class="divider light my-4" />
                         <p class="text-white-50 mb-4">Existimos para ajudar você a decidir qual caminho seguir e também te indicar como começar a se preparar para ele.</p>
-                        <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Comece a explorar</a>
+                        <div class="row justify-content-center">
+                            <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Comece a explorar</a>
+                        </div>
                     </div>
                 </div>
             </div>

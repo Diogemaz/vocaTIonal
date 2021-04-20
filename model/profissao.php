@@ -13,6 +13,17 @@ class profissao
         $this->salario = $salario;
     }
 
+    public function getNome(){
+        return $this->nome;
+    }
+    
+    public function getSalario(){
+        return $this->salario;
+    }
+
+    public function getCurso(){
+        return $this->cursos;
+    }
     public function cadastrarProfissao($nome, $salario){
         $con = conexao();
         try{
