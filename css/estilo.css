@@ -47,7 +47,7 @@
 .categories__calls--home{font-size:.75rem;color:#6d88a0;display:block;line-height:1.4}
 .categories__elements--home .categories__wrapper__links--home{margin-right:13px;margin-left:0;margin-top:13px;-webkit-box-pack:start;justify-content:flex-start}
 .categories__wrapper__links--home:after{top:205px}
-.categories__elements--home .categories__wrapper__links--home{width:100%;height:13em;margin:0}
+.categories__elements--home .categories__wrapper__links--home{width:100%;height:16em;margin:0}
 .categories__elements--home{max-width:59em;display:grid;grid-template-columns:repeat(4,1fr);grid-gap:.5em;grid-template-areas:"mobile programacao front-end ." "devops design-ux data-science inovacao-gestao"}
 .categories__wrapper__links--home.--mobile{grid-area:mobile}
 .categories__wrapper__links--home.--programacao{grid-area:programacao}

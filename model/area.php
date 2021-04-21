@@ -3,9 +3,11 @@ require_once "funcoes.php";
 
 class Area
 {
+    public $id;
     public $nome;
     public $descricao;
-    public $profissoes = [];
+    public $favorito;
+    public $profissoes = array();
 
     public function getNome(){
         return $this->nome;
@@ -17,6 +19,10 @@ class Area
 
     public function getProfissoes(){
         return $this->profissoes;
+    }
+
+    public function getFavorito(){
+        return $this->favorito;
     }
 
     public function cadastrarArea($nome, $descricao){
@@ -49,17 +55,24 @@ class Area
         try{
             $sql = "SELECT * FROM area WHERE id_area=:id;";
             $resultado = $con->prepare($sql);
-            $resultado->bindParam(':id', $id, PDO::PARAM_INT);
+            $resultado->bindParam(':id', $id, PDO::PARAM_STR);
             $resultado->execute();
             if($resultado->rowCount() == 1){
                 while ($row = $resultado->fetch()){
+                    $this->id = $row['id_area'];
                     $this->nome = $row['nome_area'];
                     $this->descricao = $row['descricao'];
-                    $sql = "SELECT * FROM profissoes WHERE id_area=".$row['id_area'].";";
-                    $profissoes = $con->prepare($sql);
-                    $profissoes->execute();
-                    foreach($profissoes as $profissao){
-                        $this->profissoes[] = new profissao($profissao['nome_proffissao'], $profissao['salario']); 
+                    $this->favorito = $row['num_favorite'];
+                    $id_area = $row['id_area'];
+                    try{
+                        $sql = "SELECT * FROM profissao WHERE id_area=$id_area;";
+                        $profissoes = $con->prepare($sql);
+                        $profissoes->execute();
+                        while($profissao = $profissoes->fetch()){
+                            $this->profissoes[] = new profissao($profissao['nome_profissao'], $profissao['salario']); 
+                        }
+                    }catch(Exception $ex){
+                        return $ex;
                     }
                 }
             }
@@ -77,15 +90,17 @@ class Area
             $resultado->execute();
             if($resultado->rowCount() == 1){
                 while ($row = $resultado->fetch()){
+                    $this->id = $row['id_area'];
                     $this->nome = $row['nome_area'];
                     $this->descricao = $row['descricao'];
+                    $this->fevorito = $row['num_favorite'];
                     $id_area = $row['id_area'];
                     try{
-                        $sql = "SELECT * FROM profissoes WHERE id_area=".$id_area.";";
+                        $sql = "SELECT * FROM profissao WHERE id_area=$id_area;";
                         $profissoes = $con->prepare($sql);
                         $profissoes->execute();
-                        foreach($profissoes as $profissao){
-                            $this->profissoes[] = new profissao($profissao['nome_proffissao'], $profissao['salario']); 
+                        while($profissao = $profissoes->fetch()){
+                            $this->profissoes[] = new profissao($profissao['nome_profissao'], $profissao['salario']); 
                         }
                     }catch(Exception $ex){
                         return $ex;
@@ -96,6 +111,20 @@ class Area
             return $e;
         }
     }
+
+    public function Favorita($user){
+        $con = conexao();
+        try{
+            $stmt = $con->prepare("INSERT INTO favorito_usuario (id_area, id_usuario) VALUES (:area, :usuario)");
+            $stmt->bindParam(':area', $this->id, PDO::PARAM_INT);
+            $stmt->bindParam(':usuario', $user, PDO::PARAM_INT);
+            $stmt->execute();
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+    }
+
 
     
 }

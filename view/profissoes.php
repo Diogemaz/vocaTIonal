@@ -2,6 +2,12 @@
     include_once "../model/area.php";
     include_once "../model/profissao.php";
     $arquivo = basename( __FILE__ );
+    if(isset($_GET['area'])){
+        $nome = $_GET['area'];
+        $area = new area;
+        $QtdArea = $area->QtdArea();
+        $area->consultarAreaNome($nome);
+        $_SESSION['area'] = serialize($area);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -29,11 +35,11 @@
             <div class="container h-100">
                 <div class="row h-100 align-items-center justify-content-center text-center">
                     <div class="col-lg-10 align-self-end">
-                        <h1 class="text-uppercase text-white font-weight-bold">Áreas</h1>
+                        <h1 class="text-uppercase text-white font-weight-bold"><?php echo $nome; ?></h1>
                         <hr class="divider my-4" />
                     </div>
                     <div class="col-lg-8 align-self-baseline">
-                        <p class="text-white-75 font-weight-light mb-5">Aqui você pode encontrar as áreas de TI, encontre aquela que mas te agrada e se cadastre caso queira favoritar as mais interessantes para você.</p>
+                        <p class="text-white-75 font-weight-light mb-5"><?php echo $area->getDescricao(); ?></p>
                     </div>
                 </div>
             </div>
@@ -41,55 +47,40 @@
         <!-- areas-->
         <section class="page-section bg-primary" id="services">
             <link rel="stylesheet" href="../css/estilo.css">
+            <div class="row">
             <nav class="categories--home">
             <div class="categories__elements--home">
-            <?php
-                if(!isset($_GET['area'])){
-                $area = [];
-                $area[] = new area; 
-                $QtdArea = $area[0]->QtdArea();
-                $i = 0; 
-                while($i < $QtdArea){
-                $area[$i] = new area;
-                $area[$i]->consultarArea($i);   
+            <?php 
+                foreach($area->getProfissoes() as $profissao){
+                        
             ?>
-            <div class="categories__wrapper__links--home --<?php $area[$i]->getNome(); ?>" style="--color-var: #ffba05">
-                <a class="categories__link--home" href="profissoes.php?area=<?php echo $area[$i]->getNome(); ?>">
+            <div class="categories__wrapper__links--home --<?php $profissao->getNome(); ?>" style="--color-var: #ffba05">
+                <a class="categories__link--home" href="">
                 <div class="categories__link-wrapper--home">
-                    <div class="categories__svg-wrapper--home" style="background:#ffba0552;"></div>
                     <div class="categories__texts" style="color:#ffba05;">
-                        <h4 class="categories__link__category-name"><?php echo ucfirst($area[$i]->getNome()); ?></h4>
+                        <h4 class="categories__link__category-name text-center"><?php echo $profissao->getNome(); ?></h4>
                     </div>
                 </div>
                 </a>
                 <nav class="categories__calls--home">
-                <a href="profissoes.php?area=<?php echo $area[$i]->getNome(); ?>" class="categories__calls__description--home">
-                        <?php 
-                            $j = 0;
-                            foreach($area[$i]->getProfissoes() as $profissao){ 
-                                echo $profissao->getNome(); 
-                                $j++;
-                                if($j == 5){break;} 
-                            }
-                        ?>...
-                </a>
-                <div class="row d-flex justify-content-center pl-2">                    
-                    <div class="col-1"><img src="../assets/img/star1.png" width="30" height="30"></div>
-                    <div class="col mt-1">
-                        <h6 class="text-white-75 font-weight-light mt-1">
-                            <?php echo $area[$i]->getFavorito(); ?>
-                        </h6>
-                    </div>
+                <h6 class="text-white-75 font-weight-light mt-3">
+                   Salario: <?php echo $profissao->getSalario(); ?>
+                </h6>
+                <div class="d-flex justify-content-center">
+                    <a href="" class="categories__calls__description--home">
+                        Ver mais
+                    </a>
                 </div>
-                <a href="cursos-online-mobile/multiplataforma.html" class="categories__calls__description--home">
-                    Ver mais
-                </a>
                 </nav>
             </div>
         <?php
-            $i++;
-            }}
+                }}
         ?>
+        </div>
+        </div>
+        <div class="row justify-content-center">
+            <button class="btn btn-light btn-xl js-scroll-trigger" id="favorita" onclick="favoritar();">Favoritar área</button>
+        </div>
       </section>
         <!-- Contact-->
         <?php include_once "../includes/contato.php"; ?>

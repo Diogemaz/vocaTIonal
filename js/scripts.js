@@ -63,17 +63,27 @@
 })(jQuery); // End of use strict
 var local = window.location.pathname;
 var localArray = local.split("/");
+var form;
 if(localArray[localArray.length - 1] == "cadastro.php"){
   form = document.getElementById('form-cadastro');
-} else if(localArray[localArray.length - 1] == "entra.php"){
-  form = document.getElementById('form-login');
-}else if(localArray[localArray.length - 1] == "entra.php"){
-  form = document.getElementById('form-area');
-}
-form.addEventListener('submit', e => {
+  form.addEventListener('submit', e => {
     e.preventDefault()
     console.log('Deu certo')
-})
+  })
+} else if(localArray[localArray.length - 1] == "entra.php"){
+  form = document.getElementById('form-login');
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    console.log('Deu certo')
+  })
+}else if(localArray[localArray.length - 1] == "entra.php"){
+  form = document.getElementById('form-area');
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    console.log('Deu certo')
+  })
+}
+
 function cadastrar(){
   if(verifica()){
     var form = $('#form-cadastro').serialize();
@@ -166,6 +176,37 @@ function cadastrarArea(){
             alert("cadastrado com sucesso!");
           }else if(response == 0){
             alert("Falha ao cadastrar, tente novamente");
+          }
+        },
+        error: function(response){
+          alert("erro");
+          console.log("erro"+response);
+        }
+    });
+};
+function getParameter(theParameter) {
+  var params = window.location.search.substr(1).split('&');
+
+  for (var i = 0; i < params.length; i++) {
+      var p = params[i].split('=');
+      if (p[0] == theParameter) {
+          return decodeURIComponent(p[1]);
+      }
+  }
+  return false;
+  }
+function favoritar(){
+    var area = getParameter('area');
+    $.ajax({
+        type:'POST',
+        url:'../controller/favoritaArea.php',
+        dataType: "json",
+        data: area,
+        success: function(response){
+          if(response == 1){
+            $('#favorita').innerHTML = "Remover Favorito";
+          }else if(response == 0){
+            alert("Falha ao favoritar, tente novamente");
           }
         },
         error: function(response){

@@ -3,6 +3,7 @@ session_start();
 include_once "../model/usuario.php";
 include_once "../model/area.php";
 include_once "../model/profissao.php";
+$arquivo = basename( __FILE__ );
 if(isset($_SESSION['user'])){
     $user = unserialize($_SESSION['user']);
 ?>
@@ -25,21 +26,7 @@ if(isset($_SESSION['user'])){
       <link href="../css/styles.css" rel="stylesheet" />
    </head>
    <body id="page-top">
-      <!-- Navigation-->
-      <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
-         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="../index.php"><img src="../assets/img/voc2.png" width="140" height="50"></a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-               <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="../index.php#about">Sobre</a></li>
-                  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Áreas</a></li>
-                  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contato</a></li>
-                  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="../view/entra.php?logout=1" >Sair</a></li>
-               </ul>
-            </div>
-         </div>
-      </nav>
+      <?php include_once "../includes/navegacao.php"; ?>
       <!-- Masthead-->
       <header class="masthead">
          <div class="container h-100">
@@ -50,7 +37,7 @@ if(isset($_SESSION['user'])){
                </div>
                <div class="col-lg-8 align-self-baseline">
                   <p class="text-white-75 font-weight-light mb-5">Suas areas pré-avaliadas estão listadas abaixo, sinta-se a contade para explorar as que mais te interessarem.</p>
-                  <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Areas</a>
+                  <a class="btn btn-primary btn-xl js-scroll-trigger" href="#services">Areas</a>
                </div>
             </div>
          </div>
@@ -96,13 +83,7 @@ if(isset($_SESSION['user'])){
       <?php include_once "../includes/contato.php" ?>
       <!-- Footer-->
       <?php include_once "../includes/footer.php"; ?>
-      <!-- Bootstrap core JS-->
-      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-      <!-- Third party plugin JS-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
-      <!-- Core theme JS-->
+      <?php include_once "../includes/links.php"; ?>
       <script src="../js/scripts.js"></script>
    </body>
 </html>

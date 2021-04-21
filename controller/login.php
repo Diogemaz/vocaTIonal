@@ -9,15 +9,15 @@ if(!($_POST)){ header('location: ../view/entra.php'); }
 
     try{
         $user = $usuario->login($email, $senha);
+        $_SESSION['user'] = serialize($usuario);
         if($user == 0){
             $response = 0;
         }else if($user == -2){
             $response = -2;
         }else if(($user == -1)){
             $response = -1;
-        }else{
-            $adm = unserialize($_SESSION['user']);
-            if($adm->getAdm() == 1){
+        }else if($user == 1){
+            if($usuario->getAdm() == 1){
                 $response = 2;
             }else{
                 $response = 1;

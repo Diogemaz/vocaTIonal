@@ -3,6 +3,7 @@ require_once "funcoes.php";
 
 class Usuario
 {
+    public $id;
     public ?string $nomeUsuario = null;
     private string $email;
     private string $senha;
@@ -46,6 +47,11 @@ class Usuario
         return $this->areas;
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
     public function cadastrarUsuario($nome, $email, $senha){
         $con = conexao();
         $senha = md5($senha);
@@ -86,13 +92,12 @@ class Usuario
             $resultado->execute();
             if($resultado->rowCount() == 1){
                 while ($row = $resultado->fetch()){
-                    $user = new Usuario();
-                    $user->setNome($row['nome_usuario']);
-                    $user->setEmail($row['email']);
-                    $user->setAreas($row['areas']);
-                    $user->setAdm($row['administrador']);
+                    $this->id = $row['id_usuario'];
+                    $this->nomeUsuario = $row['nome_usuario'];
+                    $this->email = $row['email'];
+                    $this->areas = $row['areas'];
+                    $this->adm = $row['administrador'];
                 }
-                $_SESSION['user'] = serialize($user);
                 return 1;
             }else if($resultado->rowCount() > 1){
                 return -2; 
