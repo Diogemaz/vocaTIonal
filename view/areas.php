@@ -23,7 +23,21 @@
         <link rel="stylesheet" href="../css/estilo.css">
     </head>
     <body id="page-top">
-        <?php include_once "../includes/navegacao.php"; ?>
+         <!-- Navigation-->
+         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="../assets/img/voc2.png" width="140" height="50"></a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto my-2 my-lg-0">
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="../index.php#about">Sobre</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="areas.php">Áreas</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="../index.php#contact">Contato</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="entra.php">Entrar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
         <!-- Masthead-->
         <header class="masthead">
             <div class="container h-100">
@@ -41,6 +55,7 @@
         <!-- areas-->
         <section class="page-section bg-primary" id="services">
             <link rel="stylesheet" href="../css/estilo.css">
+            <div class="container">
             <nav class="categories--home">
             <div class="categories__elements--home">
             <?php
@@ -90,6 +105,7 @@
             $i++;
             }}
         ?>
+        </div>
       </section>
         <!-- Contact-->
         <?php include_once "../includes/contato.php"; ?>

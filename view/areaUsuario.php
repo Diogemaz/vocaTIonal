@@ -26,7 +26,21 @@ if(isset($_SESSION['user'])){
       <link href="../css/styles.css" rel="stylesheet" />
    </head>
    <body id="page-top">
-      <?php include_once "../includes/navegacao.php"; ?>
+      <!-- Navigation-->
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="../index.php"><img src="../assets/img/voc2.png" width="140" height="50"></a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto my-2 my-lg-0">
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="../index.php/#about">Sobre</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="areas.php">Áreas</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="../index.php/#contact">Contato</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="entra.php?logout=1">Sair</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
       <!-- Masthead-->
       <header class="masthead">
          <div class="container h-100">
@@ -47,37 +61,34 @@ if(isset($_SESSION['user'])){
          <link rel="stylesheet" href="../css/estilo.css">
          <nav class="categories--home">
          <div class="categories__elements--home">
-         <?php
-            $area = new area;
-            $QtdArea = $area->QtdArea();
-            $i = 0; 
-            while($i < $QtdArea){
-               if($area->consultarArea($i)){
-         ?>
-          <!-- Cubinho 0 -->
-          <div class="categories__wrapper__links--home --<?php $area->getNome(); ?>" style="--color-var: #ffba05">
-            <a class="categories__link--home" href="cursos-online-mobile.html">
-               <div class="categories__link-wrapper--home">
-                  <div class="categories__svg-wrapper--home" style="background:#ffba0552;"></div>
-                  <div class="categories__texts" style="color:#ffba05;">
-                     <h4 class="categories__link__category-name"><?php echo ucfirst($area->getNome()); ?></h4>
-                  </div>
-               </div>
-            </a>
-            <nav class="categories__calls--home">
-               <a href="cursos-online-mobile/multiplataforma.html" class="categories__calls__description--home">
-                    <?php echo substr($area->getDescricao(), 0, 80); ?>...
-               </a>
-               <a href="cursos-online-mobile/multiplataforma.html" class="categories__calls__description--home">
-                  Ver mais
-               </a>
-            </nav>
-         </div>
-         <?php
-               }
-            $i++;
+            <?php
+                $area = new area; 
+                $resultado = $area->consultarAreaFavoritada($user->getId());  
+                while($row = $resultado->fetch()){
+
+            ?>
+            <div class="categories__wrapper__links--home --<?php $row['nome_area']; ?>" style="--color-var: #ffba05">
+                <a class="categories__link--home" href="profissoes.php?area=<?php echo $row['nome_area']; ?>">
+                <div class="categories__link-wrapper--home">
+                    <div class="categories__svg-wrapper--home" style="background:#ffba0552;"></div>
+                    <div class="categories__texts" style="color:#ffba05;">
+                        <h4 class="categories__link__category-name"><?php echo ucfirst($row['nome_area']); ?></h4>
+                    </div>
+                </div>
+                </a>
+                <nav class="categories__calls--home">
+                <a href="profissoes.php?area=<?php echo $row['nome_area']; ?>" class="categories__calls__description--home">
+                        
+                </a>
+                <a href="cursos-online-mobile/multiplataforma.html" class="categories__calls__description--home">
+                    Ver mais
+                </a>
+                </nav>
+            </div>
+        <?php
             }
-         ?>
+        ?>
+        </div>
       </section>
       <!-- Contact-->
       <?php include_once "../includes/contato.php" ?>

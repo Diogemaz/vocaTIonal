@@ -82,6 +82,12 @@ if(localArray[localArray.length - 1] == "cadastro.php"){
     e.preventDefault()
     console.log('Deu certo')
   })
+}else if(localArray[localArray.length - 1] == "profissoes.php"){
+  form = document.getElementById('form-favorita');
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    console.log('Deu certo')
+  })
 }
 
 function cadastrar(){
@@ -184,34 +190,44 @@ function cadastrarArea(){
         }
     });
 };
-function getParameter(theParameter) {
-  var params = window.location.search.substr(1).split('&');
-
-  for (var i = 0; i < params.length; i++) {
-      var p = params[i].split('=');
-      if (p[0] == theParameter) {
-          return decodeURIComponent(p[1]);
-      }
-  }
-  return false;
-  }
-function favoritar(){
-    var area = getParameter('area');
+function favorita(){
+  var dado = $('#favoritar').text();
+  console.log(dado);
+  if(dado == "Favoritar área"){
     $.ajax({
         type:'POST',
         url:'../controller/favoritaArea.php',
         dataType: "json",
-        data: area,
+        data: {funcao: dado},
         success: function(response){
           if(response == 1){
-            $('#favorita').innerHTML = "Remover Favorito";
+            $('#favoritar').html("Remover Favorito");
           }else if(response == 0){
-            alert("Falha ao favoritar, tente novamente");
+            alert("Falha ao cadastrar, tente novamente");
           }
         },
         error: function(response){
-          alert("erro");
+          alert("erro1");
           console.log("erro"+response);
         }
     });
+  }else if(dado == "Remover Favorito"){
+    $.ajax({
+      type:'POST',
+      url:'../controller/favoritaArea.php',
+      dataType: "json",
+      data: {funcao: dado},
+      success: function(response){
+        if(response == 1){
+          $('#favoritar').html("Favoritar área");
+        }else if(response == 0){
+          alert("Falha!");
+        }
+      },
+      error: function(response){
+        alert("erro2");
+        console.log("erro"+response);
+      }
+  });
+  }
 };

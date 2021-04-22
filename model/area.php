@@ -25,6 +25,9 @@ class Area
         return $this->favorito;
     }
 
+    public function getId(){
+        return $this->id;
+    }
     public function cadastrarArea($nome, $descricao){
         $con = conexao();
         try{
@@ -35,6 +38,19 @@ class Area
             return 1;
         }catch(Exception $e){
             return 0;
+        }
+    }
+
+    public function QtdAreaFavoritada($user){
+        $con = conexao();
+        try{
+            $sql = "SELECT * FROM favorito_usuario WHERE id_usuario = :user";
+            $resultado = $con->prepare($sql);
+            $resultado->bindParam(':user', $user, PDO::PARAM_STR);
+            $resultado->execute();
+            return $resultado->rowCount();
+        }catch(Exception $e){
+            return $e;
         }
     }
 
@@ -125,6 +141,31 @@ class Area
         }
     }
 
+    public function RemoverFavorita($user){
+        $con = conexao();
+        try{
+            $stmt = $con->prepare("DELETE FROM favorito_usuario WHERE id_area=:area AND id_usuario=:usuario;");
+            $stmt->bindParam(':area', $this->id, PDO::PARAM_INT);
+            $stmt->bindParam(':usuario', $user, PDO::PARAM_INT);
+            $stmt->execute();
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+    }
+
+    public function consultarAreaFavoritada($user){
+        $con = conexao();
+        try{
+            $sql = "SELECT a.* FROM area a LEFT OUTER JOIN favorito_usuario f ON a.id_area = f.id_area WHERE f.id_usuario = :user;";
+            $resultado = $con->prepare($sql);
+            $resultado->bindParam(':user', $user, PDO::PARAM_STR);
+            $resultado->execute();
+            return $resultado;
+        }catch(Exception $e){
+            return $e;
+        }
+    }
 
     
 }
