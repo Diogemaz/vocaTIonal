@@ -76,12 +76,6 @@ if(localArray[localArray.length - 1] == "cadastro.php"){
     e.preventDefault()
     console.log('Deu certo')
   })
-}else if(localArray[localArray.length - 1] == "entra.php"){
-  form = document.getElementById('form-area');
-  form.addEventListener('submit', e => {
-    e.preventDefault()
-    console.log('Deu certo')
-  })
 }else if(localArray[localArray.length - 1] == "profissoes.php"){
   form = document.getElementById('form-favorita');
   form.addEventListener('submit', e => {
@@ -169,43 +163,26 @@ function login(){
       }
   });
 };
-function cadastrarArea(){
-    var form = $('#form-area').serialize();
-    console.log(form);
-    $.ajax({
-        type:'POST',
-        url:'../controller/cadastrarArea.php',
-        dataType: "json",
-        data: form,
-        success: function(response){
-          if(response == 1){
-            alert("cadastrado com sucesso!");
-          }else if(response == 0){
-            alert("Falha ao cadastrar, tente novamente");
-          }
-        },
-        error: function(response){
-          alert("erro");
-          console.log("erro"+response);
-        }
-    });
-};
 function favorita(){
   var user = $('#user').val();
   if(user != ""){
   var dado = $('#favoritar').text();
   console.log(dado);
   if(dado == "Favoritar área"){
+    console.log("1");
     $.ajax({
         type:'POST',
         url:'../controller/favoritaArea.php',
         dataType: "json",
         data: {funcao: dado},
         success: function(response){
+          alert("pao")
           if(response == 1){
             $('#favoritar').html("Remover Favorito");
           }else if(response == 0){
             alert("Falha ao cadastrar, tente novamente");
+          }else if(response == -1){
+            alert("Falha!");
           }
         },
         error: function(response){
@@ -214,15 +191,19 @@ function favorita(){
         }
     });
   }else if(dado == "Remover Favorito"){
+    console.log("2");
     $.ajax({
       type:'POST',
       url:'../controller/favoritaArea.php',
       dataType: "json",
       data: {funcao: dado},
       success: function(response){
+        alert("pao")
         if(response == 1){
           $('#favoritar').html("Favoritar área");
         }else if(response == 0){
+          alert("Falha!");
+        }else if(response == -1){
           alert("Falha!");
         }
       },
@@ -233,3 +214,6 @@ function favorita(){
   });
   }
 }};
+function favoritaSemUser(){
+  alert("Apenas usuarios logados podem favoritar áreas");
+}

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23-Abr-2021 às 00:19
+-- Tempo de geração: 24-Abr-2021 às 19:37
 -- Versão do servidor: 10.4.16-MariaDB
 -- versão do PHP: 7.4.12
 
@@ -39,8 +39,8 @@ CREATE TABLE `area` (
 --
 
 INSERT INTO `area` (`id_area`, `nome_area`, `descricao`, `num_favorite`) VALUES
-(0, 'segurança da Informação', 'É o ramo da tecnologia da informação (TI) que busca manter a segurança e integridade dos dados que navegam pela principalmente pela internet e pelos sistemas de armazenamentos em nuvens, de forma que os dados fiquem disponíveis apenas para usuários autorizados de forma que não sofram manipulações por parte de pessoas indevidas e que estejam disponíveis apenas quando for necessário.\r\nUma das formas de se entrar nessa área é procurando um curso tecnólogo de segurança da informação, para os que já possuem algum tipo de graduação em TI, é possível fazer uma Pós-Graduação ou especialização em segurança.\r\nO profissional de segurança da informação tem uma média salarial de R$ 9.500,00.', 10),
-(1, 'programação', 'É um processo de escrita de códigos com o intuito de se obter um sistema usando as linguagens adequadas.', 15);
+(1, 'Desenvolvimento', 'É um processo de escrita de códigos com o intuito de se obter um sistema usando as linguagens adequadas.', 0),
+(2, 'Segurança da Informação', 'É o ramo da tecnologia da informação (TI) que busca manter a segurança e integridade dos dados que navegam pela principalmente pela internet e pelos sistemas de armazenamentos em nuvens, de forma que os dados fiquem disponíveis apenas para usuários autorizados de forma que não sofram manipulações por parte de pessoas indevidas e que estejam disponíveis apenas quando for necessário.\r\nUma das formas de se entrar nessa área é procurando um curso tecnólogo de segurança da informação, para os que já possuem algum tipo de graduação em TI, é possível fazer uma Pós-Graduação ou especialização em segurança.\r\nO profissional de segurança da informação tem uma média salarial de R$ 9.500,00.', 0);
 
 -- --------------------------------------------------------
 
@@ -66,14 +66,6 @@ CREATE TABLE `favorito_usuario` (
   `id_area` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Extraindo dados da tabela `favorito_usuario`
---
-
-INSERT INTO `favorito_usuario` (`id_favorito`, `id_usuario`, `id_area`) VALUES
-(5, 2, 0),
-(6, 2, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -92,7 +84,7 @@ CREATE TABLE `profissao` (
 --
 
 INSERT INTO `profissao` (`id_profissao`, `nome_profissao`, `salario`, `id_area`) VALUES
-(1, 'analista de segurança', '3145.00', 0),
+(1, 'analista de segurança', '3145.00', 2),
 (2, 'Desenvolvedor Java', '3350.00', 1);
 
 -- --------------------------------------------------------
@@ -165,7 +157,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `area`
 --
 ALTER TABLE `area`
-  MODIFY `id_area` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_area` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `curso`
@@ -177,7 +169,7 @@ ALTER TABLE `curso`
 -- AUTO_INCREMENT de tabela `favorito_usuario`
 --
 ALTER TABLE `favorito_usuario`
-  MODIFY `id_favorito` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_favorito` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `profissao`

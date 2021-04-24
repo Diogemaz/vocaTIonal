@@ -1,3 +1,12 @@
+<?php
+session_start();
+include_once "../model/usuario.php";
+include_once "../model/area.php";
+include_once "../model/profissao.php";
+if(isset($_SESSION['user'])){
+    $user = unserialize($_SESSION['user']);
+    if($user->getAdm() == 1){
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -254,14 +263,6 @@
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
                         <h4 class="page-title">Profissões:</h4>
-                        <div class="ms-auto text-end">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
-                                </ol>
-                            </nav>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -329,39 +330,51 @@
                                 <h6 class="text-white">HTML</h6>
                             </div>
                         </div>
-                    </a>
+                        </a>
                     </div>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="card">
-                                <form class="form-horizontal">
+                                <form class="form-horizontal" id="form-profissao" onsubmit="cadastrarProfissao();" action="../controller/cadastrarProfissao.php" method="POST">
                                     <div class="card-body">
-                                        <h4 class="card-title">Adicionar/Excluir profissão:</h4>
+                                        <h4 class="card-title">Adicionar profissão:</h4>
                                         <div class="form-group row">
-                                            <label for="fname"
-                                                class="col-sm-3 text-end control-label col-form-label">Nome:</label>
+                                            <label for="nome" class="col-sm-3 text-end control-label col-form-label">Nome:</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="fname"
-                                                    placeholder="Nome da profissão.">
+                                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome da profissão.">
                                             </div>
                                         </div>
-                                        <div class="col-md-9">
-                                            <div class="form-check">
-                                                <input type="radio" class="form-check-input"
-                                                    id="customControlValidation1" name="radio-stacked" required>
-                                                <label class="form-check-label mb-0" for="customControlValidation1">Excluir.</label>
+                                        <div class="form-group row">
+                                            <label for="salario" class="col-sm-3 text-end control-label col-form-label">Salario:</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="salario" name="salario" placeholder="Salario da profissão.">
                                             </div>
-                                            <div class="form-check">
-                                                <input type="radio" class="form-check-input"
-                                                    id="customControlValidation2" name="radio-stacked" required>
-                                                <label class="form-check-label mb-0" for="customControlValidation2">Adicionar.</label>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="area" class="col-sm-3 text-end control-label col-form-label">Área:</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" name="area" id="area">
+                                                    <?php 
+                                                         $area[] = new area; 
+                                                         $QtdArea = $area[0]->QtdArea();
+                                                         $i = 1; 
+                                                         while($i <= $QtdArea){
+                                                         $area[$i] = new area;
+                                                         $area[$i]->consultarArea($i);
+                                                    ?>
+                                                        <option value="<?php echo $area[$i]->getId(); ?>"><?php echo $area[$i]->getNome(); ?></option>
+                                                    <?php
+                                                        $i++;
+                                                        }
+                                                    ?>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="border-top">
                                         <div class="card-body">
-                                            <button type="button" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-primary">Enviar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -391,7 +404,38 @@
     <script src="../assets/libs/flot/jquery.flot.crosshair.js"></script>
     <script src="../assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="../dist/js/pages/chart/chart-page-init.js"></script>
-
+    <script>      
+        form = document.getElementById('form-profissao');
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+        })
+        function cadastrarProfissao(){
+            var form = $('#form-profissao').serialize();
+            console.log(form);
+            $.ajax({
+                type:'POST',
+                url:'../controller/cadastrarProfissao.php',
+                dataType: "json",
+                data: form,
+                success: function(response){
+                if(response == 1){
+                    alert("cadastrado com sucesso!");
+                }else if(response == 0){
+                    alert("Falha ao cadastrar, tente novamente");
+                }
+                },
+                error: function(response){
+                alert("erro");
+                console.log("erro"+response);
+                }
+            });
+        };
+    </script>
 </body>
 
 </html>
+<?php
+}}else{
+    header('location: entra.php');
+}
+?>

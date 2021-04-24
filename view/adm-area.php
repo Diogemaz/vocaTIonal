@@ -1,3 +1,10 @@
+<?php
+session_start();
+include_once "../model/usuario.php";
+if(isset($_SESSION['user'])){
+    $user = unserialize($_SESSION['user']);
+    if($user->getAdm() == 1){
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -52,7 +59,7 @@
                         <span class="logo-text">
                             <!-- dark Logo text -->
                             <h2>Bem vindo:</h2>
-                            <h6>Henrique</h6>
+                            <h6><?php echo $user->getNomeUsuario(); ?></h6>
 
                         </span>
                         <!-- Logo icon -->
@@ -192,8 +199,8 @@
                                 <a class="dropdown-item" href="javascript:void(0)"><i
                                         class="ti-settings me-1 ms-1"></i> Account Setting</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i
-                                        class="fa fa-power-off me-1 ms-1"></i> Logout</a>
+                                <a class="dropdown-item" href="entra.php?logout=1">
+                                <i class="fa fa-power-off me-1 ms-1"></i> Logout</a>
                                 <div class="dropdown-divider"></div>
                             </ul>
                         </li>
@@ -335,33 +342,21 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="card">
-                                <form class="form-horizontal">
+                                <form class="form-horizontal" id="form-area" onsubmit="cadastrarArea();" action="../controller/cadastrarArea.php" method="POST">
                                     <div class="card-body">
-                                        <h4 class="card-title">Adicionar/Excluir area:</h4>
+                                        <h4 class="card-title">Adicionar área:</h4>
                                         <div class="form-group row">
-                                            <label for="fname"
-                                                class="col-sm-3 text-end control-label col-form-label">Nome:</label>
+                                            <label for="nome" class="col-sm-3 text-end control-label col-form-label">Nome:</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="fname"
-                                                    placeholder="Nome da area.">
+                                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome da area.">
                                             </div>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <div class="form-check">
-                                                <input type="radio" class="form-check-input"
-                                                    id="customControlValidation1" name="radio-stacked" required>
-                                                <label class="form-check-label mb-0" for="customControlValidation1">Excluir.</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input type="radio" class="form-check-input"
-                                                    id="customControlValidation2" name="radio-stacked" required>
-                                                <label class="form-check-label mb-0" for="customControlValidation2">Adicionar.</label>
-                                            </div>
+                                            <label for="descricao" class="col-sm-12 text-center control-label col-form-label">Descrição</label>
+                                            <textarea id="descricao" name="descricao"></textarea>
                                         </div>
                                     </div>
                                     <div class="border-top">
                                         <div class="card-body">
-                                            <button type="button" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-primary">Enviar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -391,7 +386,39 @@
     <script src="../assets/libs/flot/jquery.flot.crosshair.js"></script>
     <script src="../assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="../dist/js/pages/chart/chart-page-init.js"></script>
-
+     <!-- Core theme JS-->
+    <script>      
+        form = document.getElementById('form-area');
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+        })
+        function cadastrarArea(){
+            var form = $('#form-area').serialize();
+            console.log(form);
+            $.ajax({
+                type:'POST',
+                url:'../controller/cadastrarArea.php',
+                dataType: "json",
+                data: form,
+                success: function(response){
+                if(response == 1){
+                    alert("cadastrado com sucesso!");
+                }else if(response == 0){
+                    alert("Falha ao cadastrar, tente novamente");
+                }
+                },
+                error: function(response){
+                alert("erro");
+                console.log("erro"+response);
+                }
+            });
+        };
+    </script>
 </body>
 
 </html>
+<?php
+}}else{
+    header('location: entra.php');
+}
+?>

@@ -1,3 +1,9 @@
+<?php
+    session_start();
+    if(isset($_SESSION['user'])){
+        $user = unserialize($_SESSION['user']);
+    }
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -27,7 +33,15 @@
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">Sobre</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="view/areas.php">Áreas</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contato</a></li>
+                        <?php 
+                            if(isset($_SESSION['user'])){
+                        ?>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="view/entra.php?logout=1">Sair</a></li>
+                        <?php
+                            }else{
+                        ?>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="view/entra.php">Entrar</a></li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>
@@ -78,7 +92,7 @@
                         <hr class="divider light my-4" />
                         <p class="text-white-50 mb-4">Existimos para ajudar você a decidir qual caminho seguir e também te indicar como começar a se preparar para ele.</p>
                         <div class="row justify-content-center">
-                            <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Comece a explorar</a>
+                            <a class="btn btn-light btn-xl js-scroll-trigger" href="view/areas.php">Comece a explorar</a>
                         </div>
                     </div>
                 </div>

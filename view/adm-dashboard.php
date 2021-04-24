@@ -1,5 +1,12 @@
+<?php
+session_start();
+include_once "../model/usuario.php";
+if(isset($_SESSION['user'])){
+    $user = unserialize($_SESSION['user']);
+    if($user->getAdm() == 1){
+?>
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html dir="ltr" lang="pt-br">
 
 <head>
     <meta charset="utf-8">
@@ -52,7 +59,7 @@
                         <span class="logo-text">
                             <!-- dark Logo text -->
                             <h2>Bem vindo:</h2>
-                            <h6>Henrique</h6>
+                            <h6><?php echo $user->getNomeUsuario(); ?></h6>
 
                         </span>
                         <!-- Logo icon -->
@@ -192,8 +199,8 @@
                                 <a class="dropdown-item" href="javascript:void(0)"><i
                                         class="ti-settings me-1 ms-1"></i> Account Setting</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i
-                                        class="fa fa-power-off me-1 ms-1"></i> Logout</a>
+                                <a class="dropdown-item" href="entra.php?logout=1">
+                                    <i class="fa fa-power-off me-1 ms-1"></i> Logout</a>
                                 <div class="dropdown-divider"></div>
                             </ul>
                         </li>
@@ -391,3 +398,8 @@
 </body>
 
 </html>
+<?php
+}}else{
+    header('location: entra.php');
+}
+?>

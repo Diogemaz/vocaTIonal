@@ -24,15 +24,17 @@ class profissao
     public function getCurso(){
         return $this->cursos;
     }
-    public function cadastrarProfissao($nome, $salario){
+    public function cadastrarProfissao($area){
         $con = conexao();
         try{
-            $stmt = $con->prepare("INSERT INTO profissao (nome_profissao, salario) VALUES (:nome, :salario)");
-            $stmt->bindParam(':nome', $nome, PDO::PARAM_STR, 50);
-            $stmt->bindParam(':salario', $salario, PDO::PARAM_STR, 50);
+            $stmt = $con->prepare("INSERT INTO profissao (nome_profissao, salario, id_area) VALUES (:nome, :salario, :area)");
+            $stmt->bindParam(':nome', $this->nome, PDO::PARAM_STR, 50);
+            $stmt->bindParam(':salario', $this->salario, PDO::PARAM_STR, 50);
+            $stmt->bindParam(':area', $area, PDO::PARAM_INT);
             $stmt->execute();
+            return 1;
         }catch(Exception $e){
-            return null;
+            return 0;
         }
     }
 }

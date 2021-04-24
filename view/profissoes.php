@@ -109,6 +109,9 @@
                 </div>
             </div>
             <div class="row justify-content-center">
+                <?php 
+                    if(isset($user)){
+                ?>
                 <form  id="form-favorita" onsubmit="favorita();" method="POST" action="../controller/favoritaArea.php">
                     <input type="text" style="display: none;" id="user" value="<?php if(isset($user)){ echo $user->getId();} ?>"> 
                     <button type="submit" class="btn btn-light btn-xl js-scroll-trigger" id="favoritar" name="favoritar"><?php 
@@ -126,6 +129,9 @@
                         }
                     ?></button>
                 </form>
+                <?php }else{ ?>
+                    <button type="button" class="btn btn-light btn-xl js-scroll-trigger" onclick="favoritaSemUser();" name="favoritar">Favoritar área</button>
+                <?php } ?>
             </div>
       </section>
         <!-- Contact-->

@@ -72,8 +72,8 @@
                 $area = [];
                 $area[] = new area; 
                 $QtdArea = $area[0]->QtdArea();
-                $i = 0; 
-                while($i < $QtdArea){
+                $i = 1; 
+                while($i <= $QtdArea){
                 $area[$i] = new area;
                 $area[$i]->consultarArea($i);   
             ?>
@@ -105,7 +105,7 @@
                         </h6>
                     </div>
                 </div>
-                <a href="cursos-online-mobile/multiplataforma.html" class="categories__calls__description--home">
+                <a href="profissoes.php?area=<?php echo $area[$i]->getNome(); ?>" class="categories__calls__description--home">
                     Ver mais
                 </a>
                 </nav>
