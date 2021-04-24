@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include_once "../model/area.php";
     include_once "../model/profissao.php";
     $arquivo = basename( __FILE__ );
@@ -33,7 +34,15 @@
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="../index.php#about">Sobre</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="areas.php">Áreas</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="../index.php#contact">Contato</a></li>
+                        <?php 
+                            if(isset($_SESSION['user'])){
+                        ?>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="entra.php?logout=1">Sair</a></li>
+                        <?php
+                            }else{
+                        ?>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="entra.php">Entrar</a></li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>

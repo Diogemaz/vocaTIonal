@@ -5,9 +5,9 @@ class Usuario
 {
     public $id;
     public ?string $nomeUsuario = null;
-    private string $email;
-    private string $senha;
-    private int $adm = 0;
+    private ?string $email = null;
+    private ?string $senha = null;
+    private ?int $adm = 0;
     private $areas = array(); 
 
     public function setNome($nome){

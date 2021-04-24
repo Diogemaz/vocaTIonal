@@ -2,6 +2,7 @@
     session_start();
     include_once "../model/area.php";
     include_once "../model/profissao.php";
+    include_once "../model/usuario.php";
     $arquivo = basename( __FILE__ );
     if(isset($_GET['area'])){
         $nome = $_GET['area'];
@@ -9,6 +10,9 @@
         $QtdArea = $area->QtdArea();
         $area->consultarAreaNome($nome);
         $_SESSION['area'] = serialize($area);
+        if(isset($_SESSION['user'])){
+            $user = unserialize($_SESSION['user']);
+        }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -40,7 +44,15 @@
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="../index.php#about">Sobre</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="areas.php">Áreas</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="../index.php#contact">Contato</a></li>
+                        <?php 
+                            if(isset($user)){
+                        ?>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="entra.php?logout=1">Sair</a></li>
+                        <?php
+                            }else{
+                        ?>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="entra.php">Entrar</a></li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>
@@ -98,7 +110,21 @@
             </div>
             <div class="row justify-content-center">
                 <form  id="form-favorita" onsubmit="favorita();" method="POST" action="../controller/favoritaArea.php">
-                    <button type="submit" class="btn btn-light btn-xl js-scroll-trigger" id="favoritar" name="favoritar">Favoritar área</button>
+                    <input type="text" style="display: none;" id="user" value="<?php if(isset($user)){ echo $user->getId();} ?>"> 
+                    <button type="submit" class="btn btn-light btn-xl js-scroll-trigger" id="favoritar" name="favoritar"><?php 
+                         $fav = $area->consultarAreaFavoritada($user->getId());
+                         $i = 0;
+                        while($row = $fav->fetch()){
+                            if($row['id_area'] == $area->getId()){
+                                echo "Remover Favorito";
+                                $i = 1;
+                                break;
+                            }
+                        }
+                        if($i == 0){
+                           echo "Favoritar área"; 
+                        }
+                    ?></button>
                 </form>
             </div>
       </section>

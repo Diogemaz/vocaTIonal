@@ -161,7 +161,7 @@ function login(){
           alert("Falha no login, tente novamente ou entre em contato");
         } else if(response == 2){
           console.log(response);
-          window.location.href = "../view/areaAdm.php";
+          window.location.href = "../view/adm-dashboard.php";
         }
       },
       error: function(response){
@@ -191,6 +191,8 @@ function cadastrarArea(){
     });
 };
 function favorita(){
+  var user = $('#user').val();
+  if(user != ""){
   var dado = $('#favoritar').text();
   console.log(dado);
   if(dado == "Favoritar área"){
@@ -230,4 +232,4 @@ function favorita(){
       }
   });
   }
-};
+}};
