@@ -3,6 +3,10 @@
     include_once "../model/area.php";
     include_once "../model/profissao.php";
     $arquivo = basename( __FILE__ );
+    if(isset($_SESSION['user'])){
+        include_once "../model/usuario.php";
+        $user = unserialize($_SESSION['user']);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

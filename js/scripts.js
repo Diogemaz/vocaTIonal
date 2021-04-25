@@ -198,7 +198,6 @@ function favorita(){
       dataType: "json",
       data: {funcao: dado},
       success: function(response){
-        alert("pao")
         if(response == 1){
           $('#favoritar').html("Favoritar área");
         }else if(response == 0){
