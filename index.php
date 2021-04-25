@@ -1,6 +1,7 @@
 <?php
     session_start();
     if(isset($_SESSION['user'])){
+        include_once "model/usuario.php";
         $user = unserialize($_SESSION['user']);
     }
 ?>
@@ -36,7 +37,16 @@
                         <?php 
                             if(isset($_SESSION['user'])){
                         ?>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="view/entra.php?logout=1">Sair</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <?php echo $user->getNomeUsuario(); ?>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="view/areaUsuario.php#services">Suas áreas</a>
+                            <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="view/entra.php?logout=1">Sair</a>
+                            </div>
+                        </li>
                         <?php
                             }else{
                         ?>
