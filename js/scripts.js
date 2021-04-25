@@ -176,7 +176,6 @@ function favorita(){
         dataType: "json",
         data: {funcao: dado},
         success: function(response){
-          alert("pao")
           if(response == 1){
             $('#favoritar').html("Remover Favorito");
           }else if(response == 0){

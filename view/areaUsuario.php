@@ -51,7 +51,7 @@ if(isset($_SESSION['user'])){
                </div>
                <div class="col-lg-8 align-self-baseline">
                   <p class="text-white-75 font-weight-light mb-5">Suas areas pré-avaliadas estão listadas abaixo, sinta-se a contade para explorar as que mais te interessarem.</p>
-                  <a class="btn btn-primary btn-xl js-scroll-trigger" href="#services">Areas</a>
+                  <a class="btn btn-primary btn-xl js-scroll-trigger" href="areas.php">Áreas</a>
                </div>
             </div>
          </div>
@@ -80,7 +80,7 @@ if(isset($_SESSION['user'])){
                 <a href="profissoes.php?area=<?php echo $row['nome_area']; ?>" class="categories__calls__description--home">
                         
                 </a>
-                <a href="cursos-online-mobile/multiplataforma.html" class="categories__calls__description--home">
+                <a href="profissoes.php?area=<?php echo $row['nome_area']; ?>" class="categories__calls__description--home">
                     Ver mais
                 </a>
                 </nav>

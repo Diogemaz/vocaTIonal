@@ -93,7 +93,7 @@
                                 </div>
                                 <div class="col">
                                     <img>
-                                    <p class="text-white-50 mb-4">Rógerio Gongora</p>
+                                    <p class="text-white-50 mb-4">Rogério Gongora</p>
                                 </div>
                             </div>
                     </div>

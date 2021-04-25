@@ -14,10 +14,8 @@ if(!$_POST){ header('location: ../view/cadastro.php'); }
         try{
             $cadastro = $usuario->cadastrarUsuario($nomeUser, $email, $senha);
             if($cadastro == 1){
-                $user = new Usuario;
-                $user->setNome($nomeUser);
-                $user->setEmail($email);
-                $_SESSION['user'] = serialize($user);
+                $user = $usuario->login($email, $senha);
+                $_SESSION['user'] = serialize($usuario);
                 $response = 1;
             }else{
                 $response = $cadastro;
