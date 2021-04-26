@@ -50,7 +50,7 @@ if(isset($_SESSION['user'])){
                   <hr class="divider my-4" />
                </div>
                <div class="col-lg-8 align-self-baseline">
-                  <p class="text-white-75 font-weight-light mb-5">Suas areas pré-avaliadas estão listadas abaixo, sinta-se a contade para explorar as que mais te interessarem.</p>
+                  <p class="text-white-75 font-weight-light mb-5">Suas areas pré-avaliadas estão listadas abaixo, sinta-se a vontade para explorar as que mais te interessarem.</p>
                   <a class="btn btn-primary btn-xl js-scroll-trigger" href="areas.php">Áreas</a>
                </div>
             </div>

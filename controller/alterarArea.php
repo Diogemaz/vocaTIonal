@@ -6,15 +6,20 @@
     if(isset($_SESSION['user'])){
         $user = unserialize($_SESSION['user']);
         if($user->getAdm() == 1){
+            $area = unserialize($_SESSION['area']);
+            $id = $area->getId();
             $nome = $_POST['nome'];
-            $salario = $_POST['salario'];
-            $area = $_POST['area'];
-            $reflect = new ReflectionClass('profissao');
-            $profissao = $reflect->newInstanceWithoutConstructor();
-            $profissao->setNome($nome);
-            $profissao->setSalario($salario);
+            $descricao = $_POST['descricao'];
+            $area = new area();
+            $area->consultarArea($id);
+            $area->setNome($nome);
+            $area->setDescricao($descricao);
             try{
-                $cadastro = $profissao->cadastrarProfissao($area);
+                if($_POST['funcao'] == "Alterar"){
+                    $cadastro = $area->alterarArea($id);
+                }else if($_POST['funcao'] == "Excluir"){
+                    $cadastro = $area->deletarArea($id);
+                }
                 if($cadastro == 1){
                     $response = 1;
                 }else{

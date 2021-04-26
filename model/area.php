@@ -17,6 +17,13 @@ class Area
         return $this->descricao;
     }
 
+    public function setNome($nome){
+        $this->nome = $nome;
+    }
+
+    public function setDescricao($descricao){
+        $this->descricao = $descricao;
+    }
     public function getProfissoes(){
         return $this->profissoes;
     }
@@ -85,7 +92,7 @@ class Area
                         $profissoes = $con->prepare($sql);
                         $profissoes->execute();
                         while($profissao = $profissoes->fetch()){
-                            $this->profissoes[] = new profissao($profissao['nome_profissao'], $profissao['salario']); 
+                            $this->profissoes[] = new profissao($profissao['id_profissao'], $profissao['nome_profissao'], $profissao['salario']); 
                         }
                     }catch(Exception $ex){
                         return $ex;
@@ -96,7 +103,31 @@ class Area
             return $e;
         }
     }
+    public function alterarArea($area){
+        $con = conexao();
+        try{
+            $stmt = $con->prepare("UPDATE area SET nome_area = :nome, descricao = :descricao WHERE id_area = :id");
+            $stmt->bindParam(':nome', $this->nome, PDO::PARAM_STR, 50);
+            $stmt->bindParam(':descricao', $this->descricao, PDO::PARAM_STR, 50);
+            $stmt->bindParam(':id', $area, PDO::PARAM_INT);
+            $stmt->execute();
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+    }
 
+    public function deletarArea($area){
+        $con = conexao();
+        try{
+            $stmt = $con->prepare("DELETE FROM area WHERE id_area = :id");
+            $stmt->bindParam(':id', $area, PDO::PARAM_INT);
+            $stmt->execute();
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+    }
     public function consultarAreaNome($nome){
         $con = conexao();
         try{
@@ -116,7 +147,7 @@ class Area
                         $profissoes = $con->prepare($sql);
                         $profissoes->execute();
                         while($profissao = $profissoes->fetch()){
-                            $this->profissoes[] = new profissao($profissao['nome_profissao'], $profissao['salario']); 
+                            $this->profissoes[] = new profissao($profissao['id_area'], $profissao['nome_profissao'], $profissao['salario']); 
                         }
                     }catch(Exception $ex){
                         return $ex;

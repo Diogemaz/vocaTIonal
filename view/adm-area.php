@@ -1,6 +1,8 @@
 <?php
 session_start();
 include_once "../model/usuario.php";
+include_once "../model/area.php";
+include_once "../model/profissao.php";
 if(isset($_SESSION['user'])){
     $user = unserialize($_SESSION['user']);
     if($user->getAdm() == 1){
@@ -284,61 +286,65 @@ if(isset($_SESSION['user'])){
                 <!-- ============================================================== -->
                 <div class="row">
                     <!-- Column -->
+                    <?php 
+                        $area = [];
+                        $area[] = new area; 
+                        $QtdArea = $area[0]->QtdArea();
+                        $i = 1; 
+                        while($i <= $QtdArea){
+                        $area[$i] = new area;
+                        $area[$i]->consultarArea($i);   
+                    ?>
                     <div class="col-md-6 col-lg-3 col-xlg-3">
-                      <a href="index.pao">
+                      <a href="adm-area.php?area=<?php echo $area[$i]->getId(); ?>">
                         <div class="card card-hover">
                             <div class="box bg-cyan text-center">
                                 <h1 class="font-light text-white"><i class="mdi mdi-view-dashboard"></i></h1>
-                                <h6 class="text-white">Desenvolvimento</h6>
+                                <h6 class="text-white"><?php echo $area[$i]->getNome(); ?></h6>
                             </div>
                         </div>
                       </a>
                     </div>
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-3 col-xlg-3">
-                        <a href="index.pao">
-                        <div class="card card-hover">
-                            <div class="box bg-success text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-chart-areaspline"></i></h1>
-                                <h6 class="text-white">Banco de dados</h6>
-                            </div>
-                        </div>
-                    </a>
-                    </div>
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-3 col-xlg-3">
-                        <a href="index.pao">
-                        <div class="card card-hover">
-                            <div class="box bg-warning text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-collage"></i></h1>
-                                <h6 class="text-white">Administração de redes</h6>
-                            </div>
-                        </div>
-                    </a>
-                    </div>
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-3 col-xlg-3">
-                        <a href="index.pao">
-                        <div class="card card-hover">
-                            <div class="box bg-danger text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-border-outside"></i></h1>
-                                <h6 class="text-white">Qualidade de software</h6>
-                            </div>
-                        </div>
-                    </a>
-                    </div>
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-3 col-xlg-3">
-                        <a href="index.pao">
-                        <div class="card card-hover">
-                            <div class="box bg-info text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-arrow-all"></i></h1>
-                                <h6 class="text-white">Programação</h6>
-                            </div>
-                        </div>
-                    </a>
-                    </div>
+                    <?php  
+                        $i++; 
+                        } 
+                    ?>
+                </div>
                 <div class="container-fluid">
+                <?php 
+                    if(isset($_GET['area'])){ 
+                    $areaSelecionada = new area;
+                    $areaSelecionada->consultarArea($_GET['area']);
+                    $_SESSION['area'] = serialize($areaSelecionada);
+                    
+                ?>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <form class="form-horizontal" id="form-area" action="../controller/cadastrarArea.php" method="POST">
+                                    <div class="card-body">
+                                        <h4 class="card-title"><?php echo $areaSelecionada->getNome(); ?></h4>
+                                        <div class="form-group row">
+                                            <label for="nome" class="col-sm-3 text-end control-label col-form-label">Nome:</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome da area." value="<?php echo $areaSelecionada->getNome(); ?>">
+                                            </div>
+                                            <label for="descricao" class="col-sm-12 text-center control-label col-form-label">Descrição</label>
+                                            <textarea id="descricao" name="descricao"><?php echo $areaSelecionada->getDescricao(); ?></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="border-top">
+                                        <div class="card-body">
+                                            <button onclick="alterarArea();" class="btn btn-primary">Alterar</button>
+                                            <button onclick="deletarArea();" class="btn btn-primary">Excluir</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <button class="btn btn-primary"><a href="adm-area.php" style="text-decoration: none; color: white;">Adicionar nova área</a></button> 
+                            </div>
+                        </div>
+                    </div>
+                <?php }else{ ?>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="card">
@@ -361,7 +367,9 @@ if(isset($_SESSION['user'])){
                                     </div>
                                 </form>
                             </div>
-                            
+                        </div>
+                    </div>
+                <?php } ?>
 
                     <!-- Column -->
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
@@ -405,6 +413,36 @@ if(isset($_SESSION['user'])){
                     alert("cadastrado com sucesso!");
                 }else if(response == 0){
                     alert("Falha ao cadastrar, tente novamente");
+                }
+                },
+                error: function(response){
+                alert("erro");
+                console.log("erro"+response);
+                }
+            });
+        };
+        function deletarArea(){
+            var funcao = "Excluir";
+            alterarDeletarArea(funcao);
+        }
+        function alterarArea(){
+            var funcao = "Alterar";
+            alterarDeletarArea(funcao);
+        }
+        function alterarDeletarArea(funcao){
+            var form = $('#form-area').serialize() + '&funcao=' + funcao;
+            console.log(form);
+            $.ajax({
+                type:'POST',
+                url:'../controller/alterarArea.php',
+                dataType: "json",
+                data: form,
+                success: function(response){
+                if(response == 1){
+                    alert("Alterado/deletado com sucesso!");
+                    window.location.href = "adm-area.php";
+                }else if(response == 0){
+                    alert("Falha ao alterar, tente novamente");
                 }
                 },
                 error: function(response){
