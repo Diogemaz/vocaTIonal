@@ -12,10 +12,10 @@
             $descricao = $_POST['descricao'];
             $area = new area();
             $area->consultarArea($id);
-            $area->setNome($nome);
-            $area->setDescricao($descricao);
             try{
                 if($_POST['funcao'] == "Alterar"){
+                    $area->setNome($nome);
+                    $area->setDescricao($descricao);
                     $cadastro = $area->alterarArea($id);
                 }else if($_POST['funcao'] == "Excluir"){
                     $cadastro = $area->deletarArea($id);

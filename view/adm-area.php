@@ -410,6 +410,7 @@ if(isset($_SESSION['user'])){
                 success: function(response){
                 if(response == 1){
                     alert("cadastrado com sucesso!");
+                    window.location.href = "adm-area.php";
                 }else if(response == 0){
                     alert("Falha ao cadastrar, tente novamente");
                 }
