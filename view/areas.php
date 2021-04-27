@@ -82,13 +82,12 @@
             <div class="categories__elements--home">
             <?php
                 if(!isset($_GET['area'])){
-                $area = [];
-                $area[] = new area; 
-                $QtdArea = $area[0]->QtdArea();
-                $i = 1; 
-                while($i <= $QtdArea){
-                $area[$i] = new area;
-                $area[$i]->consultarArea($i);   
+                    $areas = new area;
+                    $i = 0;
+                    $resultado = $areas->getAreas();
+                    while($row = $resultado->fetch()){
+                        $area[$i] = new area;
+                        $area[$i]->consultarArea($row['id_area']);    
             ?>
             <div class="categories__wrapper__links--home --<?php $area[$i]->getNome(); ?>" style="--color-var: #ffba05">
                 <a class="categories__link--home" href="profissoes.php?area=<?php echo $area[$i]->getNome(); ?>">

@@ -201,7 +201,7 @@ if(isset($_SESSION['user'])){
                                 <a class="dropdown-item" href="javascript:void(0)"><i
                                         class="ti-settings me-1 ms-1"></i> Account Setting</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i
+                                <a class="dropdown-item" href="entra.php?logout=1"><i
                                         class="fa fa-power-off me-1 ms-1"></i> Logout</a>
                                 <div class="dropdown-divider"></div>
                             </ul>
@@ -265,12 +265,12 @@ if(isset($_SESSION['user'])){
                         <select id="areaSelect" name="areaSelect" onchange="profissoes()">
                             <option value="0">SELECIONE A ÁREA</option>
                             <?php 
-                                $area[] = new area; 
-                                $QtdArea = $area[0]->QtdArea();
-                                $i = 1; 
-                                while($i <= $QtdArea){
-                                $area[$i] = new area;
-                                $area[$i]->consultarArea($i);
+                                $areas = new area;
+                                $i = 0;
+                                $resultado = $areas->getAreas();
+                                while($row = $resultado->fetch()){
+                                    $area[$i] = new area;
+                                    $area[$i]->consultarArea($row['id_area']); 
                             ?>
                                 <option value="<?php echo $area[$i]->getId(); ?>"><h4 class="page-title"><?php echo $area[$i]->getNome(); ?></h4></option>
                             <?php
@@ -318,12 +318,12 @@ if(isset($_SESSION['user'])){
                                             <div class="col-sm-9">
                                                 <select class="form-control" name="area" id="area">
                                                     <?php 
-                                                         $area[] = new area; 
-                                                         $QtdArea = $area[0]->QtdArea();
-                                                         $i = 1; 
-                                                         while($i <= $QtdArea){
-                                                         $area[$i] = new area;
-                                                         $area[$i]->consultarArea($i);
+                                                        $areas = new area;
+                                                        $i = 0;
+                                                        $resultado = $areas->getAreas();
+                                                        while($row = $resultado->fetch()){
+                                                            $area[$i] = new area;
+                                                            $area[$i]->consultarArea($row['id_area']); 
                                                     ?>
                                                         <option value="<?php echo $area[$i]->getId(); ?>"><?php echo $area[$i]->getNome(); ?></option>
                                                     <?php
@@ -374,12 +374,12 @@ if(isset($_SESSION['user'])){
                                             <div class="col-sm-9">
                                                 <select class="form-control" name="area" id="area">
                                                     <?php 
-                                                         $area[] = new area; 
-                                                         $QtdArea = $area[0]->QtdArea();
-                                                         $i = 1; 
-                                                         while($i <= $QtdArea){
-                                                         $area[$i] = new area;
-                                                         $area[$i]->consultarArea($i);
+                                                         $areas = new area;
+                                                         $i = 0;
+                                                         $resultado = $areas->getAreas();
+                                                         while($row = $resultado->fetch()){
+                                                             $area[$i] = new area;
+                                                             $area[$i]->consultarArea($row['id_area']); 
                                                          if($area[$i]->getId() == $_GET['area']){
                                                     ?>
                                                         <option selected value="<?php echo $area[$i]->getId(); ?>"><?php echo $area[$i]->getNome(); ?></option>

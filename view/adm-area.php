@@ -287,13 +287,12 @@ if(isset($_SESSION['user'])){
                 <div class="row">
                     <!-- Column -->
                     <?php 
-                        $area = [];
-                        $area[] = new area; 
-                        $QtdArea = $area[0]->QtdArea();
-                        $i = 1; 
-                        while($i <= $QtdArea){
-                        $area[$i] = new area;
-                        $area[$i]->consultarArea($i);   
+                         $areas = new area;
+                         $i = 0;
+                         $resultado = $areas->getAreas();
+                         while($row = $resultado->fetch()){
+                             $area[$i] = new area;
+                             $area[$i]->consultarArea($row['id_area']);  
                     ?>
                     <div class="col-md-6 col-lg-3 col-xlg-3">
                       <a href="adm-area.php?area=<?php echo $area[$i]->getId(); ?>">
@@ -306,7 +305,7 @@ if(isset($_SESSION['user'])){
                       </a>
                     </div>
                     <?php  
-                        $i++; 
+                            $i++;
                         } 
                     ?>
                 </div>

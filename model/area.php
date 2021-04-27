@@ -61,13 +61,13 @@ class Area
         }
     }
 
-    public function QtdArea(){
+    public function getAreas(){
         $con = conexao();
         try{
-            $sql = "SELECT * FROM area";
+            $sql = "SELECT id_area FROM area";
             $resultado = $con->prepare($sql);
             $resultado->execute();
-            return $resultado->rowCount();
+            return $resultado;
         }catch(Exception $e){
             return $e;
         }

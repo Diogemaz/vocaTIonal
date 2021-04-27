@@ -7,7 +7,6 @@
     if(isset($_GET['area'])){
         $nome = $_GET['area'];
         $area = new area;
-        $QtdArea = $area->QtdArea();
         $area->consultarAreaNome($nome);
         $_SESSION['area'] = serialize($area);
         if(isset($_SESSION['user'])){
