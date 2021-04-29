@@ -9,14 +9,15 @@ class Usuario
     private ?string $senha = null;
     private ?int $adm = 0;
     private $areas = array(); 
+    private $img;
 
-    public function setNome($nome){
-        $this->nomeUsuario = $nome;
-    }
     public function setEmail($email){
         $this->email = $email;
     }
-
+    public function setNomeUsuario($foto)
+    {
+        $this->nomeUsuario = $foto;
+    }
     public function setAreas($areas)
     {
         $this->areas = $areas;
@@ -27,6 +28,10 @@ class Usuario
         $this->adm = $adm;
     }
 
+    public function setImg($img)
+    {
+        $this->img = $img;
+    }
     public function getNomeUsuario()
     {
         return $this->nomeUsuario;
@@ -37,9 +42,19 @@ class Usuario
         return $this->email;
     }
     
+    public function getImg()
+    {
+        return $this->img;
+    }
+    
     public function getAdm()
     {
         return $this->adm;
+    }
+    
+    public function getSenha()
+    {
+        return $this->senha;
     }
     
     public function getAreas()
@@ -97,6 +112,8 @@ class Usuario
                     $this->email = $row['email'];
                     $this->areas = $row['areas'];
                     $this->adm = $row['administrador'];
+                    $this->senha = $row['senha'];
+                    $this->img = $row['foto'];
                 }
                 return 1;
             }else if($resultado->rowCount() > 1){
@@ -104,6 +121,32 @@ class Usuario
             }else if($resultado->rowCount() < 1){
                 return -1;
             }
+        }catch(Exception $e){
+            return 0;
+        }
+    }
+    public function alterarSenha($senha){
+        $con = conexao();
+        $senha = md5($senha);
+        try{
+            $sql = "UPDATE usuario SET senha = :senha WHERE id_usuario = ".$this->id."";
+            $update = $con->prepare($sql);
+            $update->bindParam(':senha', $senha, PDO::PARAM_STR, 32); 
+            $update->execute();
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+    }
+    public function alterarUsuario($nome, $foto){
+        $con = conexao();
+        try{
+            $sql = "UPDATE usuario SET foto = :foto, nome_usuario = :nome WHERE id_usuario = ".$this->id."";
+            $update = $con->prepare($sql);
+            $update->bindParam(':foto', $foto, PDO::PARAM_STR, 100); 
+            $update->bindParam(':nome', $nome, PDO::PARAM_STR, 32); 
+            $update->execute();
+            return 1;
         }catch(Exception $e){
             return 0;
         }

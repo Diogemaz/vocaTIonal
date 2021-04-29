@@ -2976,7 +2976,7 @@ input[type=button].btn-block {
 .dropdown-menu {
   position: absolute;
   top: 100%;
-  left: 0;
+  left: -100%;
   z-index: 1000;
   display: none;
   float: left;
@@ -10211,3 +10211,8 @@ cursor: pointer;
       background-attachment: scroll;
       background-size: cover;
     } 
+    .img-user{
+      border-radius: 50%;
+      width: 75px;
+      height: 75px;
+    }

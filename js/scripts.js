@@ -83,7 +83,13 @@ if(localArray[localArray.length - 1] == "cadastro.php"){
     console.log('Deu certo')
   })
 }
-
+function modalSenha(){
+  form = document.getElementById('form-altUserSenha');
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    console.log('Deu certo')
+  })
+}
 function cadastrar(){
   if(verifica()){
     var form = $('#form-cadastro').serialize();
@@ -214,4 +220,26 @@ function favorita(){
 }};
 function favoritaSemUser(){
   alert("Apenas usuarios logados podem favoritar áreas");
+}
+function alterarSenha(){
+  var form = $('#form-altUserSenha').serialize();
+  $.ajax({
+    type:'POST',
+    url:'../controller/alterarSenhaUsuario.php',
+    dataType: "json",
+    data: form,
+    success: function(response){
+      if(response == 1){
+        alert('Alterado com sucesso!')
+      }else if(response == 0){
+        alert("Falha!");
+      }else if(response == -1){
+        alert("As senhas digitadas são diferentes");
+      }
+    },
+    error: function(response){
+      alert("erro2");
+      console.log("erro"+response);
+    }
+});
 }

@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $arq = basename(__FILE__);
     if(isset($_SESSION['user'])){
         include_once "model/usuario.php";
         $user = unserialize($_SESSION['user']);
@@ -29,31 +30,7 @@
             <div class="container">
                 <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="assets/img/voc2.png" width="140" height="50"></a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">Sobre</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="view/areas.php">Áreas</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contato</a></li>
-                        <?php 
-                            if(isset($_SESSION['user'])){
-                        ?>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <?php echo $user->getNomeUsuario(); ?>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="view/areaUsuario.php#services">Suas áreas</a>
-                            <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="view/entra.php?logout=1">Sair</a>
-                            </div>
-                        </li>
-                        <?php
-                            }else{
-                        ?>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="view/entra.php">Entrar</a></li>
-                        <?php } ?>
-                    </ul>
-                </div>
+                <?php include_once "includes/menu.php" ?>
             </div>
         </nav>
         <!-- Masthead-->

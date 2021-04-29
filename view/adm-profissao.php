@@ -449,6 +449,7 @@ if(isset($_SESSION['user'])){
                 success: function(response){
                 if(response == 1){
                     alert("cadastrado com sucesso!");
+                    Window.location.href = "adm-profissao.php";
                 }else if(response == 0){
                     alert("Falha ao cadastrar, tente novamente");
                 }
