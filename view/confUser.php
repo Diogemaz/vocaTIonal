@@ -101,18 +101,21 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="../js/scripts.js"></script>
       <script>
-        //Array de parametros 'chave=valor'
-        var params = window.location.search.substring(1).split('&');
-        //Criar objeto que vai conter os parametros
-        var paramArray = {};
-        //Passar por todos os parametros
-        for(var i=0; i<params.length; i++) {
-            //Dividir os parametros chave e valor
-            var param = params[i].split('=');
-            //Adicionar ao objeto criado antes
-            paramArray[param[0]] = param[1];
-        }
-        if(paramArray[0] = "falha"){
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+        }; 
+        var status = getUrlParameter('status');
+        if(status == "falha"){
             alert("Falha ao alterar");
         }
       </script>
