@@ -223,23 +223,29 @@ function favoritaSemUser(){
 }
 function alterarSenha(){
   var form = $('#form-altUserSenha').serialize();
-  $.ajax({
-    type:'POST',
-    url:'../controller/alterarSenhaUsuario.php',
-    dataType: "json",
-    data: form,
-    success: function(response){
-      if(response == 1){
-        alert('Alterado com sucesso!')
-      }else if(response == 0){
-        alert("Falha!");
-      }else if(response == -1){
-        alert("As senhas digitadas são diferentes");
+  var senha = $('#senha').val()
+  if(senha != ""){
+    $.ajax({
+      type:'POST',
+      url:'../controller/alterarSenhaUsuario.php',
+      dataType: "json",
+      data: form,
+      success: function(response){
+        if(response == 1){
+          alert('Alterado com sucesso!')
+          window.location.href = "../view/confUser.php"
+        }else if(response == 0){
+          alert("Falha!");
+        }else if(response == -1){
+          alert("As senhas digitadas são diferentes");
+        }
+      },
+      error: function(response){
+        alert("erro2");
+        console.log("erro"+response);
       }
-    },
-    error: function(response){
-      alert("erro2");
-      console.log("erro"+response);
-    }
-});
+    });
+  }else{
+    alert("Senha não pode ser vazia")
+  }
 }

@@ -56,7 +56,7 @@
                             </div>
                             <div class="form-group col-md-6 mt-3">
                             <label for="nome">Nome de usuário</label>
-                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome de usuário" value="<?php echo $user->getNomeUsuario(); ?>">
+                            <input type="text" class="form-control" id="nome" name="nome" required placeholder="Nome de usuário" value="<?php echo $user->getNomeUsuario(); ?>">
                             </div>
                         </div>
                         <input type="submit" class="btn btn-primary mb-2" value="Alterar">
@@ -78,9 +78,9 @@
                         <div class="form-row align-content-center">
                             <div class="form-group col-md-6 mt-2">
                                 <label for="senha">Nova senha</label>
-                                <input type="password" class="form-control" id="senha" name="senha" placeholder="Nova Senha">
+                                <input type="password" class="form-control" required id="senha" name="senha" placeholder="Nova Senha">
                                 <label for="confSenha">Confirmar senha</label>
-                                <input type="password" class="form-control" id="confSenha" name="confSenha" placeholder="Confirma nova senha">
+                                <input type="password" class="form-control" id="confSenha" required name="confSenha" placeholder="Confirma nova senha">
                             </div>
                         </div>
                 <div class="modal-footer">
@@ -118,6 +118,11 @@
         if(status == "falha"){
             alert("Falha ao alterar");
         }
+        $('#nome').blur(function(){
+            if($('#nome').val() == ""){
+                alert("Nome não deve estar vazio")
+            }
+        })
       </script>
    </body>
 </html>
