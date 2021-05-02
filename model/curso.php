@@ -5,6 +5,25 @@ class curso
 {
     public $nome;
     public $preco;
+    public $link;
+    
+    public function getNome(){
+        return $this->nome;
+    }
+
+    public function getPreco(){
+        return $this->preco;
+    }
+
+    public function getLink(){
+        return $this->link;
+    }
+    public function __construct($nome, $preco, $link)
+    {   
+        $this->nome = $nome;
+        $this->preco = $preco;
+        $this->link = $link;
+    }
 
     public function cadastrarCurso($nome, $preco){
         $con = conexao();

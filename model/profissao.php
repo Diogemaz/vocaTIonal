@@ -89,16 +89,36 @@ class profissao
                     $this->id = $row['id_profissao'];
                     $this->nome = $row['nome_profissao'];
                     $this->salario = $row['salario'];
-                    /*try{
-                        $sql = "SELECT * FROM profissao WHERE id_area=$id_area;";
-                        $profissoes = $con->prepare($sql);
-                        $profissoes->execute();
-                        while($profissao = $profissoes->fetch()){
-                            $this->profissoes[] = new profissao($profissao['nome_profissao'], $profissao['salario']); 
+                }
+            }
+        }catch(Exception $e){
+            return $e;
+        }
+    }
+
+    public function consultarProfissaoNome($profissao){
+        $con = conexao();
+        try{
+            $sql = "SELECT * FROM profissao WHERE nome_profissao=:nome;";
+            $resultado = $con->prepare($sql);
+            $resultado->bindParam(':nome', $profissao, PDO::PARAM_INT);
+            $resultado->execute();
+            if($resultado->rowCount() == 1){
+                while ($row = $resultado->fetch()){
+                    $this->id = $row['id_profissao'];
+                    $this->nome = $row['nome_profissao'];
+                    $this->salario = $row['salario'];
+                    $id = $row['id_profissao'];
+                    try{
+                        $sql = "SELECT * FROM curso WHERE id_profissao=$id;";
+                        $cursos = $con->prepare($sql);
+                        $cursos->execute();
+                        while($curso = $cursos->fetch()){
+                            $this->cursos[] = new curso($curso['nome_curso'], $curso['preco'], $curso['link']); 
                         }
                     }catch(Exception $ex){
                         return $ex;
-                    }*/
+                    }
                 }
             }
         }catch(Exception $e){

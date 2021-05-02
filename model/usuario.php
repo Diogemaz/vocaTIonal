@@ -3,11 +3,11 @@ require_once "funcoes.php";
 
 class Usuario
 {
-    public $id;
-    public ?string $nomeUsuario = null;
-    private ?string $email = null;
-    private ?string $senha = null;
-    private ?int $adm = 0;
+    private $id;
+    public $nomeUsuario = null;
+    private $email = null;
+    private $senha = null;
+    private $adm = 0;
     private $areas = array(); 
     private $img;
 

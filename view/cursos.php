@@ -1,15 +1,16 @@
 <?php
     session_start();
     $arq = basename(__FILE__);
-    include_once "../model/area.php";
     include_once "../model/profissao.php";
+    include_once "../model/curso.php";
     include_once "../model/usuario.php";
     $arquivo = basename( __FILE__ );
-    if(isset($_GET['area'])){
-        $nome = $_GET['area'];
-        $area = new area;
-        $area->consultarAreaNome($nome);
-        $_SESSION['area'] = serialize($area);
+    if(isset($_GET['profissao'])){
+        $nome = $_GET['profissao'];
+        $reflect = new ReflectionClass('profissao');
+        $profissao = $reflect->newInstanceWithoutConstructor();
+        $profissao->consultarProfissaoNome($nome);
+        $_SESSION['profissao'] = serialize($profissao);
         if(isset($_SESSION['user'])){
             $user = unserialize($_SESSION['user']);
         }
@@ -46,12 +47,9 @@
         <header class="masthead">
             <div class="container h-100">
                 <div class="row h-100 align-items-center justify-content-center text-center">
-                    <div class="col-lg-10 align-self-end">
-                        <h1 class="text-uppercase text-white font-weight-bold"><?php echo $nome; ?></h1>
+                    <div class="col-lg-10 ">
+                        <h1 class="text-uppercase text-white font-weight-bold"><?php echo $profissao->getNome(); ?></h1>
                         <hr class="divider my-4" />
-                    </div>
-                    <div class="col-lg-8 align-self-baseline">
-                        <p class="text-white-75 font-weight-light mb-5"><?php echo $area->getDescricao(); ?></p>
                     </div>
                 </div>
             </div>
@@ -64,20 +62,20 @@
                 <nav class="categories--home">
                 <div class="categories__elements--home">
                 <?php 
-                    foreach($area->getProfissoes() as $profissao){
+                    foreach($profissao->getCurso() as $curso){
                             
                 ?>
-                <div class="categories__wrapper__links--home --<?php $profissao->getNome(); ?>" style="--color-var: #ffba05">
-                    <a class="categories__link--home" href="cursos.php?profissao=<?php echo $profissao->getNome(); ?>">
+                <div class="categories__wrapper__links--home --<?php $curso->getNome(); ?>" style="--color-var: #ffba05">
+                    <a class="categories__link--home" target="_blank" href="<?php echo $curso->getLink(); ?>">
                     <div class="categories__link-wrapper--home">
                         <div class="categories__texts" style="color:#ffba05;">
-                            <h4 class="categories__link__category-name text-center"><?php echo $profissao->getNome(); ?></h4>
+                            <h4 class="categories__link__category-name text-center"><?php echo $curso->getNome(); ?></h4>
                         </div>
                     </div>
                     </a>
                     <nav class="categories__calls--home">
                     <h6 class="text-white-75 font-weight-light mt-3">
-                    Salario: <?php echo $profissao->getSalario(); ?>
+                    Preço: <?php if($curso->getPreco() == 0.00){ echo "Gratuito"; }else{echo $curso->getPreco();} ?>
                     </h6>
                     <div class="d-flex justify-content-center">
                         <a href="" class="categories__calls__description--home">
@@ -86,37 +84,10 @@
                     </div>
                     </nav>
                 </div>
-            <?php
-                    }}
-            ?>
+                <?php } ?>
                 </div>
                 </nav>
                 </div>
-            </div>
-            <div class="row justify-content-center">
-                <?php 
-                    if(isset($user)){
-                ?>
-                <form  id="form-favorita" onsubmit="favorita();" method="POST" action="../controller/favoritaArea.php">
-                    <input type="text" style="display: none;" id="user" value="<?php if(isset($user)){ echo $user->getId();} ?>"> 
-                    <button type="submit" class="btn btn-light btn-xl js-scroll-trigger" id="favoritar" name="favoritar"><?php 
-                         $fav = $area->consultarAreaFavoritada($user->getId());
-                         $i = 0;
-                        while($row = $fav->fetch()){
-                            if($row['id_area'] == $area->getId()){
-                                echo "Remover Favorito";
-                                $i = 1;
-                                break;
-                            }
-                        }
-                        if($i == 0){
-                           echo "Favoritar área"; 
-                        }
-                    ?></button>
-                </form>
-                <?php }else{ ?>
-                    <button type="button" class="btn btn-light btn-xl js-scroll-trigger" onclick="favoritaSemUser();" name="favoritar">Favoritar área</button>
-                <?php } ?>
             </div>
       </section>
         <!-- Contact-->
@@ -134,3 +105,7 @@
 
     </body>
 </html>
+
+<?php
+    }
+?>
