@@ -1,5 +1,15 @@
+<?php
+session_start();
+include_once "../model/usuario.php";
+include_once "../model/area.php";
+include_once "../model/profissao.php";
+include_once "../model/curso.php";
+if(isset($_SESSION['user'])){
+    $user = unserialize($_SESSION['user']);
+    if($user->getAdm() == 1){
+?>
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html dir="ltr" lang="pt-br">
 
 <head>
     <meta charset="utf-8">
@@ -52,7 +62,7 @@
                         <span class="logo-text">
                             <!-- dark Logo text -->
                             <h2>Bem vindo:</h2>
-                            <h6>Henrique</h6>
+                            <h6><?php echo $user->getNomeUsuario(); ?></h6>
 
                         </span>
                         <!-- Logo icon -->
@@ -192,7 +202,7 @@
                                 <a class="dropdown-item" href="javascript:void(0)"><i
                                         class="ti-settings me-1 ms-1"></i> Account Setting</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i
+                                <a class="dropdown-item" href="entra.php?logout=1"><i
                                         class="fa fa-power-off me-1 ms-1"></i> Logout</a>
                                 <div class="dropdown-divider"></div>
                             </ul>
@@ -253,15 +263,22 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Cursos:</h4>
-                        <div class="ms-auto text-end">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
-                                </ol>
-                            </nav>
-                        </div>
+                        <select id="areaSelect" name="areaSelect" onchange="profissoes()">
+                            <option value="0">SELECIONE A ÁREA</option>
+                            <?php 
+                                $areas = new area;
+                                $i = 0;
+                                $resultado = $areas->getAreas();
+                                while($row = $resultado->fetch()){
+                                    $area[$i] = new area;
+                                    $area[$i]->consultarArea($row['id_area']); 
+                            ?>
+                                <option value="<?php echo $area[$i]->getId(); ?>"><h4 class="page-title"><?php echo $area[$i]->getNome(); ?></h4></option>
+                            <?php
+                                $i++;
+                                }
+                            ?>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -275,9 +292,18 @@
                 <!-- ============================================================== -->
                 <!-- Sales Cards  -->
                 <!-- ============================================================== -->
+                <div class="row" id="retorno">
+                </div>
+                <?php 
+                    if(isset($_GET['profissao'])){
+                        $reflect = new ReflectionClass('profissao');
+                        $profissao = $reflect->newInstanceWithoutConstructor();
+                        $profissao->consultarProfissao($_GET['profissao']);
+                        $_SESSION['profissao'] = serialize($profissao);
+                ?>
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Cursos ativos:</h5>
+                        <h5 class="card-title">Cursos ativos em <?php echo $profissao->getNome(); ?>:</h5>
                     </div>
                     <table class="table">
                         <thead>
@@ -285,67 +311,108 @@
                                 <th scope="col">ID:</th>
                                 <th scope="col">NOME:</th>
                                 <th scope="col">VALOR:</th>
+                                <th scope="col">LINK:</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
+                        <?php  
+                           foreach($profissao->getCursos() as $curso){
+                        ?>
                             <tr>
-                                <th scope="row">1</th>
-                                <td>Desenvolvimento</td>
-                                <td>23,11</td>
+                                <th scope="row"><?php echo $curso->getId(); ?></th>
+                                <td><?php echo $curso->getNome(); ?></td>
+                                <td><?php if($curso->getPreco() == 0.00){ echo "Gratuito"; }else{echo str_replace(".", ",", $curso->getPreco());} ?></td>
+                                <td><?php echo $curso->getLink(); ?></td>
+                                <td><a href="?profissao=<?php echo $profissao->getId();  ?>&curso=<?php echo $curso->getId(); ?>" class="btn btn-primary">Alterar/Excluir</a></td>
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Banco de Dados</td>
-                                <td>32,76</td>
-                            </tr>
+                        <?php } ?>
                         </tbody>
                     </table>
                 </div>
-
+    <?php } else{}?>
+    <?php if(isset($_GET['profissao']) && !isset($_GET['curso'])){ ?>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="card">
-                                <form class="form-horizontal">
+                                <form class="form-horizontal" id="form-curso" onsubmit="cadastrarCurso();" method="POST">
                                     <div class="card-body">
-                                        <h4 class="card-title">Adicionar/Excluir Curso:</h4>
+                                        <h4 class="card-title">Adicionar curso em <?php echo $profissao->getNome(); ?>:</h4>
                                         <div class="form-group row">
-                                            <label for="fname"
-                                                class="col-sm-3 text-end control-label col-form-label">Nome:</label>
+                                            <label for="nome" class="col-sm-3 text-end control-label col-form-label">Nome:</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="fname"
-                                                    placeholder="Nome do curso.">
+                                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome da profissão." required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="fname"
-                                                class="col-sm-3 text-end control-label col-form-label">Preço:</label>
+                                            <label for="salario" class="col-sm-3 text-end control-label col-form-label">Preço:</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="fname"
-                                                    placeholder="Valor do curso.">
+                                                <input type="text" class="form-control" id="preco" name="preco" placeholder="Preço do curso." required>
                                             </div>
                                         </div>
-                                        <div class="col-md-9">
-                                            <div class="form-check">
-                                                <input type="radio" class="form-check-input"
-                                                    id="customControlValidation1" name="radio-stacked" required>
-                                                <label class="form-check-label mb-0" for="customControlValidation1">Excluir.</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input type="radio" class="form-check-input"
-                                                    id="customControlValidation2" name="radio-stacked" required>
-                                                <label class="form-check-label mb-0" for="customControlValidation2">Adicionar.</label>
+                                        <div class="form-group row">
+                                            <label for="area" class="col-sm-3 text-end control-label col-form-label">Link:</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="link" name="link" placeholder="Link" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="border-top">
                                         <div class="card-body">
-                                            <button type="button" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-primary">Enviar</button>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="profissao" id="profissao" value="<?php echo $profissao->getId(); ?>">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php }else if(isset($_GET['curso'])){ 
+                $reflect = new ReflectionClass('curso');
+                $curso = $reflect->newInstanceWithoutConstructor();
+                $curso->consultarCurso($_GET['curso']);
+                $_SESSION['curso'] = serialize($curso);    
+            ?>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <form class="form-horizontal" id="form-curso" action="../controller/cadastrarcurso.php" method="POST">
+                                <div class="card-body">
+                                        <h4 class="card-title">Alterar curso ID: <?php echo $curso->getId(); ?></h4>
+                                        <div class="form-group row">
+                                            <label for="nome" class="col-sm-3 text-end control-label col-form-label">Nome:</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do curso." value="<?php echo $curso->getNome(); ?>" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="salario" class="col-sm-3 text-end control-label col-form-label">Preço:</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="preco" name="preco" placeholder="Preço do curso." value="<?php echo $curso->getPreco(); ?>" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="area" class="col-sm-3 text-end control-label col-form-label">Link:</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="link" name="link" placeholder="link" value="<?php echo $curso->getLink(); ?>" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="border-top">
+                                        <div class="card-body">
+                                            <button onclick="alterarCurso();" class="btn btn-primary">Alterar</button>
+                                            <button onclick="deletarCurso();" class="btn btn-primary">Excluir</button>
                                         </div>
                                     </div>
                                 </form>
-                            </div>
-                            
+                            <button class="btn btn-primary"><a href="adm-curso.php" style="text-decoration: none; color: white;">Adicionar nova curso</a></button>  
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
 
                     <!-- Column -->
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
@@ -370,7 +437,75 @@
     <script src="../assets/libs/flot/jquery.flot.crosshair.js"></script>
     <script src="../assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="../dist/js/pages/chart/chart-page-init.js"></script>
-
+    <script>
+    form = document.getElementById('form-curso');
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+        })
+        function cadastrarCurso(){
+            var form = $('#form-curso').serialize();
+            console.log(form);
+            $.ajax({
+                type:'POST',
+                url:'../controller/cadastrarCurso.php',
+                dataType: "json",
+                data: form,
+                success: function(response){
+                if(response == 1){
+                    alert("cadastrado com sucesso!");
+                    Window.location.href = "adm-curso.php";
+                }else if(response == 0){
+                    alert("Falha ao cadastrar, tente novamente");
+                }
+                },
+                error: function(response){
+                alert("erro");
+                console.log("erro"+response);
+                }
+            });
+        };
+        function deletarCurso(){
+            var funcao = "Excluir";
+            alterarDeletarCurso(funcao);
+        }
+        function alterarCurso(){
+            var funcao = "Alterar";
+            alterarDeletarCurso(funcao);
+        }
+        function alterarDeletarCurso(funcao){
+            var form = $('#form-curso').serialize() + '&funcao=' + funcao;
+            console.log(form);
+            $.ajax({
+                type:'POST',
+                url:'../controller/alterarCurso.php',
+                dataType: "json",
+                data: form,
+                success: function(response){
+                if(response == 1){
+                    alert("Alterado/deletado com sucesso!");
+                    window.location.href = "adm-curso.php";
+                }else if(response == 0){
+                    alert("Falha ao alterar, tente novamente");
+                }
+                },
+                error: function(response){
+                alert("erro");
+                console.log("erro"+response);
+                }
+            });
+        };
+        function profissoes(){
+            $('#retorno').html("");
+            var area = $('#areaSelect option:selected').val();
+            $('#retorno').load("../controller/consultarProfissoes.php", {area : area});
+            $('#')
+        }
+    </script>
 </body>
 
 </html>
+<?php 
+}}else{
+    header('location: entra.php');
+}
+?>

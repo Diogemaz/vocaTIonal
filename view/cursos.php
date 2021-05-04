@@ -62,7 +62,7 @@
                 <nav class="categories--home">
                 <div class="categories__elements--home">
                 <?php 
-                    foreach($profissao->getCurso() as $curso){
+                    foreach($profissao->getCursos() as $curso){
                             
                 ?>
                 <div class="categories__wrapper__links--home --<?php $curso->getNome(); ?>" style="--color-var: #ffba05">
@@ -75,7 +75,7 @@
                     </a>
                     <nav class="categories__calls--home">
                     <h6 class="text-white-75 font-weight-light mt-3">
-                    Preço: <?php if($curso->getPreco() == 0.00){ echo "Gratuito"; }else{echo $curso->getPreco();} ?>
+                    Preço: <?php if($curso->getPreco() == 0.00){ echo "Gratuito"; }else{echo str_replace(".", ",", $curso->getPreco());} ?>
                     </h6>
                     <div class="d-flex justify-content-center">
                         <a href="" class="categories__calls__description--home">

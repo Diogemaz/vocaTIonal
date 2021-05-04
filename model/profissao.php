@@ -1,5 +1,6 @@
 <?php
 require_once "funcoes.php";
+require_once "curso.php";
 
 class profissao
 {
@@ -31,7 +32,7 @@ class profissao
         return $this->salario;
     }
 
-    public function getCurso(){
+    public function getCursos(){
         return $this->cursos;
     }
     
@@ -89,6 +90,17 @@ class profissao
                     $this->id = $row['id_profissao'];
                     $this->nome = $row['nome_profissao'];
                     $this->salario = $row['salario'];
+                    $id = $row['id_profissao'];
+                    try{
+                        $sql = "SELECT * FROM curso WHERE id_profissao=$id;";
+                        $cursos = $con->prepare($sql);
+                        $cursos->execute();
+                        while($curso = $cursos->fetch()){
+                            $this->cursos[] = new curso($curso['id_curso'], $curso['nome_curso'], $curso['preco'], $curso['link']); 
+                        }
+                    }catch(Exception $ex){
+                        return $ex;
+                    }
                 }
             }
         }catch(Exception $e){
@@ -114,7 +126,7 @@ class profissao
                         $cursos = $con->prepare($sql);
                         $cursos->execute();
                         while($curso = $cursos->fetch()){
-                            $this->cursos[] = new curso($curso['nome_curso'], $curso['preco'], $curso['link']); 
+                            $this->cursos[] = new curso($curso['id_curso'], $curso['nome_curso'], $curso['preco'], $curso['link']); 
                         }
                     }catch(Exception $ex){
                         return $ex;

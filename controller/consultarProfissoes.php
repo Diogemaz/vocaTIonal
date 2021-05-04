@@ -3,6 +3,7 @@
     include_once "../model/area.php";
     include_once "../model/usuario.php";
     include_once "../model/profissao.php";
+    include_once "../model/curso.php";
     $response = array();
     if(isset($_SESSION['user'])){
         $user = unserialize($_SESSION['user']);
@@ -15,7 +16,7 @@
                 foreach($area->getProfissoes() as $profissoes){
                 ?>
                     <div class="col-md-6 col-lg-3 col-xlg-3">
-                        <a href="adm-profissao.php?area=<?php echo $area->getId(); ?>&profissao=<?php echo $profissoes->getId(); ?>">
+                        <a href="?area=<?php echo $area->getId(); ?>&profissao=<?php echo $profissoes->getId(); ?>">
                             <div class="card card-hover">
                                 <div class="box bg-cyan text-center">
                                     <h1 class="font-light text-white"><i class="mdi mdi-view-dashboard"></i></h1>
