@@ -78,6 +78,11 @@ if(localArray[localArray.length - 1] == "cadastro.php"){
   })
 }else if(localArray[localArray.length - 1] == "profissoes.php"){
   form = document.getElementById('form-favorita');
+  form2 = document.getElementById('comentar');
+  form2.addEventListener('submit', e => {
+    e.preventDefault()
+    console.log('Deu certo')
+  })
   form.addEventListener('submit', e => {
     e.preventDefault()
     console.log('Deu certo')
@@ -248,4 +253,26 @@ function alterarSenha(){
   }else{
     alert("Senha não pode ser vazia")
   }
+}
+function comentar(){
+  var form = $('#comentar').serialize();
+  $.ajax({
+    type:'POST',
+    url:'../controller/comentar.php',
+    dataType: "json",
+    data: form,
+    success: function(response){
+      if(response == 1){
+        window.location.href = window.location.href;
+      }else if(response == 0){
+        alert("É preciso estar logado para comentar");
+      }else if(response == -1){
+        alert("Erro");
+      }
+    },
+    error: function(response){
+      alert("erro2");
+      console.log("erro"+response);
+    }
+  });
 }

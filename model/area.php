@@ -35,12 +35,41 @@ class Area
     public function getId(){
         return $this->id;
     }
+    
+    public function getComentario(){
+        $con = conexao();
+        try{
+            $sql = "SELECT u.nome_usuario, u.foto, c.* FROM comentario_area c, usuario u WHERE id_area = :area AND u.id_usuario = c.id_usuario;";
+            $resultado = $con->prepare($sql);
+            $resultado->bindParam(':area', $this->id, PDO::PARAM_INT);
+            $resultado->execute();
+            return $resultado;
+        }catch(Exception $e){
+            return $e;
+        }
+        return $this->id;
+    }
+
     public function cadastrarArea($nome, $descricao){
         $con = conexao();
         try{
             $stmt = $con->prepare("INSERT INTO area (nome_area, descricao) VALUES (:nome, :descricao)");
             $stmt->bindParam(':nome', $nome, PDO::PARAM_STR, 50);
             $stmt->bindParam(':descricao', $descricao, PDO::PARAM_STR);
+            $stmt->execute();
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+    }
+
+    public function Comentar($comentario, $user){
+        $con = conexao();
+        try{
+            $stmt = $con->prepare("INSERT INTO comentario_area (comentario, id_area, id_usuario) VALUES (:comentario, :area, :user)");
+            $stmt->bindParam(':comentario', $comentario, PDO::PARAM_STR);
+            $stmt->bindParam(':area', $this->id, PDO::PARAM_INT);
+            $stmt->bindParam(':user', $user, PDO::PARAM_INT);
             $stmt->execute();
             return 1;
         }catch(Exception $e){
