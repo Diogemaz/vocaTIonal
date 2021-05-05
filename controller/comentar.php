@@ -2,13 +2,20 @@
     session_start();
     include_once "../model/usuario.php";
     include_once "../model/area.php";
+    include_once "../model/profissao.php";
     if(isset($_SESSION['user'])){
         $user = unserialize($_SESSION['user']);
         $userId = $user->getId();
-        $area = unserialize($_SESSION['area']);
-        $comentario = $_POST['comentario'];
-        try{
+        if($_POST['local'] == 'area'){
+            $area = unserialize($_SESSION['area']);
+            $comentario = $_POST['comentario'];
             $cadastro = $area->Comentar($comentario, $userId);
+        }else if($_POST['local'] == 'profissao'){
+            $profissao = unserialize($_SESSION['profissao']);
+            $comentario = $_POST['comentario'];
+            $cadastro = $profissao->Comentar($comentario, $userId);
+        }   
+        try{
             if($cadastro == 1){
                 $response = 1;
             }else{

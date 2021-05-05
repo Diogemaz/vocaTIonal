@@ -119,6 +119,7 @@
                 <?php } ?>
             </div>
       </section>
+      <!--Área de comentario-->
       <section id="comentarios">
             <div class="container mt-2">
                 <form id="comentar" onsubmit="comentar();" method="POST">

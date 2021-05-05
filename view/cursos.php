@@ -90,6 +90,44 @@
                 </div>
             </div>
       </section>
+      <!--Área de comentario-->
+      <section id="comentarios">
+            <div class="container mt-2">
+                <form id="comentar" onsubmit="comentar();" method="POST">
+                    <div class="form-group">
+                        <label for="comentario">Deixe seu comentario</label>
+                        <textarea class="form-control" id="comentario" name="comentario" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+                <h2 class="text-uppercase text-primary font-weight-bold mb-5 mt-3">Comentários</h2>
+                <div id="areaComentario">
+                <!--comentario 1-->
+                <?php 
+                    $resultado = $profissao->getComentario();
+                    while($comentario = $resultado->fetch()){ 
+                        if($comentario['foto'] == null){
+                            $img = "../assets/img/user/padrao.png";
+                        }else{
+                            $img = "../assets/img/user/" . $comentario['foto'];
+                        }
+                ?>
+                <div class="row mt-2">
+                    <div class="col-1"><img class="img-user" src="<?php echo $img; ?>"></div>
+                    <div class="comentario pt-0 pl-4 col-11" style="border-radius: 20px;">
+                        <div class="row mt-2">
+                            <p class="text-primary mb-1 mr-2"><?php echo $comentario['nome_usuario']; ?></p><div class="d-flex align-items-center mb-0 mr-2" style="font-size: 10px">
+                            <?php echo str_replace("-", "/", date('d/m/Y', strtotime($comentario['data_comentario']))); ?></div>
+                        </div>
+                        <div class="row">
+                            <p><?php echo $comentario['comentario']; ?></p>
+                        </div>
+                    </div>
+                </div>
+                <?php } ?>
+                </div>
+            </div>
+      </section>
         <!-- Contact-->
         <?php include_once "../includes/contato.php"; ?>
         <!-- Footer-->

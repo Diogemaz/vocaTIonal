@@ -28,7 +28,7 @@
             }
         }else{
             echo "null externo";
-            $foto = null;
+            $foto = $user->getImg();
             $alter = $user->alterarUsuario($nome, $foto);
         }
         if($alter == 1){

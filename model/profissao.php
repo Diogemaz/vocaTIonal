@@ -137,6 +137,34 @@ class profissao
             return $e;
         }
     }
+
+    public function getComentario(){
+        $con = conexao();
+        try{
+            $sql = "SELECT u.nome_usuario, u.foto, c.* FROM comentario_profissao c, usuario u WHERE id_profissao = :profissao AND u.id_usuario = c.id_usuario  ORDER BY id_comentarioProfissao DESC";
+            $resultado = $con->prepare($sql);
+            $resultado->bindParam(':profissao', $this->id, PDO::PARAM_INT);
+            $resultado->execute();
+            return $resultado;
+        }catch(Exception $e){
+            return $e;
+        }
+        return $this->id;
+    }
+
+    public function Comentar($comentario, $user){
+        $con = conexao();
+        try{
+            $stmt = $con->prepare("INSERT INTO comentario_profissao (comentario, id_profissao, id_usuario) VALUES (:comentario, :profissao, :user)");
+            $stmt->bindParam(':comentario', $comentario, PDO::PARAM_STR);
+            $stmt->bindParam(':profissao', $this->id, PDO::PARAM_INT);
+            $stmt->bindParam(':user', $user, PDO::PARAM_INT);
+            $stmt->execute();
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+    }
 }
 
 

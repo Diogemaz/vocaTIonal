@@ -87,6 +87,12 @@ if(localArray[localArray.length - 1] == "cadastro.php"){
     e.preventDefault()
     console.log('Deu certo')
   })
+}else if(localArray[localArray.length - 1] == "cursos.php"){
+  form = document.getElementById('comentar');
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    console.log('Deu certo')
+  })
 }
 function modalSenha(){
   form = document.getElementById('form-altUserSenha');
@@ -254,8 +260,14 @@ function alterarSenha(){
     alert("Senha não pode ser vazia")
   }
 }
+
 function comentar(){
-  var form = $('#comentar').serialize();
+  if(localArray[localArray.length - 1] == "profissoes.php"){
+    var local = 'area';
+  }else{
+    var local = 'profissao';
+  }
+  var form = $('#comentar').serialize() + '&local=' + local;
   $.ajax({
     type:'POST',
     url:'../controller/comentar.php',

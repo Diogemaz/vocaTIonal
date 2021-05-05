@@ -39,7 +39,7 @@ class Area
     public function getComentario(){
         $con = conexao();
         try{
-            $sql = "SELECT u.nome_usuario, u.foto, c.* FROM comentario_area c, usuario u WHERE id_area = :area AND u.id_usuario = c.id_usuario;";
+            $sql = "SELECT u.nome_usuario, u.foto, c.* FROM comentario_area c, usuario u WHERE id_area = :area AND u.id_usuario = c.id_usuario ORDER BY id_comentarioArea DESC;";
             $resultado = $con->prepare($sql);
             $resultado->bindParam(':area', $this->id, PDO::PARAM_INT);
             $resultado->execute();
