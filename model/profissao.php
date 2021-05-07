@@ -141,7 +141,7 @@ class profissao
     public function getComentario(){
         $con = conexao();
         try{
-            $sql = "SELECT u.nome_usuario, u.foto, c.* FROM comentario_profissao c, usuario u WHERE id_profissao = :profissao AND u.id_usuario = c.id_usuario  ORDER BY id_comentarioProfissao DESC";
+            $sql = "SELECT u.nome_usuario, u.foto, u.id_usuario, c.* FROM comentario_profissao c, usuario u WHERE id_profissao = :profissao AND u.id_usuario = c.id_usuario  ORDER BY id_comentarioProfissao DESC";
             $resultado = $con->prepare($sql);
             $resultado->bindParam(':profissao', $this->id, PDO::PARAM_INT);
             $resultado->execute();
@@ -159,6 +159,18 @@ class profissao
             $stmt->bindParam(':comentario', $comentario, PDO::PARAM_STR);
             $stmt->bindParam(':profissao', $this->id, PDO::PARAM_INT);
             $stmt->bindParam(':user', $user, PDO::PARAM_INT);
+            $stmt->execute();
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+    }
+
+    public function excluirComentario($id){
+        $con = conexao();
+        try{
+            $stmt = $con->prepare("DELETE FROM comentario_profissao WHERE id_comentarioProfissao = :id");
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
             return 1;
         }catch(Exception $e){

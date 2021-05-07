@@ -288,3 +288,28 @@ function comentar(){
     }
   });
 }
+function excluirComentario(){
+  if(localArray[localArray.length - 1] == "profissoes.php"){
+    var local = 'area';
+  }else if(localArray[localArray.length - 1] == "cursos.php"){
+    var local = 'profissao';
+  }
+  var idComentario = $('#comentarioId').val();
+  $.ajax({
+    type:'POST',
+    url:'../controller/excluirComentario.php',
+    dataType: 'json',
+    data: "id="+idComentario+"&local="+local,
+    success: function(response){
+      if(response == 1){
+        window.location.href = window.location.href;
+      }else if(response == 0){
+        alert("falha!");
+      }
+    },
+    error: function(response){
+      alert("erro2");
+      console.log("erro"+response);
+    }
+  });
+}

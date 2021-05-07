@@ -226,8 +226,18 @@ class Area
             return $e;
         }
     }
-
     
+    public function excluirComentario($id){
+        $con = conexao();
+        try{
+            $stmt = $con->prepare("DELETE FROM comentario_area WHERE id_comentarioArea = :id;");
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->rowCount();;
+        }catch(Exception $e){
+            return 0;
+        }
+    }
 }
 
 

@@ -143,9 +143,25 @@
                 <div class="row mt-2">
                     <div class="col-1"><img class="img-user" src="<?php echo $img; ?>"></div>
                     <div class="comentario pt-0 pl-4 col-11" style="border-radius: 20px;">
-                        <div class="row mt-2">
-                            <p class="text-primary mb-1 mr-2"><?php echo $comentario['nome_usuario']; ?></p><div class="d-flex align-items-center mb-0 mr-2" style="font-size: 10px">
-                            <?php echo str_replace("-", "/", date('d/m/Y', strtotime($comentario['data_comentario']))); ?></div>
+                        <div class="h-25 row mb-2 mt-2">
+                            <p class="text-primary mb-1 mr-2"><?php echo $comentario['nome_usuario']; ?></p>
+                            <div class="d-flex h-50 align-items-center mt-2 mr-2" style="font-size: 10px">
+                                <?php echo str_replace("-", "/", date('d/m/Y', strtotime($comentario['data_comentario']))); ?>
+                            </div>
+                            <?php if($comentario['id_usuario'] == $user->getId()){ ?>
+                                <input type="hidden" id="comentarioId" value="<?php echo $comentario['id_comentarioArea']; ?>">
+                                <div class="d-flex justify-content-end col-9 ml-5">
+                                    <ul class="navbar-nav ml-auto my-2 my-lg-0">
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                ...
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                            <button class="dropdown-item" onclick="excluirComentario();">Excluir</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            <?php } ?>
                         </div>
                         <div class="row">
                             <p><?php echo $comentario['comentario']; ?></p>
