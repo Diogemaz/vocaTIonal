@@ -13,6 +13,9 @@
         $_SESSION['profissao'] = serialize($profissao);
         if(isset($_SESSION['user'])){
             $user = unserialize($_SESSION['user']);
+            $profissao->pegarAvaliacao($user->getId());
+        }else{
+            $profissao->Avaliacao();
         }
 ?>
 <!DOCTYPE html>
@@ -88,6 +91,35 @@
                 </div>
                 </nav>
                 </div>
+            </div>
+      </section>
+      <section id="avaliacao">
+            <div class="container">
+                <div class="d-flex justify-content-center">
+                    <?php if(isset($_SESSION['user'])){ ?>
+                    <button style="border: 0; background: transparent" onclick="like()">
+                        <img id="like" src="<?php if($profissao->getAvaliacao() == 1){ echo "../assets/img/like_sel.png"; }else{ echo "../assets/img/like.png"; } ?>" height="40px" width="40px">
+                    </button>
+                    <button style="border: 0; background: transparent" onclick="deslike()">
+                        <img id="deslike" class="mt-3 rotate" src="<?php if($profissao->getAvaliacao() == -1){ echo "../assets/img/like_sel.png"; }else{ echo "../assets/img/like.png"; } ?>" height="40px" width="40px">
+                    </button>
+                    <?php }else{ ?>
+                        <button style="border: 0; background: transparent" onclick="alert('É preciso ser um usuário')">
+                            <img id="like" src="../assets/img/like.png" height="40px" width="40px">
+                        </button>
+                        <button style="border: 0; background: transparent" onclick="alert('É preciso ser um usuário')">
+                            <img id="deslike" class="mt-3 rotate" src="../assets/img/like.png" height="40px" width="40px">
+                        </button>
+                    <?php } ?>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="col-4">
+                        <div class="progress">
+                            <div class="progress-bar" style="width: <?php if($profissao->getProcAvaliacao() == -1){ echo 0; }else{echo $profissao->getProcAvaliacao();} ?>%" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="text-center"><?php if($profissao->getProcAvaliacao() == -1){echo "Profissão não avaliada";}else{echo $profissao->getProcAvaliacao() . "%";} ?></div>
+                    </div>   
+                </div>     
             </div>
       </section>
       <!--Área de comentario-->

@@ -313,3 +313,74 @@ function excluirComentario(){
     }
   });
 }
+
+function like(){
+  if(localArray[localArray.length - 1] == "profissoes.php"){
+    var local = 'area';
+  }else if(localArray[localArray.length - 1] == "cursos.php"){
+    var local = 'profissao';
+  }
+  $status = $('#like').attr("src");
+  if($status == "../assets/img/like.png"){
+    var like = 1;
+  }else{
+    var like = 0;
+  }
+  $.ajax({
+    type:'POST',
+    url:'../controller/avaliar.php',
+    dataType: 'json',
+    data: "like=" + like + "&local=" + local,
+    success: function(response){
+      if(response == 1){
+        if(like == 0){
+          $('#like').attr("src", "../assets/img/like.png");
+        }else{
+          $('#like').attr("src", "../assets/img/like_sel.png");
+          $('#deslike').attr("src", "../assets/img/like.png");
+        }
+      }else{
+        alert("falha!");
+      }
+    },
+    error: function(response){
+      alert("erro");
+      console.log("erro"+response);
+    }
+  });
+}
+function deslike(){
+  if(localArray[localArray.length - 1] == "profissoes.php"){
+    var local = 'area';
+  }else if(localArray[localArray.length - 1] == "cursos.php"){
+    var local = 'profissao';
+  }
+  $status = $('#deslike').attr("src");
+  if($status == "../assets/img/like.png"){
+    var like = -1;
+  }else{
+    var like = 0;
+  }
+  $.ajax({
+    type:'POST',
+    url:'../controller/avaliar.php',
+    dataType: 'json',
+    data: "like=" + like + "&local=" + local,
+    success: function(response){
+      if(response == 1){
+        if(like == 0){
+          $('#deslike').attr("src", "../assets/img/like.png");
+        }else{
+          $('#deslike').attr("src", "../assets/img/like_sel.png");
+          $('#like').attr("src", "../assets/img/like.png");
+        }
+      }else{
+        alert("falha!");
+      }
+    },
+    error: function(response){
+      alert("erro");
+      console.log("erro"+response);
+    }
+  });
+}

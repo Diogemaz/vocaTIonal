@@ -10219,3 +10219,6 @@ cursor: pointer;
     .comentario{
       background-color: #80ccff;
     }
+    .rotate{
+      transform: rotate(180deg);
+    }
