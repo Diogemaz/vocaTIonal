@@ -11,7 +11,8 @@
             $extensao = pathinfo($foto, PATHINFO_EXTENSION);
             $extensao = strtolower($extensao);
             if(strstr('.jpg;.jpeg;.gif;.png', $extensao)){
-                echo "tem foto";
+                $fotoAntiga = "../assets/img/user/".$user->getImg();
+                unlink($fotoAntiga);
                 $novoNome = uniqid(time()).'.'.$extensao;
                 $destino = '../assets/img/user/' . $novoNome;
                 if (@move_uploaded_file($arquivo_tmp, $destino)) {
