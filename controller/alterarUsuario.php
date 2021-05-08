@@ -34,9 +34,9 @@
         if($alter == 1){
             $user->setNomeUsuario($nome);
             $_SESSION['user'] = serialize($user);
-            header('location: ../view/confUser.php');
+            header("Location: ".$_SERVER['HTTP_REFERER']."");
         }else{
-            header('location: ../view/confUser.php?status=falha');
+            header("Location: ".$_SERVER['HTTP_REFERER']."?status=falha");
         }
     }else{
         header('location: ../view/entra.php');

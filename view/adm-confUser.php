@@ -1,9 +1,16 @@
 <?php
 session_start();
 include_once "../model/usuario.php";
+include_once "../model/area.php";
+include_once "../model/profissao.php";
 if(isset($_SESSION['user'])){
     $user = unserialize($_SESSION['user']);
     if($user->getAdm() == 1){
+        if($user->getImg() == null){
+            $img = "../assets/img/user/padrao.png";
+        }else{
+            $img = "../assets/img/user/" . $user->getImg();
+        }
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="pt-br">
@@ -66,7 +73,7 @@ if(isset($_SESSION['user'])){
                         <!-- <b class="logo-icon"> -->
                         <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                         <!-- Dark Logo icon -->
-                        <!-- <img src="../../assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
+                        <!-- <img src="../assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
 
                         <!-- </b> -->
                         <!--End Logo icon -->
@@ -208,7 +215,8 @@ if(isset($_SESSION['user'])){
                     <ul id="sidebarnav" class="pt-4">
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="adm-dashboard.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">Dashboard</span></a></li>
+                                    class="hide-menu">Dashboard</span></a>
+                                </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="adm-area.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                                     class="hide-menu">Areas</span></a>
@@ -242,124 +250,93 @@ if(isset($_SESSION['user'])){
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Pagina principal</h4>
                         <div class="ms-auto text-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
+                                    <li class="breadcrumb-item"><a href="adm-dashboard.php">Administrador</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Configuração</li>
                                 </ol>
                             </nav>
                         </div>
                     </div>
                 </div>
             </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
             <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- Start Page Content -->
             <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Sales Cards  -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-2 col-xlg-3">
-                        <div class="card card-hover">
-                            <div class="box bg-cyan text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-view-dashboard"></i></h1>
-                                <h6 class="text-white">Dashboard</h6>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <form class="form-horizontal" id="form-altUser" action="../controller/alterarUsuario.php" method="POST" enctype="multipart/form-data">
+                            <div class="card-body">
+                                <h4 class="card-title text-center">Configuração de perfil</h4>
+                                <div class="form-group row">
+                                    <div class="col-sm-5 text-end control-label col-form-label">
+                                        <img src="<?php echo $img; ?>" alt="user" width="50" class="rounded-circle">
+                                    </div>
+                                    <div class="col-md-5 mt-2">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="foto" name="foto">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="name" class="col-sm-5 text-end control-label col-form-label">Nome de usuário</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" id="name" name="nome" placeholder="Nome" value="<?php echo $user->getNomeUsuario(); ?>" required>
+                                    </div>
+                                </div>
+                            <div class="border-top">
+                                <div class="card-body text-center">
+                                    <input type="submit" class="btn btn-primary" value="Alterar">
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-2 col-xlg-3">
-                        <div class="card card-hover">
-                            <div class="box bg-success text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-chart-areaspline"></i></h1>
-                                <h6 class="text-white">Charts</h6>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <form class="form-horizontal" id="form-altUserSenha" onsubmit="alterarSenha();" action="../controller/alterarSenhaUsuario.php" method="POST" enctype="multipart/form-data">
+                            <div class="card-body">
+                                <h4 class="card-title text-center">Configuração de senha</h4>
+                                <div class="form-group row">
+                                    <label for="name" class="col-sm-5 text-end control-label col-form-label">Senha</label>
+                                    <div class="col-sm-5">
+                                        <input type="password" class="form-control" id="senha" name="senha" placeholder="senha" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="name" class="col-sm-5 text-end control-label col-form-label">Confirma senha</label>
+                                    <div class="col-sm-5">
+                                        <input type="password" class="form-control" id="confSenha" name="confSenha" placeholder="Confirmar senha" required>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <div class="border-top">
+                                <div class="card-body text-center">
+                                    <input type="submit" class="btn btn-primary" value="Alterar Senha">
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-2 col-xlg-3">
-                        <div class="card card-hover">
-                            <div class="box bg-warning text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-collage"></i></h1>
-                                <h6 class="text-white">Widgets</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-2 col-xlg-3">
-                        <div class="card card-hover">
-                            <div class="box bg-danger text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-border-outside"></i></h1>
-                                <h6 class="text-white">Tables</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-2 col-xlg-3">
-                        <div class="card card-hover">
-                            <div class="box bg-info text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-arrow-all"></i></h1>
-                                <h6 class="text-white">Full Width</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-4 col-xlg-3">
-                        <div class="card card-hover">
-                            <div class="box bg-danger text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-receipt"></i></h1>
-                                <h6 class="text-white">Forms</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-2 col-xlg-3">
-                        <div class="card card-hover">
-                            <div class="box bg-info text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-relative-scale"></i></h1>
-                                <h6 class="text-white">Buttons</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-2 col-xlg-3">
-                        <div class="card card-hover">
-                            <div class="box bg-cyan text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-pencil"></i></h1>
-                                <h6 class="text-white">Elements</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-2 col-xlg-3">
-                        <div class="card card-hover">
-                            <div class="box bg-success text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-calendar-check"></i></h1>
-                                <h6 class="text-white">Calnedar</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-2 col-xlg-3">
-                        <div class="card card-hover">
-                            <div class="box bg-warning text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-alert"></i></h1>
-                                <h6 class="text-white">Errors</h6>
-                            </div>
-                        </div>
+                </div>
+            </div>
+        </div>
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="../assets/extra-libs/sparkline/sparkline.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script><script src="../assets/extra-libs/sparkline/sparkline.js"></script>
     <!--Wave Effects -->
     <script src="../dist/js/waves.js"></script>
     <!--Menu sidebar -->
@@ -367,7 +344,7 @@ if(isset($_SESSION['user'])){
     <!--Custom JavaScript -->
     <script src="../dist/js/custom.min.js"></script>
     <!--This page JavaScript -->
-    <!-- <script src="../../dist/js/pages/dashboards/dashboard1.js"></script> -->
+    <!-- <script src="../dist/js/pages/dashboards/dashboard1.js"></script> -->
     <!-- Charts js Files -->
     <script src="../assets/libs/flot/excanvas.js"></script>
     <script src="../assets/libs/flot/jquery.flot.js"></script>
@@ -377,10 +354,62 @@ if(isset($_SESSION['user'])){
     <script src="../assets/libs/flot/jquery.flot.crosshair.js"></script>
     <script src="../assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="../dist/js/pages/chart/chart-page-init.js"></script>
+    <script>
+        function alterarSenha(){
+            var form = $('#form-altUserSenha').serialize();
+            if(senha != ""){
+                $.ajax({
+                type:'POST',
+                url:'../controller/alterarSenhaUsuario.php',
+                dataType: "json",
+                data: form,
+                success: function(response){
+                    if(response == 1){
+                    alert('Alterado com sucesso!')
+                    window.location.href = window.location.href;
+                    }else if(response == 0){
+                    alert("Falha!");
+                    }else if(response == -1){
+                    alert("As senhas digitadas são diferentes");
+                    }
+                },
+                error: function(response){
+                    alert("erro2");
+                    console.log("erro"+response);
+                }
+                });
+            }else{
+                alert("Senha não pode ser vazia")
+            }
+        }
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
 
-</body>
-
-</html>
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+        }; 
+        var status = getUrlParameter('status');
+        if(status == "falha"){
+            alert("Falha ao alterar");
+        }
+        $('#nome').blur(function(){
+            if($('#nome').val() == ""){
+                alert("Nome não deve estar vazio")
+            }
+        });
+        form = document.getElementById('form-altUserSenha');
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            console.log('Deu certo')
+        });
+      </script>
 <?php
 }}else{
     header('location: entra.php');
