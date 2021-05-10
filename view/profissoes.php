@@ -83,7 +83,7 @@
                     Salario: <?php echo $profissao->getSalario(); ?>
                     </h6>
                     <div class="d-flex justify-content-center">
-                        <a href="" class="categories__calls__description--home">
+                        <a href="cursos.php?profissao=<?php echo $profissao->getNome(); ?>" class="categories__calls__description--home">
                             Ver mais
                         </a>
                     </div>

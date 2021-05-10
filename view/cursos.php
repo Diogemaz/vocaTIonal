@@ -82,7 +82,7 @@
                     Preço: <?php if($curso->getPreco() == 0.00){ echo "Gratuito"; }else{echo str_replace(".", ",", $curso->getPreco());} ?>
                     </h6>
                     <div class="d-flex justify-content-center">
-                        <a href="" class="categories__calls__description--home">
+                        <a href="<?php echo $curso->getLink(); ?>" class="categories__calls__description--home">
                             Ver mais
                         </a>
                     </div>
