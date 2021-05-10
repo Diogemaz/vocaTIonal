@@ -13,8 +13,10 @@
         if(isset($_SESSION['user'])){
             $user = unserialize($_SESSION['user']);
             $area->pegarAvaliacao($user->getId());
+            $id = $user->getId();
         }else{
             $area->Avaliacao();
+            $id = null;
         }
 ?>
 <!DOCTYPE html>
@@ -180,7 +182,7 @@
                             <div class="d-flex h-50 align-items-center mt-2 mr-2" style="font-size: 10px">
                                 <?php echo str_replace("-", "/", date('d/m/Y', strtotime($comentario['data_comentario']))); ?>
                             </div>
-                            <?php if($comentario['id_usuario'] == $user->getId()){ ?>
+                            <?php if($comentario['id_usuario'] == $id){ ?>
                                 <input type="hidden" id="comentarioId" value="<?php echo $comentario['id_comentarioArea']; ?>">
                                 <div class="d-flex justify-content-end col-9 ml-5">
                                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
