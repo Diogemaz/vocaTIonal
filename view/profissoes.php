@@ -146,7 +146,7 @@
                         <div class="progress">
                             <div class="progress-bar" style="width: <?php if($area->getProcAvaliacao() == -1){ echo 0; }else{echo $area->getProcAvaliacao();} ?>%" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="text-center"><?php if($area->getProcAvaliacao() == -1){echo "Área não avaliada";}else{echo $area->getProcAvaliacao() . "%";} ?></div>
+                        <div class="text-center"><?php if($area->getProcAvaliacao() == -1){echo "Área não avaliada";}else{echo number_format($area->getProcAvaliacao(), 2, ",", "") . "%";} ?></div>
                     </div>   
                 </div>     
             </div>

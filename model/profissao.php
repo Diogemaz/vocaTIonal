@@ -124,7 +124,7 @@ class profissao
         try{
             $sql = "SELECT * FROM profissao WHERE nome_profissao=:nome;";
             $resultado = $con->prepare($sql);
-            $resultado->bindParam(':nome', $profissao, PDO::PARAM_INT);
+            $resultado->bindParam(':nome', $profissao, PDO::PARAM_STR);
             $resultado->execute();
             if($resultado->rowCount() == 1){
                 while ($row = $resultado->fetch()){

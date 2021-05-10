@@ -65,6 +65,7 @@
                 <nav class="categories--home">
                 <div class="categories__elements--home">
                 <?php 
+                    
                     foreach($profissao->getCursos() as $curso){
                             
                 ?>
@@ -117,7 +118,7 @@
                         <div class="progress">
                             <div class="progress-bar" style="width: <?php if($profissao->getProcAvaliacao() == -1){ echo 0; }else{echo $profissao->getProcAvaliacao();} ?>%" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="text-center"><?php if($profissao->getProcAvaliacao() == -1){echo "Profissão não avaliada";}else{echo $profissao->getProcAvaliacao() . "%";} ?></div>
+                        <div class="text-center"><?php if($profissao->getProcAvaliacao() == -1){echo "Profissão não avaliada";}else{echo number_format($profissao->getProcAvaliacao(), 2, ",", "") . "%";} ?></div>
                     </div>   
                 </div>     
             </div>
