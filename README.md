@@ -1,8 +1,8 @@
 # vocaTIonal
 Projeto de sistema feito na disciplina de laboratório de engenharia de software
 
-Grupo:
-Bruno Ricardo
-Diogenes Paulino 
-Henrique pereira
-Rogerio Gongora
+Grupo:<br>
+Bruno Ricardo<br>
+Diogenes Paulino<br>
+Henrique pereira<br>
+Rogerio Gongora<br>
