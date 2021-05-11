@@ -214,11 +214,11 @@ if(isset($_SESSION['user'])){
                                 </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="adm-area.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">Areas</span></a>
+                                    class="hide-menu">Áreas</span></a>
                                 </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="adm-profissao.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">Profissoes</span></a>
+                                    class="hide-menu">Profissões</span></a>
                                 </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="adm-curso.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
@@ -245,7 +245,7 @@ if(isset($_SESSION['user'])){
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Areas:</h4>
+                        <h4 class="page-title">Áreas:</h4>
                         <div class="ms-auto text-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -309,7 +309,7 @@ if(isset($_SESSION['user'])){
                                         <div class="form-group row">
                                             <label for="nome" class="col-sm-3 text-end control-label col-form-label">Nome:</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome da area." value="<?php echo $areaSelecionada->getNome(); ?>">
+                                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome da área." value="<?php echo $areaSelecionada->getNome(); ?>">
                                             </div>
                                             <label for="descricao" class="col-sm-12 text-center control-label col-form-label">Descrição</label>
                                             <textarea id="descricao" name="descricao"><?php echo $areaSelecionada->getDescricao(); ?></textarea>
@@ -336,7 +336,7 @@ if(isset($_SESSION['user'])){
                                         <div class="form-group row">
                                             <label for="nome" class="col-sm-3 text-end control-label col-form-label">Nome:</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome da area.">
+                                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome da área.">
                                             </div>
                                             <label for="descricao" class="col-sm-12 text-center control-label col-form-label">Descrição</label>
                                             <textarea id="descricao" name="descricao"></textarea>

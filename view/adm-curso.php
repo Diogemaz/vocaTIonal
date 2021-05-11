@@ -215,11 +215,11 @@ if(isset($_SESSION['user'])){
                                 </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="adm-area.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">Areas</span></a>
+                                    class="hide-menu">Áreas</span></a>
                                 </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="adm-profissao.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">Profissoes</span></a>
+                                    class="hide-menu">Profissões</span></a>
                                 </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="adm-curso.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
@@ -325,7 +325,7 @@ if(isset($_SESSION['user'])){
                                         <div class="form-group row">
                                             <label for="nome" class="col-sm-3 text-end control-label col-form-label">Nome:</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome da profissão." required>
+                                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do curso." required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -391,7 +391,7 @@ if(isset($_SESSION['user'])){
                                         </div>
                                     </div>
                                 </form>
-                            <button class="btn btn-primary"><a href="adm-curso.php" style="text-decoration: none; color: white;">Adicionar nova curso</a></button>  
+                            <button class="btn btn-primary"><a href="adm-curso.php" style="text-decoration: none; color: white;">Adicionar novo curso</a></button>  
                         </div>
                     </div>
                 </div>

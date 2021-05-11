@@ -10222,3 +10222,16 @@ cursor: pointer;
     .rotate{
       transform: rotate(180deg);
     }
+input[type='file'] {
+  display: none
+}
+
+/* Aparência que terá o seletor de arquivo */
+label#foto2 {
+  background-color: #3498db;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  margin: 10px;
+  padding: 6px 20px
+}

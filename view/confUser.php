@@ -52,6 +52,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6 mt-2">
                             <img class="img-user" src="<?php echo $img; ?>">
+                            <div><label id="foto2" for='foto'>Selecionar uma foto</label></div>
                             <input type="file" class="form-control-file" name="foto" id="foto">
                             </div>
                             <div class="form-group col-md-6 mt-3">
