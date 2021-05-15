@@ -7,7 +7,7 @@
     $response = array();
     if(isset($_SESSION['user'])){
         $user = unserialize($_SESSION['user']);
-        if($user->getId() == 1){
+        if($user->getAdm() == 1){
             $area = new area;
             $id_area = $_POST['area'];
             try{

@@ -2,7 +2,7 @@
     include_once "../model/usuario.php";
     if(isset($_SESSION['user'])){ 
         $user = unserialize($_SESSION['user']);
-        if($user->getId() == 1){
+        if($user->getAdm() == 1){
             if($user->getImg() == null){
                 $img = "../assets/img/user/padrao.png";
             }else{
@@ -27,4 +27,4 @@
         <div class="dropdown-divider"></div>
     </ul>
 </li>
-<?php }else{ header('location: ../view/entra.php'); }}else{ header('location: ../view/entra.php'); } ?>
+<?php }else{ header('location: entra.php'); }}else{ header('location: entra.php'); } ?>

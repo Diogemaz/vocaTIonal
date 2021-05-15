@@ -11,26 +11,29 @@ function conexao(){
 }
 
 function verificarEmail($email, $nomeUser, $token){
-    require("PHPMailer-master/src/PHPMailer.php");
-    require("PHPMailer-master/src/SMTP.php");
+    require("PHPMailer/src/PHPMailer.php");
+    require("PHPMailer/src/SMTP.php");
+    require("PHPMailer/src/Exception.php");
     $mail = new PHPMailer\PHPMailer\PHPMailer();
     $mail->IsSMTP(); // enable SMTP
+    $mail->CharSet = 'UTF-8';
     $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
     $mail->SMTPAuth = true; // authentication enabled
     $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
-    $mail->Host = "servidor.hostgator.com.br";
+    $mail->Host = "mail.vocational.com.br";
     $mail->Port = 465; // or 587
     $mail->IsHTML(true);
     $mail->Username = "suporte@vocational.com.br";
     $mail->Password = "suporteVocational$%1";
     $mail->SetFrom("suporte@vocational.com.br");
     $mail->Subject = "Verificação de email";
-    $mail->Body = "Olá ".$nomeUser." aqui está o token de verificação para seu email <br><br> Token: vocational.com.br/model/verificarEmail?token=".$token."";
+    $mail->Body = "Olá ".$nomeUser." aqui está o token de verificação para seu email <br><br> Token: https://vocational.com.br/model/confirmar_email?token=".$token."";
     $mail->AddAddress($email);
-    if(!$mail->Send()) {
-       return $mail->ErrorInfo;
-    } else {
-       return 1;
-    }
+
+     if(!$mail->Send()) {
+        return 0;
+     } else {
+        return 1;
+     }
 }
 ?>

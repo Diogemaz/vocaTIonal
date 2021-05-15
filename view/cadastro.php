@@ -32,7 +32,7 @@
                 </div>
             </div>
         </nav>
-        <form id="form-cadastro" method="POST" onSubmit="cadastrar();" action="../controller/cadastrarUsuario.php">
+        <form id="form-cadastro" onSubmit="cadastrar();" method="POST" action="../controller/cadastrarUsuario.php">
         <section class="page-section entrar" id="form">
             <div class="container">
                 <div class="d-flex justify-content-center h-100">
