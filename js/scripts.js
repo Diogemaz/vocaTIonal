@@ -106,26 +106,50 @@ function cadastrar(){
     var form = $('#form-cadastro').serialize();
     console.log(form);
     $.ajax({
-        type:'POST',
-        url:'../controller/cadastrarUsuario.php',
-        dataType: "json",
-        data: form,
-        success: function(response){
-          if(response['retorno'] == -2){
-            alert("As senhas digitadas não são iguais");
-          }else if(response['retorno'] == -1){
-            alert("Falha ao cadastrar, tente novamente ou entre em contato com o suporte do site");
-          }else if(response['retorno'] == 0){
-            alert("Email já cadastrado no site");
-          }else if(response['retorno'] == 1){
-            console.log(response['retorno']);
-            window.location.href = "../view/areaUsuario.php";
+      type: 'POST',
+      async: true,
+      url: '../controller/enviarEmail.php',
+      data: form,
+      datatype: 'json',
+      cache: true,
+      global: false,
+      beforeSend: function() { 
+          $('#loader').show();
+      },
+      success: function() {
+        $.ajax({
+          type:'POST',
+          url:'../controller/cadastrarUsuario.php',
+          dataType: "json",
+          data: form,
+          success: function(response){
+            if(response == -2){
+              alert("As senhas digitadas não são iguais");
+            }else if(response == -1){
+              alert("Falha ao cadastrar, tente novamente ou entre em contato com o suporte do site");
+            }else if(response == 0){
+              alert("Email já cadastrado no site");
+            }else if(response == 1){
+              console.log(response);
+              $('#form-cadastro').each (function(){
+                this.reset();
+              });
+              alert("Verifique seu email para confirmar seu email");
+            }
+          },
+          error: function(response){
+            alert("erro ao cadastrar");
+            console.log("erro"+response);
           }
-        },
-        error: function(response){
-          alert("erro");
-          console.log("erro"+response['retorno']);
-        }
+      });
+      },
+      error: function(response){
+        alert("erro ao enviar email");
+        console.log("erro"+response);
+      },
+      complete: function() { 
+          $('#loader').hide();
+      }
     });
   }else{}
 };

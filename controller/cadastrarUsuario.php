@@ -14,15 +14,8 @@ if(!$_POST){ header('location: ../view/cadastro.php'); }
     if($senha == $confSenha)
     {
         try{
-            $emailConf = verificarEmail($email, $nomeUser, $token);
-            if($emailConf = 1){
-                $cadastro = $usuario->cadastrarUsuario($nomeUser, $email, $senha);
-            }else{
-                $cadastro = 0;
-            }
+            $cadastro = $usuario->cadastrarUsuario($nomeUser, $email, $senha);
             if($cadastro == 1){
-                $user = $usuario->login($email, $senha);
-                $_SESSION['user'] = serialize($usuario);
                 $response = 1;
             }else{
                 $response = $cadastro;
@@ -34,5 +27,5 @@ if(!$_POST){ header('location: ../view/cadastro.php'); }
         $response = -2;
     }
 
-    echo json_encode(["retorno" => $response]);
+    echo json_encode($response);
 ?>

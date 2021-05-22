@@ -58,7 +58,7 @@
                                 <input type="password" name="confSenha" id="confSenha" class="form-control" placeholder="Confirmar senha" required>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn float-right login_btn">Enviar</button>
+                                <button type="submit" class="btn float-right login_btn">Enviar <img style="display: none;" id="loader" src="https://res.cloudinary.com/sivadass/image/upload/v1498134389/icons/loader.gif" alt="loading"></button>
                             </div>
                         </div>
                     </div>

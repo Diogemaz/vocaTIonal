@@ -33,7 +33,7 @@ function verificarEmail($email, $nomeUser, $token){
      if(!$mail->Send()) {
         return 0;
      } else {
-        return 1;
+        echo $mail->error;
      }
 }
 ?>
