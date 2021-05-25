@@ -27,7 +27,7 @@ function verificarEmail($email, $nomeUser, $token){
     $mail->Password = "suporteVocational$%1";
     $mail->SetFrom("suporte@vocational.com.br");
     $mail->Subject = "Verificação de email";
-    $mail->Body = "Olá ".$nomeUser." aqui está o token de verificação para seu email <br><br> Token: https://vocational.com.br/controller/confirmar_email?token=".$token."";
+    $mail->Body = "Olá ".$nomeUser." aqui está o token de verificação para seu email <br><br> Token: https://vocational.com.br/controller/confirmar_email.php?token=".$token."";
     $mail->AddAddress($email);
 
      if(!$mail->Send()) {

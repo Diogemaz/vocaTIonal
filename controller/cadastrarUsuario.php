@@ -4,14 +4,14 @@ if(!$_POST){ header('location: ../view/cadastro.php'); }
     require_once "../model/usuario.php";
     require_once "../model/funcoes.php";
 
-    $nomeUser = $_POST['nome'];
+    $nomeUser = substr($_POST['nome'], 0, 51);
     $email = $_POST['email'];
     $token = md5($_POST['email']);
     $senha = $_POST['senha'];
     $confSenha = $_POST['confSenha'];
     $usuario = new Usuario();
 
-    if($senha == $confSenha)
+    if(strlen($senha) >= 8 && $senha == $confSenha)
     {
         try{
             $cadastro = $usuario->cadastrarUsuario($nomeUser, $email, $senha);
@@ -23,8 +23,10 @@ if(!$_POST){ header('location: ../view/cadastro.php'); }
         }catch (Exception $e){
             $response = -1;
         }
-    } else {
+    } else if($senha != $confSenha){
         $response = -2;
+    }else{
+        $response = -3;
     }
 
     echo json_encode($response);

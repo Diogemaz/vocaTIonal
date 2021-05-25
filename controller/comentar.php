@@ -8,11 +8,11 @@
         $userId = $user->getId();
         if($_POST['local'] == 'area'){
             $area = unserialize($_SESSION['area']);
-            $comentario = $_POST['comentario'];
+            $comentario = substr($_POST['comentario'], 0, 501);
             $cadastro = $area->Comentar($comentario, $userId);
         }else if($_POST['local'] == 'profissao'){
             $profissao = unserialize($_SESSION['profissao']);
-            $comentario = $_POST['comentario'];
+            $comentario = substr($_POST['comentario'], 0, 501);
             $cadastro = $profissao->Comentar($comentario, $userId);
         }   
         try{

@@ -143,6 +143,9 @@ class Usuario
             $resultado->execute();
             if($resultado->rowCount() == 1){
                 while ($row = $resultado->fetch()){
+                    if($row['verificacao'] == 0){
+                        return -3;
+                    }
                     $this->id = $row['id_usuario'];
                     $this->nomeUsuario = $row['nome_usuario'];
                     $this->email = $row['email'];

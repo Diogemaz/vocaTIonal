@@ -167,7 +167,7 @@ class profissao
         $con = conexao();
         try{
             $stmt = $con->prepare("INSERT INTO comentario_profissao (comentario, id_profissao, id_usuario) VALUES (:comentario, :profissao, :user)");
-            $stmt->bindParam(':comentario', $comentario, PDO::PARAM_STR);
+            $stmt->bindParam(':comentario', $comentario, PDO::PARAM_STR, 500);
             $stmt->bindParam(':profissao', $this->id, PDO::PARAM_INT);
             $stmt->bindParam(':user', $user, PDO::PARAM_INT);
             $stmt->execute();

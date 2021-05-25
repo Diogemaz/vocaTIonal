@@ -64,7 +64,7 @@ class Area
         try{
             $stmt = $con->prepare("INSERT INTO area (nome_area, descricao) VALUES (:nome, :descricao)");
             $stmt->bindParam(':nome', $nome, PDO::PARAM_STR, 50);
-            $stmt->bindParam(':descricao', $descricao, PDO::PARAM_STR);
+            $stmt->bindParam(':descricao', $descricao, PDO::PARAM_STR, 500);
             $stmt->execute();
             return 1;
         }catch(Exception $e){
@@ -76,7 +76,7 @@ class Area
         $con = conexao();
         try{
             $stmt = $con->prepare("INSERT INTO comentario_area (comentario, id_area, id_usuario) VALUES (:comentario, :area, :user)");
-            $stmt->bindParam(':comentario', $comentario, PDO::PARAM_STR);
+            $stmt->bindParam(':comentario', $comentario, PDO::PARAM_STR, 500);
             $stmt->bindParam(':area', $this->id, PDO::PARAM_INT);
             $stmt->bindParam(':user', $user, PDO::PARAM_INT);
             $stmt->execute();

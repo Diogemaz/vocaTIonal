@@ -15,6 +15,25 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="../css/styles.css" rel="stylesheet" />
+        <style>
+            #conteudo {
+                display:none;
+                position:absolute;
+                top: 0;
+                left:100%;
+                right:0;
+                margin-top: 5px;
+                padding: 2px;
+                width:100px;
+                height:20px;
+                border:1px solid #1818fc;
+                margin-left: 10px;
+                min-width: 120px;
+                max-width: 500px;
+                min-height: 30px;
+                max-height: 50px;
+            }
+        </style>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -46,13 +65,15 @@
                         </div>
                         <div class="card-body">
                             <div class="input-group form-group">
-                                <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome de Usuário" required>
+                                <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome de Usuário" maxlength="50" required>
                             </div>
                             <div class="input-group form-group">
                                 <input type="email" name="email" id="email" class="form-control" placeholder="Email" onblur="checarEmail();" required>
                             </div>
                             <div class="input-group form-group">
-                                <input type="password" name="senha" id="senha" class="form-control" placeholder="Senha" required>
+                                <input type="password" name="senha" id="senha" class="form-control" onkeydown="forcaSenha()" placeholder="Senha" required>
+                                <div id="conteudo">
+                                </div>
                             </div>
                             <div class="input-group form-group">
                                 <input type="password" name="confSenha" id="confSenha" class="form-control" placeholder="Confirmar senha" required>

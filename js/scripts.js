@@ -101,6 +101,60 @@ function modalSenha(){
     console.log('Deu certo')
   })
 }
+
+function forcaSenha(){
+  var cor;
+  var text;
+  var forcaMi = 0;
+  var forcaMa = 0;
+  var forcaN = 0;
+  var forcaE = 0;
+  var letrasMaiusculas = /[A-Z]/;
+  var letrasMinusculas = /[a-z]/; 
+  var numeros = /[0-9]/;
+  var caracteresEspeciais = /[!|@|#|$|%|^|&|*|(|)|-|_]/;
+  var string = $('#senha').val();
+  for(i=0;i<string.length; i++){
+    if(letrasMinusculas.test(string[i])){
+      forcaMi++;
+    }
+    if(letrasMaiusculas.test(string[i])){
+      forcaMa++;
+    }
+    if(numeros.test(string[i])){
+      forcaN++;
+    }
+    if(caracteresEspeciais.test(string[i])){
+      forcaE++;
+    }
+  }
+  if(forcaN > 0 && forcaMi > 0 && forcaMa > 0 && forcaE > 0){
+    text = "senha forte";
+    cor = "#59b300";
+  }else if(forcaN > 0 && forcaMi > 0){
+    text = "senha media";
+    cor = "#ffdd33";
+  }else if(forcaMi > 0){
+    text = "senha fraca";
+    cor = "#ff3333";
+  }else if(forcaMa > 0){
+    text = "senha fraca";
+    cor = "#ff3333";
+  }else if(forcaN > 0){
+    text = "senha fraca";
+    cor = "#ff3333";
+  }
+  console.log(text);
+  $('#conteudo').text(text).css("background-color", cor);
+  $("#conteudo").show();
+}
+$('#senha').blur(function(){
+  $('#conteudo').hide();  
+})
+//este é preciso também para não esconder quando clica no grupos ou conteudo
+$("#senha, #conteudo").click(function(e){
+  e.stopPropagation(); 
+});
 function cadastrar(){
   if(verifica()){
     var form = $('#form-cadastro').serialize();
@@ -123,7 +177,9 @@ function cadastrar(){
           dataType: "json",
           data: form,
           success: function(response){
-            if(response == -2){
+            if(response == -3){
+              alert('Senha deve ter pelo menos 8 digitos');
+            }else if(response == -2){
               alert("As senhas digitadas não são iguais");
             }else if(response == -1){
               alert("Falha ao cadastrar, tente novamente ou entre em contato com o suporte do site");
@@ -134,7 +190,7 @@ function cadastrar(){
               $('#form-cadastro').each (function(){
                 this.reset();
               });
-              alert("Verifique seu email para confirmar seu email");
+              alert("Verifique seu email para confirmar sua conta");
             }
           },
           error: function(response){
@@ -176,6 +232,10 @@ function verifica() {
     alert('Por favor, Preencha o campo CONFIRMAR SENHA.');
     $('#confSenha').focus();
     return false;
+  }else if($('#senha').val().length < 8){
+    alert('Senha deve ter pelo menos 8 digitos');
+    $('#senha').focus();
+    return false;
   }
   return true;
 }
@@ -192,11 +252,13 @@ function login(){
           window.location.href = "../view/areaUsuario.php";
         } else if(response == -1){
           alert("Email ou senha incorretos");
-        } else if(response == -2 || response == -3 || response == 0){
+        } else if(response == -2 || response == -4 || response == 0){
           alert("Falha no login, tente novamente ou entre em contato");
         } else if(response == 2){
           console.log(response);
           window.location.href = "../view/adm-dashboard.php";
+        }else if(response == -3){
+          alert("Usuario não verificado");
         }
       },
       error: function(response){
@@ -284,8 +346,16 @@ function alterarSenha(){
     alert("Senha não pode ser vazia")
   }
 }
-
+$('#comentar').keypress(function(){
+  if($('#comentar').val().length > 255){
+    alert("Comentario pode ter até 255 caracteres");
+  }
+})
 function comentar(){
+  if($('#comentar').val().length > 255){
+    alert("Comentario pode ter até 255 caracteres");
+    return 0;
+  }
   if(localArray[localArray.length - 1] == "profissoes.php"){
     var local = 'area';
   }else{
