@@ -55,6 +55,9 @@
         <section class="page-section entrar" id="form">
             <div class="container">
                 <div class="d-flex justify-content-center h-100">
+                    <div class="alert alert-warning resposta" role="alert" id="resposta" style="display: none"></div>
+                    <div class="alert alert-danger resposta" role="alert" id="resposta" style="display: none"></div>
+                    <div class="alert alert-success resposta" role="alert" id="resposta" style="display: none"></div>
                     <div class="card">
                         <div class="card-header">
                             <h3>Cadastro</h3>

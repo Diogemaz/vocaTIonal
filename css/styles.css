@@ -10239,3 +10239,8 @@ label#foto2 {
   background-color: black;
   opacity: 0.7;
 }
+
+.resposta{
+  position: absolute;
+  top: 80px;
+}

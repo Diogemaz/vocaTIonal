@@ -178,19 +178,44 @@ function cadastrar(){
           data: form,
           success: function(response){
             if(response == -3){
-              alert('Senha deve ter pelo menos 8 digitos');
+              $('#resposta').text('Senha deve ter pelo menos 8 digitos');
+              $('.alert-warning').show();
+              setInterval(() => {
+                $('#resposta').text("");
+                $('.alert-warning').hide('close');
+              }, 10000);
             }else if(response == -2){
-              alert("As senhas digitadas não são iguais");
+              $('#resposta').text("As senhas digitadas não são iguais");
+              $('.alert-warning').show();
+              setInterval(() => {
+                $('#resposta').text("");
+                $('.alert-warning').hide('close');
+              }, 10000);
             }else if(response == -1){
-              alert("Falha ao cadastrar, tente novamente ou entre em contato com o suporte do site");
+              $('#resposta').text("Falha ao cadastrar, tente novamente ou entre em contato com o suporte do site");
+              $('.alert-danger').show();
+              setInterval(() => {
+                $('#resposta').text("");
+                $('.alert-danger').hide('close');
+              }, 10000);
             }else if(response == 0){
-              alert("Email já cadastrado no site");
+              $('#resposta').text("Email já cadastrado no site");
+              $('.alert-warning').show();
+              setInterval(() => {
+                $('#resposta').text("");
+                $('.alert-warning').hide('close');
+              }, 10000);
             }else if(response == 1){
               console.log(response);
+              $('.alert-success').text("Verifique seu email para confirmar sua conta");
+              $('.alert-success').show();
+              setInterval(() => {
+                $('#resposta').text("");
+                $('.alert-success').hide('close');
+              }, 10000);
               $('#form-cadastro').each (function(){
                 this.reset();
               });
-              alert("Verifique seu email para confirmar sua conta");
             }
           },
           error: function(response){
@@ -217,23 +242,48 @@ function checarEmail(){
 }
 function verifica() {
   if($('#email').val() == ''){
-    alert('Por favor, informe o seu EMAIL.');
+    $('#resposta').text('Por favor, informe o seu EMAIL.');
+    $('.alert').show();
+    setInterval(() => {
+      $('#resposta').text("");
+      $('.alert').hide('close');
+    }, 10000);
     $('#email').focus();
     return false;
   }else if($('#nome').val() == ''){
-    alert('Por favor, informe o seu NOME DE USUÁRIO.');
+    $('#resposta').text('Por favor, informe o seu NOME DE USUÁRIO.');
+    $('.alert').show();
+    setInterval(() => {
+      $('#resposta').text("");
+      $('.alert').hide('close');
+    }, 10000);
     $('#nome').focus();
     return false;
   }else if($('#senha').val() == ''){
-    alert('Por favor, informe o sua SENHA.');
+    $('#resposta').text('Por favor, informe o sua SENHA.');
+    $('.alert-warning').show();
+    setInterval(() => {
+      $('#resposta').text("");
+      $('.alert-warning').hide('close');
+    }, 10000);
     $('#senha').focus();
     return false;
   }else if($('#confSenha').val() == ''){
-    alert('Por favor, Preencha o campo CONFIRMAR SENHA.');
+    $('#resposta').text('Por favor, Preencha o campo CONFIRMAR SENHA.');
+    $('.alert--warning').show();
+    setInterval(() => {
+      $('#resposta').text("");
+      $('.alert-warning').hide('close');
+    }, 10000);
     $('#confSenha').focus();
     return false;
   }else if($('#senha').val().length < 8){
-    alert('Senha deve ter pelo menos 8 digitos');
+    $('#resposta').text('Senha deve ter pelo menos 8 digitos');
+    $('.alert-warning').show();
+    setInterval(() => {
+      $('#resposta').text("");
+      $('.alert-warning').hide('close');
+    }, 10000);
     $('#senha').focus();
     return false;
   }
@@ -251,14 +301,29 @@ function login(){
         if(response == 1){
           window.location.href = "../view/areaUsuario.php";
         } else if(response == -1){
-          alert("Email ou senha incorretos");
+          $('#resposta').text("Email ou senha incorretos");
+          $('.alert').show();
+          setInterval(() => {
+            $('#resposta').text("");
+            $('.alert').hide('close');
+          }, 10000);
         } else if(response == -2 || response == -4 || response == 0){
-          alert("Falha no login, tente novamente ou entre em contato");
+          $('#resposta').text("Falha no login, tente novamente ou entre em contato");
+          $('.alert').show();
+          setInterval(() => {
+            $('#resposta').text("");
+            $('.alert').hide('close');
+          }, 10000);
         } else if(response == 2){
           console.log(response);
           window.location.href = "../view/adm-dashboard.php";
         }else if(response == -3){
-          alert("Usuario não verificado");
+          $('#resposta').text("Usuario não verificado");
+          $('.alert').show();
+          setInterval(() => {
+            $('#resposta').text("");
+            $('.alert').hide('close');
+          }, 10000);
         }
       },
       error: function(response){
