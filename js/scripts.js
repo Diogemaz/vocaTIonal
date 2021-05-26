@@ -421,6 +421,10 @@ function comentar(){
     alert("Comentario pode ter até 255 caracteres");
     return 0;
   }
+  if($('#comentar').val() == 0){
+    alert("Comentario vazio?");
+    return false;
+  }
   if(localArray[localArray.length - 1] == "profissoes.php"){
     var local = 'area';
   }else{

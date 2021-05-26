@@ -68,7 +68,7 @@
                         </div>
                         <div class="card-body">
                             <div class="input-group form-group">
-                                <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome de Usuário" maxlength="50" required>
+                                <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome de Usuário" maxlength="25" required>
                             </div>
                             <div class="input-group form-group">
                                 <input type="email" name="email" id="email" class="form-control" placeholder="Email" onblur="checarEmail();" required>

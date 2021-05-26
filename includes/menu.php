@@ -15,6 +15,9 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="view/areaUsuario.php#services">Suas áreas</a>
+            <?php if($user->getAdm() == 1){ ?>
+                <a class="dropdown-item" href="view/adm-dashboard.php">Voltar a Adm</a>
+            <?php } ?>
             <a class="dropdown-item" href="view/confUser.php">Configuração do perfil</a>
             <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="view/entra.php?logout=1">Sair</a>
@@ -43,6 +46,9 @@
             <?php echo $user->getNomeUsuario(); ?>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <?php if($user->getAdm() == 1){ ?>
+                <a class="dropdown-item" href="view/adm-dashboard.php">Voltar a Adm</a>
+            <?php } ?>
             <a class="dropdown-item" href="confUser.php">Configuração do perfil</a>
             <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="entra.php?logout=1">Sair</a>
@@ -72,6 +78,9 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="areaUsuario.php#services">Suas áreas</a>
+            <?php if($user->getAdm() == 1){ ?>
+                <a class="dropdown-item" href="view/adm-dashboard.php">Voltar a Adm</a>
+            <?php } ?>
             <a class="dropdown-item" href="confUser.php">Configuração do perfil</a>
             <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="entra.php?logout=1">Sair</a>

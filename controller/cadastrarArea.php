@@ -6,7 +6,7 @@
         $user = unserialize($_SESSION['user']);
         if($user->getAdm() == 1){
             $nome = $_POST['nome'];
-            $descricao = $_POST['descricao'];
+            $descricao = substr($_POST['descricao'], 0, 1001);
             $area = new Area;
             try{
                 $cadastro = $area->cadastrarArea($nome, $descricao);

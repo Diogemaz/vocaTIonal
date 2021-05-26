@@ -4,7 +4,7 @@ if(!$_POST){ header('location: ../view/cadastro.php'); }
     require_once "../model/usuario.php";
     require_once "../model/funcoes.php";
 
-    $nomeUser = substr($_POST['nome'], 0, 51);
+    $nomeUser = substr($_POST['nome'], 0, 26);
     $email = $_POST['email'];
     $token = md5($_POST['email']);
     $senha = $_POST['senha'];

@@ -159,7 +159,7 @@
                 <form id="comentar" onsubmit="comentar();" method="POST">
                     <div class="form-group">
                         <label for="comentario">Deixe seu comentario</label>
-                        <textarea class="form-control" id="comentario" data-ls-module="charCounter" oninput="if(this.scrollHeight > this.offsetHeight) this.rows += 1" maxlength="500" name="comentario" rows="1">
+                        <textarea class="form-control" required id="comentario" data-ls-module="charCounter" oninput="if(this.scrollHeight > this.offsetHeight) this.rows += 1" maxlength="500" name="comentario" rows="1">
                         </textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Enviar</button>

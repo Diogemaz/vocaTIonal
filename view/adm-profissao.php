@@ -417,6 +417,9 @@ if(isset($_SESSION['user'])){
     <script src="../assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="../dist/js/pages/chart/chart-page-init.js"></script>
     <script>      
+        $(document).ready(function () {
+            abriPagina();
+        });
         form = document.getElementById('form-profissao');
         form.addEventListener('submit', e => {
             e.preventDefault()
@@ -477,7 +480,13 @@ if(isset($_SESSION['user'])){
             $('#retorno').html("");
             var area = $('#areaSelect option:selected').val();
             $('#retorno').load("../controller/consultarProfissoes.php", {area : area});
-            $('#')
+        }
+        function abriPagina(){
+            if($('#areaSelect option:selected').val() == 0){
+                $('#retorno').appendChild(document.createElement('h2').textContent("Nenhuma Área selecionada"))
+            }else{
+                profissoes();
+            }
         }
     </script>
 </body>

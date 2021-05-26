@@ -306,7 +306,7 @@ if(isset($_SESSION['user'])){
                                 <th scope="row"><?php echo $curso->getId(); ?></th>
                                 <td><?php echo $curso->getNome(); ?></td>
                                 <td><?php if($curso->getPreco() == 0.00){ echo "Gratuito"; }else{echo str_replace(".", ",", $curso->getPreco());} ?></td>
-                                <td><?php echo $curso->getLink(); ?></td>
+                                <td><a href="<?php echo $curso->getLink(); ?>"><?php echo $curso->getLink(); ?></a></td>
                                 <td><a href="?profissao=<?php echo $profissao->getId();  ?>&curso=<?php echo $curso->getId(); ?>" class="btn btn-primary">Alterar/Excluir</a></td>
                             </tr>
                         <?php } ?>
@@ -421,7 +421,10 @@ if(isset($_SESSION['user'])){
     <script src="../assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="../dist/js/pages/chart/chart-page-init.js"></script>
     <script>
-    form = document.getElementById('form-curso');
+        $(document).ready(function () {
+                abriPagina();
+            });
+        form = document.getElementById('form-curso');
         form.addEventListener('submit', e => {
             e.preventDefault()
         })
@@ -482,6 +485,13 @@ if(isset($_SESSION['user'])){
             var area = $('#areaSelect option:selected').val();
             $('#retorno').load("../controller/consultarProfissoes.php", {area : area});
             $('#')
+        }
+        function abriPagina(){
+            if($('#areaSelect option:selected').val() == 0){
+                $('#retorno').appendChild(document.createElement('h2').textContent("Nenhuma Área selecionada"))
+            }else{
+                profissoes();
+            }
         }
     </script>
 </body>
