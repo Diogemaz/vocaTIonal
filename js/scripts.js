@@ -346,8 +346,19 @@ function favorita(){
         success: function(response){
           if(response == 1){
             $('#favoritar').html("Remover Favorito");
+            $('.alert-success').text("Favoritado!");
+            $('.alert-success').show();
+            setInterval(() => {
+              $('.alert-success').text("");
+              $('.alert-success').hide('close');
+            }, 5000);
           }else if(response == 0){
-            alert("Falha ao cadastrar, tente novamente");
+            $('.alert-warning').text("Falha ao cadastrar, tente novamente");
+            $('.alert-warning').show();
+            setInterval(() => {
+              $('.alert-warning').text("");
+              $('.alert-warning').hide('close');
+            }, 5000);
           }else if(response == -1){
             alert("Falha!");
           }
@@ -367,15 +378,35 @@ function favorita(){
       success: function(response){
         if(response == 1){
           $('#favoritar').html("Favoritar área");
+          $('.alert-success').text("Favorito Removido!");
+          $('.alert-success').show();
+          setInterval(() => {
+            $('.alert-success').text("");
+            $('.alert-success').hide('close');
+          }, 5000);
         }else if(response == 0){
-          alert("Falha!");
+          $('.alert-warning').text("ERRO!");
+          $('.alert-warning').show();
+          setInterval(() => {
+            $('.alert-warning').text("");
+            $('.alert-warning').hide('close');
+          }, 5000);
         }else if(response == -1){
-          alert("Falha!");
+          $('.alert-warning').text("ERRO!");
+          $('.alert-warning').show();
+          setInterval(() => {
+            $('.alert-warning').text("");
+            $('.alert-warning').hide('close');
+          }, 5000);
         }
       },
       error: function(response){
-        alert("erro2");
-        console.log("erro"+response);
+        $('.alert-danger').text("Uma falha ocorreu!");
+          $('.alert-danger').show();
+          setInterval(() => {
+            $('.alert-danger').text("");
+            $('.alert-danger').hide('close');
+          }, 5000);
       }
   });
   }

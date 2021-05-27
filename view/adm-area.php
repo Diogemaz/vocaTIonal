@@ -30,6 +30,13 @@ if(isset($_SESSION['user'])){
 </head>
 
 <body>
+        <div class="container">
+            <div class="d-flex justify-content-center h-100">
+                <div class="alert alert-danger resposta" role="alert" id="resposta" style="display: none"></div>
+                <div class="alert alert-warning resposta" role="alert" id="resposta" style="display: none"></div>
+                <div class="alert alert-success resposta" role="alert" id="resposta" style="display: none"></div>
+            </div>
+        </div>
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
@@ -392,15 +399,23 @@ if(isset($_SESSION['user'])){
                 data: form,
                 success: function(response){
                 if(response == 1){
-                    alert("cadastrado com sucesso!");
                     window.location.href = "adm-area.php";
                 }else if(response == 0){
-                    alert("Falha ao cadastrar, tente novamente");
+                    $('.alert-warning').text("Falha ao cadastrar, tente novamente");
+                    $('.alert-warning').show();
+                    setInterval(() => {
+                        $('.alert-warning').text("");
+                        $('.alert-warning').hide('close');
+                    }, 5000);
                 }
                 },
                 error: function(response){
-                alert("erro");
-                console.log("erro"+response);
+                    $('.alert-danger').text("ERRO!"+response);
+                    $('.alert-danger').show();
+                    setInterval(() => {
+                        $('.alert-danger').text("");
+                        $('.alert-danger').hide('close');
+                    }, 5000);
                 }
             });
         };

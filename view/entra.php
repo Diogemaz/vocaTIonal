@@ -27,6 +27,11 @@
         <link href="../css/styles.css" rel="stylesheet" />
     </head>
     <body id="page-top">
+        <div class="container" style="position: relative; z-index: 1;">
+            <div class="d-flex justify-content-center h-100">
+                <div class="alert alert-danger resposta" role="alert" id="resposta" style="display: none"></div>
+            </div>
+        </div>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container">
@@ -46,7 +51,6 @@
         <section class="page-section entrar" id="form">
             <div class="container">
                 <div class="d-flex justify-content-center h-100">
-                    <div class="alert alert-danger resposta" role="alert" id="resposta" style="display: none"></div>
                     <div class="card">
                         <div class="card-header">
                             <h3>Entrar</h3>

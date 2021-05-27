@@ -10241,6 +10241,6 @@ label#foto2 {
 }
 
 .resposta{
-  position: absolute;
-  top: 80px;
+  position: fixed;
+  top: 100px;
 }

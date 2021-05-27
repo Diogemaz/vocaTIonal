@@ -240,13 +240,20 @@ if(isset($_SESSION['user'])){
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
         <div class="page-wrapper">
+            <div class="container" style="position: relative; z-index: 1;">
+                <div class="d-flex justify-content-center h-100">
+                    <div class="alert alert-warning resposta" role="alert" id="resposta" style="display: none"></div>
+                    <div class="alert alert-danger resposta" role="alert" id="resposta" style="display: none"></div>
+                    <div class="alert alert-success resposta" role="alert" id="resposta" style="display: none"></div>
+                </div>
+            </div> 
             <!-- ============================================================== -->
             <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <select id="areaSelect" name="areaSelect" onchange="profissoes()">
+                        <select id="areaSelect" name="areaSelect" onchange="profissoes(this.value)">
                             <option value="0">SELECIONE A ÁREA</option>
                             <?php 
                                 $areas = new area;
@@ -390,6 +397,7 @@ if(isset($_SESSION['user'])){
                                             <button onclick="deletarCurso();" class="btn btn-primary">Excluir</button>
                                         </div>
                                     </div>
+                                    <input type="hidden" name="profissao" id="profissao" value="<?php echo $curso->getIdProfissao(); ?>">
                                 </form>
                             <button class="btn btn-primary"><a href="adm-curso.php" style="text-decoration: none; color: white;">Adicionar novo curso</a></button>  
                         </div>
@@ -438,15 +446,23 @@ if(isset($_SESSION['user'])){
                 data: form,
                 success: function(response){
                 if(response == 1){
-                    alert("cadastrado com sucesso!");
-                    Window.location.href = "adm-curso.php";
+                    window.location.href = "adm-curso.php?profissao="+$('#profissao').val(); 
                 }else if(response == 0){
-                    alert("Falha ao cadastrar, tente novamente");
+                    $('.alert-warning').text("Falha ao cadastrar, tente novamente");
+                    $('.alert-warning').show();
+                    setInterval(() => {
+                        $('.alert-warning').text("");
+                        $('.alert-warning').hide('close');
+                    }, 5000);
                 }
                 },
                 error: function(response){
-                alert("erro");
-                console.log("erro"+response);
+                    $('.alert-danger').text("ERRO!"+response);
+                    $('.alert-danger').show();
+                    setInterval(() => {
+                        $('.alert-danger').text("");
+                        $('.alert-danger').hide('close');
+                    }, 5000);
                 }
             });
         };
@@ -467,30 +483,43 @@ if(isset($_SESSION['user'])){
                 dataType: "json",
                 data: form,
                 success: function(response){
-                if(response == 1){
-                    alert("Alterado/deletado com sucesso!");
-                    window.location.href = "adm-curso.php";
+                    if(response == 1){
+                    $('.alert-success').text("Alterado/deletado com sucesso!");;
+                    $('.alert-success').show();
+                    setInterval(() => {
+                        $('.alert-success').text("");
+                        $('.alert-success').hide('close');
+                    }, 5000);
+                    window.location.href = "adm-curso.php?profissao="+$('#profissao').val();                   
                 }else if(response == 0){
-                    alert("Falha ao alterar, tente novamente");
+                    $('.alert-warning').text("Falha ao alterar, tente novamente");
+                    $('.alert-warning').show();
+                    setInterval(() => {
+                        $('.alert-warning').text("");
+                        $('.alert-warning').hide('close');
+                    }, 5000);
                 }
                 },
                 error: function(response){
-                alert("erro");
-                console.log("erro"+response);
+                    $('.alert-danger').text("ERRO!"+response);
+                    $('.alert-danger').show();
+                    setInterval(() => {
+                        $('.alert-danger').text("");
+                        $('.alert-danger').hide('close');
+                    }, 5000);
                 }
             });
         };
-        function profissoes(){
+        function profissoes(area){
             $('#retorno').html("");
-            var area = $('#areaSelect option:selected').val();
             $('#retorno').load("../controller/consultarProfissoes.php", {area : area});
-            $('#')
         }
         function abriPagina(){
             if($('#areaSelect option:selected').val() == 0){
-                $('#retorno').appendChild(document.createElement('h2').textContent("Nenhuma Área selecionada"))
+                var elemento = "<h2>Nenhuma Área selecionada</h2>";
+                document.getElementById('retorno').innerHTML = elemento;
             }else{
-                profissoes();
+                profissoes($('#areaSelect option:selected').val());
             }
         }
     </script>

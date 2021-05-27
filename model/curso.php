@@ -7,6 +7,7 @@ class curso
     public $nome;
     public $preco;
     public $link;
+    public $id_profissao;
     
     public function setPreco($preco){
         $this->preco = $preco;
@@ -35,6 +36,10 @@ class curso
     public function getLink(){
         return $this->link;
     }
+
+    public function getIdProfissao(){
+        return $this->id_profissao;
+    }
     public function __construct($id, $nome, $preco, $link)
     {   
         $this->id = $id;
@@ -55,6 +60,7 @@ class curso
                     $this->nome = $row['nome_curso'];
                     $this->preco = $row['preco'];
                     $this->link = $row['link'];
+                    $this->id_profissao = $row['id_profissao'];
                 }
             }
         }catch(Exception $ex){

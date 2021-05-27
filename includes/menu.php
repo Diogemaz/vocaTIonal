@@ -47,7 +47,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <?php if($user->getAdm() == 1){ ?>
-                <a class="dropdown-item" href="view/adm-dashboard.php">Voltar a Adm</a>
+                <a class="dropdown-item" href="adm-dashboard.php">Voltar a Adm</a>
             <?php } ?>
             <a class="dropdown-item" href="confUser.php">Configuração do perfil</a>
             <div class="dropdown-divider"></div>
@@ -79,7 +79,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="areaUsuario.php#services">Suas áreas</a>
             <?php if($user->getAdm() == 1){ ?>
-                <a class="dropdown-item" href="view/adm-dashboard.php">Voltar a Adm</a>
+                <a class="dropdown-item" href="adm-dashboard.php">Voltar a Adm</a>
             <?php } ?>
             <a class="dropdown-item" href="confUser.php">Configuração do perfil</a>
             <div class="dropdown-divider"></div>

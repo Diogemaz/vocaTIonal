@@ -7,7 +7,6 @@
         $user = unserialize($_SESSION['user']);
         $area = unserialize($_SESSION['area']);
         if($funcao == "Favoritar área"){
-        if($user->getAdm() == 0){
             try{
                 $favorita = $area->Favorita($user->getId());
                 if($favorita == 1){
@@ -17,21 +16,18 @@
                 }
             }catch (Exception $e){
                 $response = -1;
-            }   
-        }else{ $response = -2; }
+            }  
         }else if($funcao == "Remover Favorito"){
-            if($user->getAdm() == 0){
-                try{
-                    $favorita = $area->RemoverFavorita($user->getId());
-                    if($favorita == 1){
-                        $response = 1;
-                    }else{
-                        $response = 0;
-                    }
-                }catch (Exception $e){
-                    $response = -1;
-                }   
-            }else{ $response = -2; }
+            try{
+                $favorita = $area->RemoverFavorita($user->getId());
+                if($favorita == 1){
+                    $response = 1;
+                }else{
+                    $response = 0;
+                }
+            }catch (Exception $e){
+                $response = -1;
+            }  
         }
         echo json_encode($response);
     }else{
