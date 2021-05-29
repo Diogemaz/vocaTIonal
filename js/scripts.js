@@ -61,6 +61,14 @@
   });
 
 })(jQuery); // End of use strict
+$('#nome').on('keypress', function (event) {
+  var regex = new RegExp("^[a-zA-Z0-9]+$");
+  var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+  if (!regex.test(key)) {
+     event.preventDefault();
+     return false;
+  }
+});
 var local = window.location.pathname;
 var localArray = local.split("/");
 var form;
@@ -451,10 +459,6 @@ function comentar(){
   if($('#comentar').val().length > 255){
     alert("Comentario pode ter até 255 caracteres");
     return 0;
-  }
-  if($('#comentar').val() == 0){
-    alert("Comentario vazio?");
-    return false;
   }
   if(localArray[localArray.length - 1] == "profissoes.php"){
     var local = 'area';
