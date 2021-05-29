@@ -92,11 +92,6 @@
                     <h6 class="text-white-75 font-weight-light mt-3">
                     Salario: <?php echo $profissao->getSalario(); ?>
                     </h6>
-                    <div class="d-flex justify-content-center">
-                        <a href="cursos.php?profissao=<?php echo $profissao->getNome(); ?>" class="categories__calls__description--home">
-                            Ver mais
-                        </a>
-                    </div>
                     </nav>
                 </div>
             <?php
@@ -143,10 +138,10 @@
                         <img id="deslike" class="mt-3 rotate" src="<?php if($area->getAvaliacao() == -1){ echo "../assets/img/like_sel.png"; }else{ echo "../assets/img/like.png"; } ?>" height="40px" width="40px">
                     </button>
                     <?php }else{ ?>
-                        <button style="border: 0; background: transparent" onclick="alert('É preciso ser um usuário')">
+                        <button style="border: 0; background: transparent" onclick="semUser()">
                             <img id="like" src="../assets/img/like.png" height="40px" width="40px">
                         </button>
-                        <button style="border: 0; background: transparent" onclick="alert('É preciso ser um usuário')">
+                        <button style="border: 0; background: transparent" onclick="semUser()">
                             <img id="deslike" class="mt-3 rotate" src="../assets/img/like.png" height="40px" width="40px">
                         </button>
                     <?php } ?>
@@ -172,6 +167,8 @@
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
                 <h2 class="text-uppercase text-primary font-weight-bold mb-5 mt-3">Comentários</h2>
+                <div id="retorno">
+                </div>
                 <!--comentario 1-->
                 <?php 
                     $resultado = $area->getComentario();
@@ -199,12 +196,12 @@
                                                 ...
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                            <button class="dropdown-item" onclick="excluirComentario();">Excluir</button>
+                                            <button class="dropdown-item" onclick="excluirComentario(<?php echo $comentario['id_comentarioArea']; ?>);">Excluir</button>
                                         </li>
                                     </ul>
                                 </div>
-                            <?php } ?>
-                        </div>
+                            </div> 
+                <?php } ?>
                         <div class="row">
                             <p><?php echo $comentario['comentario']; ?></p>
                         </div>

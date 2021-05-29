@@ -40,6 +40,13 @@
         <link rel="stylesheet" href="../css/estilo.css">
     </head>
     <body id="page-top">
+        <div class="container" style="position: relative; z-index: 1;">
+            <div class="d-flex justify-content-center h-100">
+                <div class="alert alert-danger resposta" role="alert" id="resposta" style="display: none"></div>
+                <div class="alert alert-warning resposta" role="alert" id="resposta" style="display: none"></div>
+                <div class="alert alert-success resposta" role="alert" id="resposta" style="display: none"></div>
+            </div>
+        </div>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container">
@@ -83,11 +90,6 @@
                     <h6 class="text-white-75 font-weight-light mt-3">
                     Preço: <?php if($curso->getPreco() == 0.00){ echo "Gratuito"; }else{echo str_replace(".", ",", $curso->getPreco());} ?>
                     </h6>
-                    <div class="d-flex justify-content-center">
-                        <a href="<?php echo $curso->getLink(); ?>" class="categories__calls__description--home">
-                            Ver mais
-                        </a>
-                    </div>
                     </nav>
                 </div>
                 <?php } ?>
@@ -107,10 +109,10 @@
                         <img id="deslike" class="mt-3 rotate" src="<?php if($profissao->getAvaliacao() == -1){ echo "../assets/img/like_sel.png"; }else{ echo "../assets/img/like.png"; } ?>" height="40px" width="40px">
                     </button>
                     <?php }else{ ?>
-                        <button style="border: 0; background: transparent" onclick="alert('É preciso ser um usuário')">
+                        <button style="border: 0; background: transparent" onclick="semUser()">
                             <img id="like" src="../assets/img/like.png" height="40px" width="40px">
                         </button>
-                        <button style="border: 0; background: transparent" onclick="alert('É preciso ser um usuário')">
+                        <button style="border: 0; background: transparent" onclick="semUser()">
                             <img id="deslike" class="mt-3 rotate" src="../assets/img/like.png" height="40px" width="40px">
                         </button>
                     <?php } ?>

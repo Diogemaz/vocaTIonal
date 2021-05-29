@@ -76,16 +76,18 @@
                 </div>
                 </a>
                 <nav class="categories__calls--home">
-                <a href="profissoes.php?area=<?php echo $area[$i]->getNome(); ?>" class="categories__calls__description--home">
-                        <?php 
-                            $j = 0;
-                            foreach($area[$i]->getProfissoes() as $profissao){ 
-                                echo $profissao->getNome(); 
+                <?php 
+                        $j = 0;
+                        foreach($area[$i]->getProfissoes() as $profissao){
+                ?>
+                 <a href="cursos.php?profissao=<?php echo $profissao->getNome(); ?>" class="categories__calls__description--home">
+                        <?php                   
+                                echo $profissao->getNome();
                                 $j++;
-                                if($j == 5){break;} 
-                            }
-                        ?>...
-                </a>
+                                if($j == 5){break;}
+                        ?>
+                </a> |
+                <?php } ?>
                 <div class="row d-flex justify-content-center pl-2">                    
                     <div class="col-1"><img src="../assets/img/star1.png" width="30" height="30"></div>
                     <div class="col mt-1">
@@ -94,9 +96,6 @@
                         </h6>
                     </div>
                 </div>
-                <a href="profissoes.php?area=<?php echo $area[$i]->getNome(); ?>" class="categories__calls__description--home">
-                    Ver mais
-                </a>
                 </nav>
             </div>
         <?php

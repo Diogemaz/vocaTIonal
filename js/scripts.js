@@ -420,7 +420,13 @@ function favorita(){
   }
 }};
 function favoritaSemUser(){
-  alert("Apenas usuarios logados podem favoritar áreas");
+  
+  $('.alert-warning').text("Apenas usuarios logados podem favoritar áreas");
+  $('.alert-warning').show();
+  setInterval(() => {
+    $('.alert-warning').text("");
+    $('.alert-warning').hide('close');
+  }, 5000);
 }
 function alterarSenha(){
   var form = $('#form-altUserSenha').serialize();
@@ -466,33 +472,61 @@ function comentar(){
     var local = 'profissao';
   }
   var form = $('#comentar').serialize() + '&local=' + local;
+  var comentario = $('#comentario').val();
   $.ajax({
     type:'POST',
     url:'../controller/comentar.php',
     dataType: "json",
     data: form,
     success: function(response){
+      $('#comentario').val("");
       if(response == 1){
-        window.location.href = window.location.href;
+        $('#retorno').load("../controller/comentarioNovo.php", {
+          comentario
+        });
+        $('.alert-success').text("Comentario adicionado");
+        $('.alert-success').show();
+        setInterval(() => {
+          $('.alert-success').text("");
+          $('.alert-success').hide('close');
+        }, 5000);
       }else if(response == 0){
-        alert("É preciso estar logado para comentar");
+        $('.alert-warning').text("É preciso estar logado para comentar");
+        $('.alert-warning').show();
+        setInterval(() => {
+          $('.alert-warning').text("");
+          $('.alert-warning').hide('close');
+        }, 5000);
       }else if(response == -1){
-        alert("Erro");
+        $('.alert-danger').text("Erro");
+        $('.alert-danger').show();
+        setInterval(() => {
+          $('.alert-danger').text("");
+          $('.alert-danger').hide('close');
+        }, 5000);
       }
     },
     error: function(response){
-      alert("erro2");
-      console.log("erro"+response);
+      $('.alert-danger').text("erro "+response);
+      $('.alert-danger').show();
+      setInterval(() => {
+        $('.alert-danger').text("");
+        $('.alert-danger').hide('close');
+      }, 5000);
     }
   });
 }
-function excluirComentario(){
+function excluirComentario(valor){
   if(localArray[localArray.length - 1] == "profissoes.php"){
     var local = 'area';
   }else if(localArray[localArray.length - 1] == "cursos.php"){
     var local = 'profissao';
   }
-  var idComentario = $('#comentarioId').val();
+  if(valor == -1){
+    $('#retorno').text("");
+  }else{
+    var idComentario = valor;
+  
   $.ajax({
     type:'POST',
     url:'../controller/excluirComentario.php',
@@ -510,6 +544,7 @@ function excluirComentario(){
       console.log("erro"+response);
     }
   });
+}
 }
 
 function like(){
@@ -581,4 +616,13 @@ function deslike(){
       console.log("erro"+response);
     }
   });
+}
+
+function semUser(){
+  $('.alert-warning').text("É preciso ser um usuário");
+  $('.alert-warning').show();
+  setInterval(() => {
+    $('.alert-warning').text("");
+    $('.alert-warning').hide('close');
+  }, 5000);
 }
