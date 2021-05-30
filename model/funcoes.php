@@ -36,4 +36,40 @@ function verificarEmail($email, $nomeUser, $token){
         echo $mail->error;
      }
 }
+
+function notificaUsers($area, $item){
+    $con = conexao();
+    try{
+        $resultado = $con->prepare("SELECT a.nome_area, f.id_usuario FROM favorito_usuario f, area a WHERE f.id_area=:area AND f.id_area = a.id_area");
+        $resultado->bindParam(':area', $area, PDO::PARAM_INT);
+        $resultado->execute();
+        while($row = $resultado->fetch()){
+            if($item == 1){
+                $link = "cursos.php?profissao=".$row['nome_area'];
+            }
+            $stmt = $con->prepare("INSERT INTO notificacao (id_usuario, link, id_area, item) VALUES (:user, :link, :area, :item)");
+            $stmt->bindParam(':user', $row['id_usuario'], PDO::PARAM_STR, 50);
+            $stmt->bindParam(':link', $link, PDO::PARAM_STR);
+            $stmt->bindParam(':area', $area, PDO::PARAM_INT);
+            $stmt->bindParam(':item', $item, PDO::PARAM_INT);
+            $stmt->execute();
+            return 1;
+        }
+    }catch(Exception $e){
+        return 0;
+    }
+}
+
+    function getNotificacao($user){
+        $con = conexao();
+        try{
+            $sql = "SELECT a.nome_area, n.* FROM notificacao n, area a WHERE id_usuario=:user AND a.id_area = n.id_area";
+            $resultado = $con->prepare($sql);
+            $resultado->bindParam(':user', $user, PDO::PARAM_INT);
+            $resultado->execute();
+            return $resultado;
+        }catch(Exception $e){
+            return $e;
+        }
+    }
 ?>

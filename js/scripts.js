@@ -62,7 +62,7 @@
 
 })(jQuery); // End of use strict
 $('#nome').on('keypress', function (event) {
-  var regex = new RegExp("^[a-zA-Z0-9]+$");
+  var regex = new RegExp("^[a-zA-Z0-9àèìòùáéíóúâêîôûãõ\b]+$");
   var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
   if (!regex.test(key)) {
      event.preventDefault();
@@ -244,7 +244,12 @@ function cadastrar(){
 };
 function checarEmail(){
   if($('#email').val()=="" || $('#email').val().indexOf('@')==-1 || $('#email').val().indexOf('.')==-1){
-    alert("Por favor, informe um E-MAIL válido!");
+    $('.alert-warning').text("Por favor, informe um E-MAIL válido!");
+    $('.alert-warning').show();
+    setInterval(() => {
+      $('.alert-warning').text("");
+      $('.alert-warning').hide('close');
+    }, 5000);
     return false;
   }
 }

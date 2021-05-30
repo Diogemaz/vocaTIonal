@@ -59,7 +59,7 @@ if(isset($_SESSION['user'])){
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand" href="index.html">
+                    <div class="navbar-brand">
                         <!-- Logo icon -->
                         <!--End Logo icon -->
                         <!-- Logo text -->
@@ -74,10 +74,9 @@ if(isset($_SESSION['user'])){
                         <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                         <!-- Dark Logo icon -->
                         <!-- <img src="../assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
-
+                    </div>
                         <!-- </b> -->
                         <!--End Logo icon -->
-                    </a>
                     <!-- ============================================================== -->
                     <!-- End Logo -->
                     <!-- ============================================================== -->
