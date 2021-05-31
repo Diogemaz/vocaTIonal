@@ -62,13 +62,11 @@
 
 })(jQuery); // End of use strict
 $('#nome').on('keypress', function (event) {
-  var regex = new RegExp("^[a-zA-Z0-9àèìòùáéíóúâêîôûãõ\b]+$");
+  var regex = new RegExp("^[a-zA-Z0-9àèìòùáéíóúâêîôûãõ \b]+$");
   var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
   if (!regex.test(key)) {
      event.preventDefault();
      return false;
-  }else{
-     $('#nome').val("");
   }
 });
 var local = window.location.pathname;
@@ -263,7 +261,7 @@ function checarEmail(){
   }
 }
 function verifica() {
-  var regex = new RegExp("^[a-zA-Z0-9àèìòùáéíóúâêîôûãõ\b]+$");
+  var regex = new RegExp("^[a-zA-Z0-9àèìòùáéíóúâêîôûãõ \b]+$");
   if($('#email').val() == ''){
     $('#resposta').text('Por favor, informe o seu EMAIL.');
     $('.alert').show();
@@ -651,4 +649,7 @@ function semUser(){
     $('.alert-warning').text("");
     $('.alert-warning').hide('close');
   }, 5000);
+}
+function alterUser(){
+  var regex = new RegExp("^[a-zA-Z0-9àèìòùáéíóúâêîôûãõ\b]+$");
 }
