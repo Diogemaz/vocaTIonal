@@ -187,7 +187,14 @@ function cadastrar(){
           dataType: "json",
           data: form,
           success: function(response){
-            if(response == -3){
+            if(response == -4){
+              $('#resposta').text('Campo vazio');
+              $('.alert-warning').show();
+              setInterval(() => {
+                $('#resposta').text("");
+                $('.alert-warning').hide('close');
+              }, 10000);
+            }else if(response == -3){
               $('#resposta').text('Senha deve ter pelo menos 8 digitos');
               $('.alert-warning').show();
               setInterval(() => {
@@ -256,6 +263,7 @@ function checarEmail(){
   }
 }
 function verifica() {
+  var regex = new RegExp("^[a-zA-Z0-9àèìòùáéíóúâêîôûãõ\b]+$");
   if($('#email').val() == ''){
     $('#resposta').text('Por favor, informe o seu EMAIL.');
     $('.alert').show();
@@ -301,29 +309,20 @@ function verifica() {
     }, 10000);
     $('#senha').focus();
     return false;
-  }  
-  var regex = new RegExp("^[a-zA-Z0-9àèìòùáéíóúâêîôûãõ\b]+$");
-  if (regex.test($('#nome').val())) {
+  }else if (!regex.test($('#nome').val())) {
     $('#resposta').text('Nome não deve ter caracter especial.');
     $('.alert-warning').show();
     setInterval(() => {
       $('#resposta').text("");
       $('.alert-warning').hide('close');
     }, 10000);
-    $('#senha').focus();
+    $('#nome').focus();
     return false;
   }else{
-    $('#resposta').text('Nome não deve ter caracter especial.');
-    $('.alert-warning').show();
-    setInterval(() => {
-      $('#resposta').text("");
-      $('.alert-warning').hide('close');
-    }, 10000);
-     $('#nome').val("");
-     $('#nome').focus();
+    return true;
   }
-  return true;
 }
+
 function login(){
   var form = $('#form-login').serialize();
   console.log(form);
