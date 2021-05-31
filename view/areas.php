@@ -52,7 +52,7 @@
             </div>
         </header>
         <!-- areas-->
-        <section class="page-section bg-primary" id="services">
+        <section class="page-section bg-primary" id="services" style="position: relative; z-index: 0;">
             <link rel="stylesheet" href="../css/estilo.css">
             <div class="container">
             <nav class="categories--home">

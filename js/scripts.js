@@ -67,6 +67,8 @@ $('#nome').on('keypress', function (event) {
   if (!regex.test(key)) {
      event.preventDefault();
      return false;
+  }else{
+     $('#nome').val("");
   }
 });
 var local = window.location.pathname;
@@ -299,6 +301,26 @@ function verifica() {
     }, 10000);
     $('#senha').focus();
     return false;
+  }  
+  var regex = new RegExp("^[a-zA-Z0-9àèìòùáéíóúâêîôûãõ\b]+$");
+  if (regex.test($('#nome').val())) {
+    $('#resposta').text('Nome não deve ter caracter especial.');
+    $('.alert-warning').show();
+    setInterval(() => {
+      $('#resposta').text("");
+      $('.alert-warning').hide('close');
+    }, 10000);
+    $('#senha').focus();
+    return false;
+  }else{
+    $('#resposta').text('Nome não deve ter caracter especial.');
+    $('.alert-warning').show();
+    setInterval(() => {
+      $('#resposta').text("");
+      $('.alert-warning').hide('close');
+    }, 10000);
+     $('#nome').val("");
+     $('#nome').focus();
   }
   return true;
 }
@@ -354,7 +376,7 @@ function favorita(){
     $.ajax({
         type:'POST',
         url:'../controller/favoritaArea.php',
-        dataType: "json",
+        dataType: "json", 
         data: {funcao: dado},
         success: function(response){
           if(response == 1){

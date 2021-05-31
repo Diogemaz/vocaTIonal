@@ -36,6 +36,14 @@
         </style>
     </head>
     <body id="page-top">
+            
+        <div class="container" style="position: relative; z-index: 1;">
+            <div class="d-flex justify-content-center h-100">
+                <div class="alert alert-warning resposta" role="alert" id="resposta" style="display: none"></div>
+                <div class="alert alert-danger resposta" role="alert" id="resposta" style="display: none"></div>
+                <div class="alert alert-success resposta" role="alert" id="resposta" style="display: none"></div>
+            </div>
+        </div>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container-fluid">
@@ -53,11 +61,8 @@
         </nav>
         <form id="form-cadastro" onSubmit="cadastrar();" method="POST" action="../controller/cadastrarUsuario.php">
         <section class="page-section entrar" id="form">
-            <div class="container">
+            <div class="container" style="position: relative; z-index: 0;">
                 <div class="d-flex justify-content-center h-100">
-                    <div class="alert alert-warning resposta" role="alert" id="resposta" style="display: none"></div>
-                    <div class="alert alert-danger resposta" role="alert" id="resposta" style="display: none"></div>
-                    <div class="alert alert-success resposta" role="alert" id="resposta" style="display: none"></div>
                     <div class="card">
                         <div class="card-header">
                             <h3>Cadastro</h3>

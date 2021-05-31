@@ -18,7 +18,7 @@ if(!$_POST){}else{
     <div class="col-1"><img class="img-user" src="<?php echo $img; ?>"></div>
     <div class="comentario pt-0 pl-4 col-11" style="border-radius: 20px;">
         <div class="h-25 row mb-2 mt-2">
-            <p class="text-primary mb-1 mr-2"><?php echo $user->getNomeUsuario(); ?></p>
+            <p class="text-primary mb-1 mr-2"><?php echo $user->getNomeUsuario() ?></p>
             <div class="d-flex h-50 align-items-center mt-2 mr-2" style="font-size: 10px">
                 <?php echo str_replace("-", "/", date('d/m/Y')); ?>
             </div>
@@ -29,13 +29,16 @@ if(!$_POST){}else{
                                 ...
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <button class="dropdown-item" onclick="excluirComentario(-1);">Excluir</button>
+                                <button class="dropdown-item" onclick="excluirComentario(-1);">Excluir</button>
+                            </div>
                         </li>
                     </ul>
                 </div>
-            </div> 
-        <div class="row">
-            <p><?php echo $comentario; ?></p>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col">
+                <span><?php echo $comentario; ?></span>
+            </div>
         </div>
     </div>
 </div>

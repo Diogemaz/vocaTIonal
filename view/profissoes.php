@@ -70,7 +70,7 @@
             </div>
         </header>
         <!-- areas-->
-        <section class="page-section bg-primary" id="services">
+        <section class="page-section bg-primary" id="services" style="position: relative; z-index: 0;">
             <link rel="stylesheet" href="../css/estilo.css">
             <div class="container">
                 <div class="row">
@@ -196,14 +196,17 @@
                                                 ...
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                            <button class="dropdown-item" onclick="excluirComentario(<?php echo $comentario['id_comentarioArea']; ?>);">Excluir</button>
+                                                <button class="dropdown-item" onclick="excluirComentario(<?php echo $comentario['id_comentarioArea']; ?>);">Excluir</button>
+                                            </div>
                                         </li>
                                     </ul>
                                 </div>
-                <?php } ?>
+                            <?php } ?>
                         </div>
-                        <div class="row">
-                            <p><?php echo $comentario['comentario']; ?></p>
+                        <div class="row mb-2 mt-2">
+                            <div class="col">
+                                <span><?php echo $comentario['comentario']; ?></span>
+                            </div>
                         </div>
                     </div>
                 </div>
