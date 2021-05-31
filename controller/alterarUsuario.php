@@ -3,7 +3,7 @@
     include_once "../model/usuario.php";
     if(isset($_SESSION['user'])){
         $user = unserialize($_SESSION['user']);
-        $nome = $_POST['nome'];
+        $nome = substr($_POST['nome'], 0, 26);
         if(isset($_FILES['foto']['name']) && $_FILES['foto']['error'] == 0){
             $arquivo_tmp = $_FILES['foto']['tmp_name'];
             $foto = $_FILES['foto']['name'];

@@ -57,7 +57,7 @@
                             </div>
                             <div class="form-group col-md-6 mt-3">
                             <label for="nome">Nome de usuário</label>
-                            <input type="text" class="form-control" id="nome" name="nome" required placeholder="Nome de usuário" value="<?php echo $user->getNomeUsuario(); ?>">
+                            <input type="text" class="form-control" id="nome" name="nome" required placeholder="Nome de usuário" value="<?php echo $user->getNomeUsuario(); ?>" maxlength="25">
                             </div>
                         </div>
                         <input type="submit" class="btn btn-primary mb-2" value="Alterar">
