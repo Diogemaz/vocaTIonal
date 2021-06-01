@@ -519,12 +519,19 @@ function comentar(){
           $('.alert-warning').text("");
           $('.alert-warning').hide('close');
         }, 5000);
-      }else if(response == -1){
+      }else if(response == -1 || response == -2){
         $('.alert-danger').text("Erro");
         $('.alert-danger').show();
         setInterval(() => {
           $('.alert-danger').text("");
           $('.alert-danger').hide('close');
+        }, 5000);
+      }else if(response == -1 || response == -2){
+        $('.alert-warning').text("O comentario não pode ter apenas espaços");
+        $('.alert-warning').show();
+        setInterval(() => {
+          $('.alert-warning').text("");
+          $('.alert-warning').hide('close');
         }, 5000);
       }
     },

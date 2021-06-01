@@ -458,6 +458,13 @@ if(isset($_SESSION['user'])){
                         $('.alert-warning').text("");
                         $('.alert-warning').hide('close');
                     }, 5000);
+                }else if(response == -2){
+                    $('.alert-warning').text("Nome da profissão deve ter letras");
+                    $('.alert-warning').show();
+                    setInterval(() => {
+                        $('.alert-warning').text("");
+                        $('.alert-warning').hide('close');
+                    }, 5000);
                 }
                 },
                 error: function(response){

@@ -8,15 +8,19 @@
             $nome = substr($_POST['nome'], 0, 36);
             $descricao = substr($_POST['descricao'], 0, 1001);
             $area = new Area;
-            try{
-                $cadastro = $area->cadastrarArea($nome, $descricao);
-                if($cadastro == 1){
-                    $response = 1;
-                }else{
-                    $response = 0;
+            if (preg_match('/^[A-Za-z0-9]+$/', $nome)) {
+                try{
+                    $cadastro = $area->cadastrarArea($nome, $descricao);
+                    if($cadastro == 1){
+                        $response = 1;
+                    }else{
+                        $response = 0;
+                    }
+                }catch (Exception $e){
+                    $response = -1;
                 }
-            }catch (Exception $e){
-                $response = -1;
+            }else{
+                $response = -2;
             }
             
             echo json_encode($response);

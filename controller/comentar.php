@@ -14,7 +14,8 @@
             $profissao = unserialize($_SESSION['profissao']);
             $comentario = substr($_POST['comentario'], 0, 501);
             $cadastro = $profissao->Comentar($comentario, $userId);
-        }   
+        }  
+        if (preg_match('/^[A-Za-z0-9]+$/', $comentario)) {
         try{
             if($cadastro == 1){
                 $response = 1;
@@ -27,5 +28,8 @@
     }else{
         $response = 0;
     }
+    }else{
+        $response = -3;
+    }   
     echo json_encode($response);
 ?>

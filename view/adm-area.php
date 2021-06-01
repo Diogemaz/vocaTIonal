@@ -30,13 +30,13 @@ if(isset($_SESSION['user'])){
 </head>
 
 <body>
-        <div class="container">
-            <div class="d-flex justify-content-center h-100">
-                <div class="alert alert-danger resposta" role="alert" id="resposta" style="display: none"></div>
-                <div class="alert alert-warning resposta" role="alert" id="resposta" style="display: none"></div>
-                <div class="alert alert-success resposta" role="alert" id="resposta" style="display: none"></div>
-            </div>
-        </div>
+    <style>   
+        .resposta{
+            position: fixed;
+            top: 100px;
+        }
+    </style>
+       
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
@@ -246,6 +246,13 @@ if(isset($_SESSION['user'])){
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
         <div class="page-wrapper">
+        <div class="container" style="position: relative; z-index: 1;">
+            <div class="d-flex justify-content-center h-100">
+                <div class="alert alert-danger resposta" role="alert" id="resposta" style="display: none"></div>
+                <div class="alert alert-warning resposta" role="alert" id="resposta" style="display: none"></div>
+                <div class="alert alert-success resposta" role="alert" id="resposta" style="display: none"></div>
+            </div>
+        </div>
             <!-- ============================================================== -->
             <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
@@ -402,6 +409,13 @@ if(isset($_SESSION['user'])){
                     window.location.href = "adm-area.php";
                 }else if(response == 0){
                     $('.alert-warning').text("Falha ao cadastrar, tente novamente");
+                    $('.alert-warning').show();
+                    setInterval(() => {
+                        $('.alert-warning').text("");
+                        $('.alert-warning').hide('close');
+                    }, 5000);
+                }else if(response == -2){
+                    $('.alert-warning').text("Nome da área deve ter letras");
                     $('.alert-warning').show();
                     setInterval(() => {
                         $('.alert-warning').text("");

@@ -14,20 +14,24 @@
             $profissao = $reflect->newInstanceWithoutConstructor();
             $profissao->setNome($nome);
             $profissao->setSalario($salario);
-            try{
-                $cadastro = $profissao->cadastrarProfissao($area);
-                if($cadastro == 1){
-                    /*$notificar = notificaUsers($area, $nome, 1);
-                    if($notificar == 1){*/
-                        $response = 1;
-                    /*}else{
-                        $response = -1;
-                    }*/
-                }else{
-                    $response = 0;
+            if (preg_match('/^[A-Za-z0-9]+$/', $nome)) {
+                try{
+                    $cadastro = $profissao->cadastrarProfissao($area);
+                    if($cadastro == 1){
+                        /*$notificar = notificaUsers($area, $nome, 1);
+                        if($notificar == 1){*/
+                            $response = 1;
+                        /*}else{
+                            $response = -1;
+                        }*/
+                    }else{
+                        $response = 0;
+                    }
+                }catch (Exception $e){
+                    $response = -1;
                 }
-            }catch (Exception $e){
-                $response = -1;
+            }else{
+                $response = -2;
             }
             
             echo json_encode($response);
