@@ -8,7 +8,7 @@
         if($user->getAdm() == 1){
             $area = unserialize($_SESSION['area']);
             $id = $area->getId();
-            $nome = $_POST['nome'];
+            $nome = substr($_POST['nome'], 0, 36);
             $descricao = $_POST['descricao'];
             $area = new area();
             $area->consultarArea($id);

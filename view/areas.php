@@ -87,7 +87,7 @@
                                 if($j == 5){break;}
                         ?>
                 </a> |
-                <?php } ?>
+                <?php } ?>...
                 <div class="row d-flex justify-content-center pl-2">                    
                     <div class="col-1"><img src="../assets/img/star1.png" width="30" height="30"></div>
                     <div class="col mt-1">

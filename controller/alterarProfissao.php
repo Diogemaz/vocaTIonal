@@ -8,7 +8,7 @@
         if($user->getAdm() == 1){
             $profissao = unserialize($_SESSION['profissao']);
             $id = $profissao->getId();
-            $nome = $_POST['nome'];
+            $nome = substr($_POST['nome'], 0, 36);
             $salario = $_POST['salario'];
             $area = $_POST['area'];
             $profissao = new profissao($id, $nome, $salario);

@@ -300,7 +300,7 @@ if(isset($_SESSION['user'])){
                                         <div class="form-group row">
                                             <label for="nome" class="col-sm-3 text-end control-label col-form-label">Nome:</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome da profissão." required>
+                                                <input type="text" class="form-control" id="nome" name="nome" maxlength="35" placeholder="Nome da profissão." required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -356,7 +356,7 @@ if(isset($_SESSION['user'])){
                                         <div class="form-group row">
                                             <label for="nome" class="col-sm-3 text-end control-label col-form-label">Nome:</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome da profissão." required value="<?php echo $profissao->getNome(); ?>">
+                                                <input type="text" class="form-control" id="nome" maxlength="35" name="nome" placeholder="Nome da profissão." required value="<?php echo $profissao->getNome(); ?>">
                                             </div>
                                         </div>
                                         <div class="form-group row">

@@ -5,7 +5,7 @@
     if(isset($_SESSION['user'])){
         $user = unserialize($_SESSION['user']);
         if($user->getAdm() == 1){
-            $nome = $_POST['nome'];
+            $nome = substr($_POST['nome'], 0, 36);
             $descricao = substr($_POST['descricao'], 0, 1001);
             $area = new Area;
             try{

@@ -261,7 +261,7 @@ function checarEmail(){
   }
 }
 function verifica() {
-  var regex = new RegExp("^[a-zA-Z0-9àèìòùáéíóúâêîôûãõ \b]+$");
+  var regex = new RegExp("^[a-zA-Z0-9àèìòùáéíóúâêîôûãõ\b]+$");
   if($('#email').val() == ''){
     $('#resposta').text('Por favor, informe o seu EMAIL.');
     $('.alert').show();
@@ -486,10 +486,8 @@ $('#comentar').keypress(function(){
   }
 })
 function comentar(){
-  if($('#comentar').val().length > 255){
-    alert("Comentario pode ter até 255 caracteres");
-    return 0;
-  }
+  var regex = new RegExp("^[a-zA-Z0-9àèìòùáéíóúâêîôûãõ\b]+$");
+  if(regex.test($('#comentario').val())){
   if(localArray[localArray.length - 1] == "profissoes.php"){
     var local = 'area';
   }else{
@@ -539,6 +537,14 @@ function comentar(){
       }, 5000);
     }
   });
+  }else{
+    $('.alert-warning').text("escreva algo para comentar");
+    $('.alert-warning').show();
+    setInterval(() => {
+      $('.alert-warning').text("");
+      $('.alert-warning').hide('close');
+    }, 5000);
+  }
 }
 function excluirComentario(valor){
   if(localArray[localArray.length - 1] == "profissoes.php"){
