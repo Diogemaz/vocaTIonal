@@ -9,12 +9,13 @@
         if($_POST['local'] == 'area'){
             $area = unserialize($_SESSION['area']);
             $comentario = substr($_POST['comentario'], 0, 501);
+            $cadastro = $area->Comentar($comentario, $userId);
         }else if($_POST['local'] == 'profissao'){
             $profissao = unserialize($_SESSION['profissao']);
-            $comentario = substr($_POST['comentario'], 0, 501);           
+            $comentario = substr($_POST['comentario'], 0, 501);  
+            $cadastro = $profissao->Comentar($comentario, $userId);         
         } 
         try{
-            $cadastro = $profissao->Comentar($comentario, $userId);
             if($cadastro == 1){
                 $response = 1;
             }else{
