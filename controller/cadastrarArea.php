@@ -8,7 +8,6 @@
             $nome = substr($_POST['nome'], 0, 36);
             $descricao = substr($_POST['descricao'], 0, 1001);
             $area = new Area;
-            if (preg_match('/^[a-zA-Z0-9 ]+$/i', $nome)) {
                 try{
                     $cadastro = $area->cadastrarArea($nome, $descricao);
                     if($cadastro == 1){
@@ -19,10 +18,6 @@
                 }catch (Exception $e){
                     $response = -1;
                 }
-            }else{
-                $response = -2;
-            }
-            
             echo json_encode($response);
         }}else{
             header('location: ../view/entra.php');

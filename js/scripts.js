@@ -486,8 +486,6 @@ $('#comentar').keypress(function(){
   }
 })
 function comentar(){
-  var regex = new RegExp("^[a-zA-Z0-9àèìòùáéíóúâêîôûãõ\b]+$");
-  if(regex.test($('#comentario').val())){
   if(localArray[localArray.length - 1] == "profissoes.php"){
     var local = 'area';
   }else{
@@ -526,7 +524,7 @@ function comentar(){
           $('.alert-danger').text("");
           $('.alert-danger').hide('close');
         }, 5000);
-      }else if(response == -1 || response == -2){
+      }else if(response == -3){
         $('.alert-warning').text("O comentario não pode ter apenas espaços");
         $('.alert-warning').show();
         setInterval(() => {
@@ -544,14 +542,6 @@ function comentar(){
       }, 5000);
     }
   });
-  }else{
-    $('.alert-warning').text("escreva algo para comentar");
-    $('.alert-warning').show();
-    setInterval(() => {
-      $('.alert-warning').text("");
-      $('.alert-warning').hide('close');
-    }, 5000);
-  }
 }
 function excluirComentario(valor){
   if(localArray[localArray.length - 1] == "profissoes.php"){

@@ -14,7 +14,6 @@
             $profissao = $reflect->newInstanceWithoutConstructor();
             $profissao->setNome($nome);
             $profissao->setSalario($salario);
-            if (preg_match('/^[a-zA-Z0-9 ]+$/i', $nome)) {
                 try{
                     $cadastro = $profissao->cadastrarProfissao($area);
                     if($cadastro == 1){
@@ -30,9 +29,6 @@
                 }catch (Exception $e){
                     $response = -1;
                 }
-            }else{
-                $response = -2;
-            }
             
             echo json_encode($response);
         }}else{
