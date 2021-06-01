@@ -666,3 +666,15 @@ function semUser(){
 function alterUser(){
   var regex = new RegExp("^[a-zA-Z0-9àèìòùáéíóúâêîôûãõ\b]+$");
 }
+function removeNotificacao(){
+  $.ajax({
+    type:'POST',
+    url:'../controller/notificacaoVisualizada.php',
+    dataType: 'json',
+    data: 1,
+    error: function(response){
+      alert("erro");
+      console.log("erro"+response);
+    }
+  });
+}

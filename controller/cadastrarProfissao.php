@@ -14,7 +14,7 @@
             $profissao = $reflect->newInstanceWithoutConstructor();
             $profissao->setNome($nome);
             $profissao->setSalario($salario);
-            if (preg_match('/^[A-Za-z0-9]+$/', $nome)) {
+            if (preg_match('/^[a-zA-Z0-9 ]+$/i', $nome)) {
                 try{
                     $cadastro = $profissao->cadastrarProfissao($area);
                     if($cadastro == 1){

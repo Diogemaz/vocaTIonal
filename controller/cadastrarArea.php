@@ -8,7 +8,7 @@
             $nome = substr($_POST['nome'], 0, 36);
             $descricao = substr($_POST['descricao'], 0, 1001);
             $area = new Area;
-            if (preg_match('/^[A-Za-z0-9]+$/', $nome)) {
+            if (preg_match('/^[a-zA-Z0-9 ]+$/i', $nome)) {
                 try{
                     $cadastro = $area->cadastrarArea($nome, $descricao);
                     if($cadastro == 1){
