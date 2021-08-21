@@ -38,11 +38,11 @@
             <div class="container h-100">
                 <div class="row h-100 align-items-center justify-content-center text-center">
                     <div class="col-lg-10 align-self-end">
-                        <h1 class="text-uppercase text-white font-weight-bold">Bem-vindo ao vocaTIonal</h1>
-                        <hr class="divider my-4" />
+                        <h1 class="text-uppercase text-white font-weight-bold animated fadeIn">Bem-vindo ao vocaTIonal</h1>
+                        <hr class="divider my-4 animated fadeInLeft" />
                     </div>
-                    <div class="col-lg-8 align-self-baseline">
-                        <p class="text-white-75 font-weight-light mb-5">Aqui você vai encontrar o que precisar sobre as áreas e profissões de TI e entender que esse universo não é só codigo.</p>
+                    <div class="col-lg-8 align-self-baseline ">
+                        <p class="text-white-75 font-weight-light mb-5 animated fadeInRight">Aqui você vai encontrar o que precisar sobre as áreas e profissões de TI e entender que esse universo não é só codigo.</p>
                     </div>
                 </div>
             </div>
@@ -52,34 +52,34 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-3 text-center mr-5">
-                        <h2 class="text-white mt-0">Equipe</h2>
+                        <h2 class="text-white mt-0 animated fadeIn">Equipe</h2>
                         <div class="row justify-content-center">
                             <div class="col">
                                 <img>
-                                <p class="text-white-50 mb-4">Bruno Ricardo</p>
+                                <p class="text-white-50 mb-4 animated fadeIn">Bruno Ricardo</p>
                             </div>
                             <div class="col">
                                 <img>
-                                <p class="text-white-50 mb-4">Diogenes Paulino</p>
+                                <p class="text-white-50 mb-4 animated fadeIn">Diogenes Paulino</p>
                             </div>
                         </div>
                         <div class="row justify-content-center">
                             <div class="col">
                                     <img>
-                                    <p class="text-white-50 mb-4">Henrique Pereira</p>
+                                    <p class="text-white-50 mb-4 animated fadeIn">Henrique Pereira</p>
                                 </div>
                                 <div class="col">
                                     <img>
-                                    <p class="text-white-50 mb-4">Rogério Gongora</p>
+                                    <p class="text-white-50 mb-4 animated fadeIn">Rogério Gongora</p>
                                 </div>
                             </div>
                     </div>
                     <div class="col-lg-8 text-center">
-                        <h2 class="text-white mt-0">Sobre a vocaTIonal</h2>
-                        <hr class="divider light my-4" />
-                        <p class="text-white-50 mb-4">Existimos para ajudar você a decidir qual caminho seguir e também te indicar como começar a se preparar para ele.</p>
+                        <h2 class="text-white mt-0 animated fadeInLeft">Sobre a vocaTIonal</h2>
+                        <hr class="divider light my-4 animated fadeInLeft" />
+                        <p class="text-white-50 mb-4 animated fadeInLeft">Existimos para ajudar você a decidir qual caminho seguir e também te indicar como começar a se preparar para ele.</p>
                         <div class="row justify-content-center">
-                            <a class="btn btn-light btn-xl js-scroll-trigger" href="view/areas.php">Comece a explorar</a>
+                            <a class="btn btn-light btn-xl js-scroll-trigger animated fadeInLeft" href="view/areas.php">Comece a explorar</a>
                         </div>
                     </div>
                 </div>

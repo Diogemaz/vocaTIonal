@@ -63,7 +63,7 @@ if (isset($_GET['profissao'])) {
                 <div class="row h-100 align-items-center justify-content-center text-center">
                     <div class="col-lg-10 ">
                         <h1 class="text-uppercase text-white font-weight-bold animated fadeInRight"><?php echo $profissao->getNome(); ?></h1>
-                        <hr class="divider my-4 animated fadeInRight" />
+                        <hr class="divider my-4 animated fadeInLeft" />
                     </div>
                 </div>
             </div>

@@ -60,8 +60,8 @@
             <div class="container h-100">
                 <div class="row h-100 align-items-center justify-content-center text-center">
                     <div class="col-lg-10 align-self-end">
-                        <h1 class="text-uppercase text-white font-weight-bold animated fadeInRight"><?php echo $nome; ?></h1>
-                        <hr class="divider my-4 animated fadeInRight" />
+                        <h1 class="text-uppercase text-white font-weight-bold animated fadeIn"><?php echo $nome; ?></h1>
+                        <hr class="divider my-4 animated fadeInLeft" />
                     </div>
                     <div class="col-lg-8 align-self-baseline">
                         <p class="text-white-75 font-weight-light mb-5 animated fadeInRight"><?php echo $area->getDescricao(); ?></p>
@@ -100,7 +100,7 @@
                 ?>
                 <form  id="form-favorita" onsubmit="favorita();" method="POST" action="../controller/favoritaArea.php">
                     <input type="text" style="display: none;" id="user" value="<?php if(isset($user)){ echo $user->getId();} ?>"> 
-                    <button type="submit" class="btn btn-light btn-xl js-scroll-trigger" id="favoritar" name="favoritar"><?php 
+                    <button type="submit" class="btn btn-light btn-xl js-scroll-trigger animated fadeInDown" id="favoritar" name="favoritar"><?php 
                          $fav = $area->consultarAreaFavoritada($user->getId());
                          $i = 0;
                         while($row = $fav->fetch()){

@@ -44,8 +44,8 @@ if (isset($_SESSION['user'])) {
         <div class="container h-100">
             <div class="row h-100 align-items-center justify-content-center text-center">
                 <div class="col-lg-10 align-self-end">
-                    <h1 class="text-uppercase text-white font-weight-bold animated fadeInRight">Áreas</h1>
-                    <hr class="divider my-4 animated fadeInRight" />
+                    <h1 class="text-uppercase text-white font-weight-bold animated fadeIn">Áreas</h1>
+                    <hr class="divider my-4 animated fadeInLeft" />
                 </div>
                 <div class="col-lg-8 align-self-baseline">
                     <p class="text-white-75 font-weight-light mb-5 animated fadeInRight">Aqui você pode encontrar as áreas de TI, encontre aquela que mas te agrada e se cadastre caso queira favoritar as mais interessantes para você.</p>
