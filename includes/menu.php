@@ -25,27 +25,10 @@
         </li>
         <li class="nav-item dropdown" onclick="removerNotificacao();">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Perfil <span class="badge badge-light"><?php echo getNotificacao($user->getId())->rowCount(); ?></span>
+                Perfil <span class="badge badge-light">2<!---<?php //echo getNotificacao($user->getId())->rowCount(); ?>--></span>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <?php
-                    $retorno = getNotificacao($user->getId());
-                    while($row = $retorno->fetch()){
-                        if($row['visualizado'] == 1){
-                ?>
-                <a class="dropdown-item" href="<?php echo $row['link']; ?>">
-                        <?php if($row['item'] == 1){
-                            ?>
-                                Nova Profissão de <?php echo $row['nome_area']; ?>
-                            <?php
-                        }else{ ?>
-                                Novo curso adicionado <?php echo $row['nome_area']; ?>
-                <?php 
-                    }}
-                ?>
-            </a>
-            <?php
-            } ?>
+                <a class="dropdown-item" href="<?php //echo $row['link']; ?>"></a>
             </div>
         </li>
         <?php
@@ -81,25 +64,10 @@
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Perfil <span class="badge badge-light"><?php echo getNotificacao($user->getId())->rowCount(); ?></span>
+                Perfil <span class="badge badge-light">2<!--<?php //echo getNotificacao($user->getId())->rowCount(); ?>--></span>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <?php
-                    $retorno = getNotificacao($user->getId());
-                    while($row = $retorno->fetch()){
-                ?>
-                <a class="dropdown-item" href="<?php echo $row['link']; ?>">
-                        <?php if($row['item'] == 1){
-                            ?>
-                                Nova Profissão de <?php echo $row['nome_area']; ?>
-                            <?php
-                        }else{ ?>
-                                Novo curso adicionado <?php echo $row['nome_area']; ?>
-                <?php }
-            ?>
-            </a>
-            <?php
-            } ?>
+                <a class="dropdown-item" href="<?php //echo $row['link']; ?>">
             </div>
         </li>
         <?php
@@ -110,7 +78,7 @@
     </ul>
 </div>
 <?php 
-    }else{
+   }else{
 ?>
 <div class="collapse navbar-collapse" id="navbarResponsive">
     <ul class="navbar-nav ml-auto my-2 my-lg-0">
@@ -136,29 +104,14 @@
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Perfil <span class="badge badge-light"><?php echo getNotificacao($user->getId())->rowCount(); ?></span>
+                Perfil <span class="badge badge-light">2<!--<?php //echo getNotificacao($user->getId())->rowCount(); ?>--></span>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <?php
-                    $retorno = getNotificacao($user->getId());
-                    while($row = $retorno->fetch()){
-                ?>
-                <a class="dropdown-item" href="<?php echo $row['link']; ?>">
-                        <?php if($row['item'] == 1){
-                            ?>
-                                Nova Profissão de <br><?php echo $row['nome_area']; ?>
-                            <?php
-                        }else{ ?>
-                                Novo curso adicionado <br><?php echo $row['nome_area']; ?>
-                <?php }
-            ?>
-            </a>
-            <?php
-            } ?>
+                <a class="dropdown-item" href="<?php //echo $row['link']; ?>"></a>
             </div>
         </li>
         <?php
-            }else{
+           }else{
         ?>
         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="entra.php">Entrar</a></li>
         <?php } ?>
