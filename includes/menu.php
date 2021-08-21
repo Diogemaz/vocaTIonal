@@ -23,6 +23,31 @@
                 <a class="dropdown-item" href="view/entra.php?logout=1">Sair</a>
             </div>
         </li>
+        <li class="nav-item dropdown" onclick="removerNotificacao();">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Perfil <span class="badge badge-light"><?php echo getNotificacao($user->getId())->rowCount(); ?></span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <?php
+                    $retorno = getNotificacao($user->getId());
+                    while($row = $retorno->fetch()){
+                        if($row['visualizado'] == 1){
+                ?>
+                <a class="dropdown-item" href="<?php echo $row['link']; ?>">
+                        <?php if($row['item'] == 1){
+                            ?>
+                                Nova Profissão de <?php echo $row['nome_area']; ?>
+                            <?php
+                        }else{ ?>
+                                Novo curso adicionado <?php echo $row['nome_area']; ?>
+                <?php 
+                    }}
+                ?>
+            </a>
+            <?php
+            } ?>
+            </div>
+        </li>
         <?php
             }else{
         ?>
@@ -52,6 +77,29 @@
             <a class="dropdown-item" href="confUser.php">Configuração do perfil</a>
             <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="entra.php?logout=1">Sair</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Perfil <span class="badge badge-light"><?php echo getNotificacao($user->getId())->rowCount(); ?></span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <?php
+                    $retorno = getNotificacao($user->getId());
+                    while($row = $retorno->fetch()){
+                ?>
+                <a class="dropdown-item" href="<?php echo $row['link']; ?>">
+                        <?php if($row['item'] == 1){
+                            ?>
+                                Nova Profissão de <?php echo $row['nome_area']; ?>
+                            <?php
+                        }else{ ?>
+                                Novo curso adicionado <?php echo $row['nome_area']; ?>
+                <?php }
+            ?>
+            </a>
+            <?php
+            } ?>
             </div>
         </li>
         <?php
@@ -84,6 +132,29 @@
             <a class="dropdown-item" href="confUser.php">Configuração do perfil</a>
             <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="entra.php?logout=1">Sair</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Perfil <span class="badge badge-light"><?php echo getNotificacao($user->getId())->rowCount(); ?></span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <?php
+                    $retorno = getNotificacao($user->getId());
+                    while($row = $retorno->fetch()){
+                ?>
+                <a class="dropdown-item" href="<?php echo $row['link']; ?>">
+                        <?php if($row['item'] == 1){
+                            ?>
+                                Nova Profissão de <br><?php echo $row['nome_area']; ?>
+                            <?php
+                        }else{ ?>
+                                Novo curso adicionado <br><?php echo $row['nome_area']; ?>
+                <?php }
+            ?>
+            </a>
+            <?php
+            } ?>
             </div>
         </li>
         <?php

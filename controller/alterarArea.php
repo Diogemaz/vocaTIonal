@@ -12,21 +12,25 @@
             $descricao = $_POST['descricao'];
             $area = new area();
             $area->consultarArea($id);
-            try{
-                if($_POST['funcao'] == "Alterar"){
-                    $area->setNome($nome);
-                    $area->setDescricao($descricao);
-                    $cadastro = $area->alterarArea($id);
-                }else if($_POST['funcao'] == "Excluir"){
-                    $cadastro = $area->deletarArea($id);
+            if(!empty(trim($nome))){
+                try{
+                    if($_POST['funcao'] == "Alterar"){
+                        $area->setNome($nome);
+                        $area->setDescricao($descricao);
+                        $cadastro = $area->alterarArea($id);
+                    }else if($_POST['funcao'] == "Excluir"){
+                        $cadastro = $area->deletarArea($id);
+                    }
+                    if($cadastro == 1){
+                        $response = 1;
+                    }else{
+                        $response = 0;
+                    }
+                }catch (Exception $e){
+                    $response = -1;
                 }
-                if($cadastro == 1){
-                    $response = 1;
-                }else{
-                    $response = 0;
-                }
-            }catch (Exception $e){
-                $response = -1;
+            }else{
+                $response = -2;
             }
             
             echo json_encode($response);

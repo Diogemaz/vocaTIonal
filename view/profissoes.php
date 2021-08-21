@@ -36,7 +36,7 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="../css/styles.css" rel="stylesheet" />
-        <link rel="stylesheet" href="../css/estilo.css">
+        <link rel="stylesheet" href="../css/cards.css">
     </head>
     <body id="page-top">
     
@@ -74,31 +74,24 @@
             <link rel="stylesheet" href="../css/estilo.css">
             <div class="container">
                 <div class="row">
-                <nav class="categories--home">
-                <div class="categories__elements--home">
                 <?php 
                     foreach($area->getProfissoes() as $profissao){
                             
                 ?>
-                <div class="categories__wrapper__links--home --<?php $profissao->getNome(); ?>" style="--color-var: #ffba05">
-                    <a class="categories__link--home" href="cursos.php?profissao=<?php echo $profissao->getNome(); ?>">
-                    <div class="categories__link-wrapper--home">
-                        <div class="categories__texts" style="color:#ffba05;">
-                            <h4 class="categories__link__category-name text-center"><?php echo $profissao->getNome(); ?></h4>
+                <div class="card borda animated fadeInRight" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $profissao->getNome(); ?></h5>
+                        <p class="card-text link-card">
+                            Média salarial: <?php echo $profissao->getSalario(); ?>
+                        </p>
+                        <div class="text-center">
+                            <a href="cursos.php?profissao=<?php echo $profissao->getNome(); ?>" class="text-center">Ver Mais</a>
                         </div>
                     </div>
-                    </a>
-                    <nav class="categories__calls--home">
-                    <h6 class="text-white-75 font-weight-light mt-3">
-                    Salario: <?php echo $profissao->getSalario(); ?>
-                    </h6>
-                    </nav>
                 </div>
             <?php
                     }}
             ?>
-                </div>
-                </nav>
                 </div>
             </div>
             <div class="row justify-content-center">

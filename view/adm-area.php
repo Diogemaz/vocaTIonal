@@ -451,10 +451,21 @@ if(isset($_SESSION['user'])){
                 data: form,
                 success: function(response){
                 if(response == 1){
-                    alert("Alterado/deletado com sucesso!");
                     window.location.href = "adm-area.php";
                 }else if(response == 0){
-                    alert("Falha ao alterar, tente novamente");
+                    $('.alert-danger').text("Falha ao alterar, tente novamente");
+                    $('.alert-danger').show();
+                    setInterval(() => {
+                        $('.alert-danger').text("");
+                        $('.alert-danger').hide('close');
+                    }, 5000);
+                }else if(response == -2){
+                    $('.alert-warning').text("Nome da área deve ter letras");
+                    $('.alert-warning').show();
+                    setInterval(() => {
+                        $('.alert-warning').text("");
+                        $('.alert-warning').hide('close');
+                    }, 5000);
                 }
                 },
                 error: function(response){

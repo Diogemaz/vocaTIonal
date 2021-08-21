@@ -9,25 +9,28 @@
         if($user->getAdm() == 1){
             $curso = unserialize($_SESSION['curso']);
             $id = $curso->getId();
-            $nome = $_POST['nome'];
+            $nome = substr($_POST['nome'], 0, 101);
             $preco = $_POST['preco'];
             $link = $_POST['link'];
             $curso = new curso($id, $nome, $preco, $link);
-            try{
-                if($_POST['funcao'] == "Alterar"){
-                    $cadastro = $curso->alterarCurso();
-                }else if($_POST['funcao'] == "Excluir"){
-                    $cadastro = $curso->deletarCurso();
+            if(!empty(trim($nome))){
+                try{
+                    if($_POST['funcao'] == "Alterar"){
+                        $cadastro = $curso->alterarCurso();
+                    }else if($_POST['funcao'] == "Excluir"){
+                        $cadastro = $curso->deletarCurso();
+                    }
+                    if($cadastro == 1){
+                        $response = 1;
+                    }else{
+                        $response = 0;
+                    }
+                }catch (Exception $e){
+                    $response = -1;
                 }
-                if($cadastro == 1){
-                    $response = 1;
-                }else{
-                    $response = 0;
-                }
-            }catch (Exception $e){
-                $response = -1;
+            }else{
+                $response = -2;
             }
-            
             echo json_encode($response);
         }}else{
             header('location: ../view/entra.php');

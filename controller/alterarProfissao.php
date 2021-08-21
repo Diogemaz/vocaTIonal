@@ -12,21 +12,24 @@
             $salario = $_POST['salario'];
             $area = $_POST['area'];
             $profissao = new profissao($id, $nome, $salario);
-            try{
-                if($_POST['funcao'] == "Alterar"){
-                    $cadastro = $profissao->alterarProfissao($id);
-                }else if($_POST['funcao'] == "Excluir"){
-                    $cadastro = $profissao->deletarProfissao($id);
+            if(!empty(trim($nome))){
+                try{
+                    if($_POST['funcao'] == "Alterar"){
+                        $cadastro = $profissao->alterarProfissao($id);
+                    }else if($_POST['funcao'] == "Excluir"){
+                        $cadastro = $profissao->deletarProfissao($id);
+                    }
+                    if($cadastro == 1){
+                        $response = 1;
+                    }else{
+                        $response = 0;
+                    }
+                }catch (Exception $e){
+                    $response = -1;
                 }
-                if($cadastro == 1){
-                    $response = 1;
-                }else{
-                    $response = 0;
-                }
-            }catch (Exception $e){
-                $response = -1;
+            }else{
+                $response = -2;
             }
-            
             echo json_encode($response);
         }}else{
             header('location: ../view/entra.php');

@@ -44,9 +44,7 @@ function notificaUsers($area, $item){
         $resultado->bindParam(':area', $area, PDO::PARAM_INT);
         $resultado->execute();
         while($row = $resultado->fetch()){
-            if($item == 1){
-                $link = "cursos.php?profissao=".$row['nome_area'];
-            }
+            $link = "cursos.php?profissao=".$row['nome_area'];
             $stmt = $con->prepare("INSERT INTO notificacao (id_usuario, link, id_area, item) VALUES (:user, :link, :area, :item)");
             $stmt->bindParam(':user', $row['id_usuario'], PDO::PARAM_STR, 50);
             $stmt->bindParam(':link', $link, PDO::PARAM_STR);

@@ -14,21 +14,25 @@
             $profissao = $reflect->newInstanceWithoutConstructor();
             $profissao->setNome($nome);
             $profissao->setSalario($salario);
+            if(!empty(trim($nome))){
                 try{
                     $cadastro = $profissao->cadastrarProfissao($area);
                     if($cadastro == 1){
-                        /*$notificar = notificaUsers($area, $nome, 1);
-                        if($notificar == 1){*/
+                        $notificar = notificaUsers($area, 1);
+                        if($notificar == 1){
                             $response = 1;
-                        /*}else{
+                        }else{
                             $response = -1;
-                        }*/
+                        }
                     }else{
                         $response = 0;
                     }
                 }catch (Exception $e){
                     $response = -1;
                 }
+            }else{
+                $response = -2;
+            }
             
             echo json_encode($response);
         }}else{

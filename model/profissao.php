@@ -10,6 +10,7 @@ class profissao
     public $cursos = [];
     public $avaliacao;
     public $PorcAvaliacao;
+    public $area;
 
     public function __construct($id, $nome, $salario)
     {
@@ -30,6 +31,10 @@ class profissao
         return $this->nome;
     }
     
+    public function getArea(){
+        return $this->area;
+    }
+
     public function getSalario(){
         return $this->salario;
     }
@@ -101,6 +106,7 @@ class profissao
                     $this->id = $row['id_profissao'];
                     $this->nome = $row['nome_profissao'];
                     $this->salario = $row['salario'];
+                    $this->area = $row['id_area'];
                     $id = $row['id_profissao'];
                     try{
                         $sql = "SELECT * FROM curso WHERE id_profissao=$id;";
