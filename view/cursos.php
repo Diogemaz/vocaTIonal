@@ -62,8 +62,8 @@ if (isset($_GET['profissao'])) {
             <div class="container h-100">
                 <div class="row h-100 align-items-center justify-content-center text-center">
                     <div class="col-lg-10 ">
-                        <h1 class="text-uppercase text-white font-weight-bold"><?php echo $profissao->getNome(); ?></h1>
-                        <hr class="divider my-4" />
+                        <h1 class="text-uppercase text-white font-weight-bold animated fadeInRight"><?php echo $profissao->getNome(); ?></h1>
+                        <hr class="divider my-4 animated fadeInRight" />
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@ if (isset($_GET['profissao'])) {
         <section class="page-section bg-primary" id="services">
             <link rel="stylesheet" href="../css/estilo.css">
             <div class="container">
-                <div class="row">
+                <div class="row align-items-center justify-content-center mb-5">
                     <?php
 
                     foreach ($profissao->getCursos() as $curso) {
@@ -89,7 +89,7 @@ if (isset($_GET['profissao'])) {
                                             } ?>
                                     </a>
                                 <div class="text-center">
-                                    <a href="<?php echo $curso->getLink(); ?>" class="text-center">Ir ao curso</a>
+                                    <a target="_blank" href="<?php echo $curso->getLink(); ?>" class="text-center">Ir ao curso</a>
                                 </div>
                             </div>
                         </div>

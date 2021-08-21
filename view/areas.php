@@ -56,7 +56,7 @@ if (isset($_SESSION['user'])) {
     <!-- areas-->
     <section class="page-section bg-primary" id="services" style="position: relative; z-index: 0;">
         <div class="container">
-            <div class="row">
+            <div class="row align-items-center justify-content-center mb-5">
                 <?php
                 if (!isset($_GET['area'])) {
                     $areas = new area;
@@ -70,20 +70,7 @@ if (isset($_SESSION['user'])) {
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $area[$i]->getNome(); ?></h5>
                             <p class="card-text link-card">
-                                <?php
-                                $j = 0;
-                                foreach ($area[$i]->getProfissoes() as $profissao) {
-                                ?>
-                                    <a href="cursos.php?profissao=<?php echo $profissao->getNome(); ?>">
-                                        <?php
-                                        echo $profissao->getNome();
-                                        $j++;
-                                        if ($j == 5) {
-                                            break;
-                                        }
-                                        ?>
-                                    </a> |
-                                    <?php } ?>...
+                                <?php echo substr($area[$i]->getDescricao(), 0, 70) ?>...
                             </p>
                             <div class="text-center">
                                 <a href="profissoes.php?area=<?php echo $area[$i]->getNome(); ?>" class="text-center">Ver mais</a>
