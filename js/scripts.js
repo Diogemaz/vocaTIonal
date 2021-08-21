@@ -508,54 +508,79 @@ function comentar() {
     }
     var form = $('#comentar').serialize() + '&local=' + local;
     var comentario = $('#comentario').val();
-    $.ajax({
-        type: 'POST',
-        url: '../controller/comentar.php',
-        dataType: "json",
-        data: form,
-        success: function(response) {
-            $('#comentario').val("");
-            if (response == 1) {
-                $('.alert-success').text("Comentario adicionado");
-                $('.alert-success').show();
-                setInterval(() => {
-                    $('.alert-success').text("");
-                    $('.alert-success').hide('close');
-                }, 5000);
-                setTimeout(function() { window.location.href = window.location.href }, 1000)
+    if (comentario != null) {
+        if (!comentario.match('<script>') && !comentario.match('<SCRIPT>')) {
+            $.ajax({
+                type: 'POST',
+                url: '../controller/comentar.php',
+                dataType: "json",
+                data: form,
+                success: function(response) {
+                    $('#comentario').val("");
+                    if (response == 1) {
+                        $('.alert-success').text("Comentario adicionado");
+                        $('.alert-success').show();
+                        setInterval(() => {
+                            $('.alert-success').text("");
+                            $('.alert-success').hide('close');
+                        }, 5000);
+                        setTimeout(function() { window.location.href = window.location.href }, 1000)
 
-            } else if (response == 0) {
-                $('.alert-warning').text("É preciso estar logado para comentar");
-                $('.alert-warning').show();
-                setInterval(() => {
-                    $('.alert-warning').text("");
-                    $('.alert-warning').hide('close');
-                }, 5000);
-            } else if (response == -1 || response == -2) {
-                $('.alert-danger').text("Erro");
-                $('.alert-danger').show();
-                setInterval(() => {
-                    $('.alert-danger').text("");
-                    $('.alert-danger').hide('close');
-                }, 5000);
-            } else if (response == -3) {
-                $('.alert-warning').text("O comentario não pode ter apenas espaços");
-                $('.alert-warning').show();
-                setInterval(() => {
-                    $('.alert-warning').text("");
-                    $('.alert-warning').hide('close');
-                }, 5000);
-            }
-        },
-        error: function(response) {
-            $('.alert-danger').text("erro " + response);
+                    } else if (response == 0) {
+                        $('.alert-warning').text("É preciso estar logado para comentar");
+                        $('.alert-warning').show();
+                        setInterval(() => {
+                            $('.alert-warning').text("");
+                            $('.alert-warning').hide('close');
+                        }, 5000);
+                    } else if (response == -1 || response == -2) {
+                        $('.alert-danger').text("Erro");
+                        $('.alert-danger').show();
+                        setInterval(() => {
+                            $('.alert-danger').text("");
+                            $('.alert-danger').hide('close');
+                        }, 5000);
+                    } else if (response == -3) {
+                        $('.alert-warning').text("O comentario não pode ter apenas espaços");
+                        $('.alert-warning').show();
+                        setInterval(() => {
+                            $('.alert-warning').text("");
+                            $('.alert-warning').hide('close');
+                        }, 5000);
+                    } else if (response == -4) {
+                        $('.alert-danger').text("Tentando script injection né safado");
+                        $('.alert-danger').show();
+                        setInterval(() => {
+                            $('.alert-danger').text("");
+                            $('.alert-danger').hide('close');
+                        }, 5000);
+                    }
+                },
+                error: function(response) {
+                    $('.alert-danger').text("erro " + response);
+                    $('.alert-danger').show();
+                    setInterval(() => {
+                        $('.alert-danger').text("");
+                        $('.alert-danger').hide('close');
+                    }, 5000);
+                }
+            });
+        } else {
+            $('.alert-danger').text("Tentando script injection né safado");
             $('.alert-danger').show();
             setInterval(() => {
                 $('.alert-danger').text("");
                 $('.alert-danger').hide('close');
             }, 5000);
         }
-    });
+    } else {
+        $('.alert-warning').text("O comentario não pode estar vazio");
+        $('.alert-warning').show();
+        setInterval(() => {
+            $('.alert-warning').text("");
+            $('.alert-warning').hide('close');
+        }, 5000);
+    }
 }
 //exclução de comentario
 function excluirComentario(valor) {
