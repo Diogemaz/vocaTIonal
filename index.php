@@ -3,6 +3,7 @@
     $arq = basename(__FILE__);
     if(isset($_SESSION['user'])){
         include_once "model/usuario.php";
+        include_once "model/funcoes.php";
         $user = unserialize($_SESSION['user']);
     }
 ?>
