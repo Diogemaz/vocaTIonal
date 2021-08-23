@@ -1,5 +1,5 @@
 # vocaTIonal
-Projeto de sistema feito na disciplina de laboratório de engenharia de software
+Projeto de sistema sendo realizado como TCC 
 
 Grupo:<br>
 Bruno Ricardo<br>
