@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 10-Maio-2021 às 19:19
--- Versão do servidor: 10.4.16-MariaDB
--- versão do PHP: 7.4.12
+-- Tempo de geração: 22-Ago-2021 às 14:56
+-- Versão do servidor: 10.4.20-MariaDB
+-- versão do PHP: 7.4.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,7 +40,9 @@ CREATE TABLE `area` (
 
 INSERT INTO `area` (`id_area`, `nome_area`, `descricao`, `num_favorite`) VALUES
 (1, 'Segurança da informação', 'É o ramo da tecnologia da informação (TI) que busca manter a segurança e integridade dos dados que navegam pela principalmente pela internet e pelos sistemas de armazenamentos em nuvens, de forma que os dados fiquem disponíveis apenas para usuários autorizados de forma que não sofram manipulações por parte de pessoas indevidas e que estejam disponíveis apenas quando for necessário.\r\nUma das formas de se entrar nessa área é procurando um curso tecnólogo de segurança da informação, para os que já possuem algum tipo de graduação em TI, é possível fazer uma Pós-Graduação ou especialização em segurança.\r\nO profissional de segurança da informação tem uma média salarial de R$ 9.500,00.', 0),
-(3, 'Desenvolvimento', 'É um processo de escrita de códigos com o intuito de se obter um sistema usando as linguagens adequadas.', 0);
+(3, 'Desenvolvimento', 'É um processo de escrita de códigos com o intuito de se obter um sistema usando as linguagens adequadas.', 0),
+(4, 'BI', 'Utiliza ferramentas para analise e predição de dados ', 0),
+(5, 'DevOps', 'Área que aproxima o desenvolvimento e o cliente, melhorando as entregas', 0);
 
 -- --------------------------------------------------------
 
@@ -149,7 +151,29 @@ CREATE TABLE `favorito_usuario` (
 --
 
 INSERT INTO `favorito_usuario` (`id_favorito`, `id_usuario`, `id_area`) VALUES
-(1, 2, 1);
+(1, 2, 1),
+(2, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `notificacao`
+--
+
+CREATE TABLE `notificacao` (
+  `id_notificacao` int(100) NOT NULL,
+  `id_area` int(10) NOT NULL,
+  `item` text NOT NULL,
+  `id_usuario` int(10) NOT NULL,
+  `link` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `notificacao`
+--
+
+INSERT INTO `notificacao` (`id_notificacao`, `id_area`, `item`, `id_usuario`, `link`) VALUES
+(1, 1, 'Nova Profissão', 1, 'view/areas.php');
 
 -- --------------------------------------------------------
 
@@ -195,7 +219,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_usuario`, `nome_usuario`, `email`, `senha`, `administrador`, `areas`, `verificacao`, `token`, `foto`) VALUES
-(1, 'Diogenes P', 'diogemaz@gmail.com', '202cb962ac59075b964b07152d234b70', 1, NULL, 0, 'fb4102f6e16fe9931ddcfe0a8ec80614', NULL),
+(1, 'Diogenes P', 'diogemaz@gmail.com', '202cb962ac59075b964b07152d234b70', 1, NULL, 1, 'fb4102f6e16fe9931ddcfe0a8ec80614', NULL),
 (2, 'Felipe N', 'felipe@hotmail.com', '202cb962ac59075b964b07152d234b70', 0, NULL, 0, '8fe863573a42ae1ec12c4d3c1d591c6d', NULL);
 
 --
@@ -256,6 +280,14 @@ ALTER TABLE `favorito_usuario`
   ADD KEY `favorito_usuario_ibfk_2` (`id_area`);
 
 --
+-- Índices para tabela `notificacao`
+--
+ALTER TABLE `notificacao`
+  ADD PRIMARY KEY (`id_notificacao`),
+  ADD KEY `fk_area_notificacao` (`id_area`),
+  ADD KEY `fk_usuario_notificacao` (`id_usuario`);
+
+--
 -- Índices para tabela `profissao`
 --
 ALTER TABLE `profissao`
@@ -276,7 +308,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `area`
 --
 ALTER TABLE `area`
-  MODIFY `id_area` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_area` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `avaliacao_area`
@@ -294,7 +326,7 @@ ALTER TABLE `avaliacao_profissao`
 -- AUTO_INCREMENT de tabela `comentario_area`
 --
 ALTER TABLE `comentario_area`
-  MODIFY `id_comentarioArea` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_comentarioArea` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `comentario_profissao`
@@ -312,7 +344,13 @@ ALTER TABLE `curso`
 -- AUTO_INCREMENT de tabela `favorito_usuario`
 --
 ALTER TABLE `favorito_usuario`
-  MODIFY `id_favorito` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_favorito` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `notificacao`
+--
+ALTER TABLE `notificacao`
+  MODIFY `id_notificacao` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `profissao`
@@ -371,6 +409,13 @@ ALTER TABLE `curso`
 ALTER TABLE `favorito_usuario`
   ADD CONSTRAINT `favorito_usuario_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `favorito_usuario_ibfk_2` FOREIGN KEY (`id_area`) REFERENCES `area` (`id_area`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `notificacao`
+--
+ALTER TABLE `notificacao`
+  ADD CONSTRAINT `fk_area_notificacao` FOREIGN KEY (`id_area`) REFERENCES `area` (`id_area`),
+  ADD CONSTRAINT `fk_usuario_notificacao` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`);
 
 --
 -- Limitadores para a tabela `profissao`

@@ -144,12 +144,13 @@ if ($arq == "index.php") {
             </div>
             <div class="modal-body">
                 <?php 
+                if(isset($notificacao)){
                     while ($row = $notificacao->fetch()) {
                 ?>
                 <h5><?php echo $row['item']. " na área " . $row['nome_area']; ?></h5>
                 <a href="<?php echo $row['link']; ?>">Ver mais</a>
                 <hr>
-                <?php } ?>
+                <?php }} ?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
