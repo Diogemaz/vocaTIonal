@@ -446,7 +446,7 @@ if(isset($_SESSION['user'])){
                 dataType: "json",
                 data: form,
                 success: function(response){
-                if(response == 1){
+                if(response == 1 || response == 2){
                     profissoes($('#area option:selected').val());
                     $('#form-profissao').each (function(){
                         this.reset();

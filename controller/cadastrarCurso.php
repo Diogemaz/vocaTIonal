@@ -19,16 +19,15 @@
             $reflect = new ReflectionClass('profissao');
             $profissao = $reflect->newInstanceWithoutConstructor();
             $profissao->consultarProfissao($profissaoId);
-            $area = $profissao->getArea();
             if(!empty(trim($nome))){
                 try{
                     $cadastro = $curso->cadastrarCurso($profissaoId);
                     if($cadastro == 1){
-                        $notificar = notificaUsers($area, 2);
+                        $notificar = notificaUsers($profissaoId, 2);
                         if($notificar == 1){
                             $response = 1;
                         }else{
-                            $response = -1;
+                            $response = 2;
                         }
                     }else{
                         $response = 0;

@@ -22,7 +22,7 @@
                         if($notificar == 1){
                             $response = 1;
                         }else{
-                            $response = -1;
+                            $response = 2;
                         }
                     }else{
                         $response = 0;

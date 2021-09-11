@@ -37,21 +37,38 @@ function verificarEmail($email, $nomeUser, $token){
      }
 }
 
-function notificaUsers($area, $item){
+function notificaUsers($local, $item){
     $con = conexao();
     try{
-        $resultado = $con->prepare("SELECT a.nome_area, f.id_usuario FROM favorito_usuario f, area a WHERE f.id_area=:area AND f.id_area = a.id_area");
-        $resultado->bindParam(':area', $area, PDO::PARAM_INT);
-        $resultado->execute();
-        while($row = $resultado->fetch()){
-            $link = "cursos.php?profissao=".$row['nome_area'];
-            $stmt = $con->prepare("INSERT INTO notificacao (id_usuario, link, id_area, item) VALUES (:user, :link, :area, :item)");
-            $stmt->bindParam(':user', $row['id_usuario'], PDO::PARAM_STR, 50);
-            $stmt->bindParam(':link', $link, PDO::PARAM_STR);
-            $stmt->bindParam(':area', $area, PDO::PARAM_INT);
-            $stmt->bindParam(':item', $item, PDO::PARAM_INT);
-            $stmt->execute();
-            return 1;
+        if($item == 1){
+            $resultado = $con->prepare("SELECT a.nome_area, f.id_usuario FROM favorito_usuario f, area a WHERE f.id_area=:area AND f.id_area = a.id_area");
+            $resultado->bindParam(':area', $local, PDO::PARAM_INT);
+            $resultado->execute();
+            while($row = $resultado->fetch()){
+                $link = "profissoes.php?area=".$row['nome_area'];
+                $stmt = $con->prepare("INSERT INTO notificacao (id_usuario, link, id_area, item) VALUES (:user, :link, :area, :item)");
+                $stmt->bindParam(':user', $row['id_usuario'], PDO::PARAM_STR, 50);
+                $stmt->bindParam(':link', $link, PDO::PARAM_STR);
+                $stmt->bindParam(':area', $local, PDO::PARAM_INT);
+                $stmt->bindParam(':item', $item, PDO::PARAM_INT);
+                $stmt->execute();
+                return 1;
+            }
+        }else if($item == 2){
+            $resultado = $con->prepare("SELECT p.nome_profissao, f.id_usuario, a.id_area FROM favorito_usuario f, area a, profissao p WHERE p.id_profissao=:profissao AND a.id_area = (SELECT id_area FROM profissao WHERE id_profissao=:profissao) AND f.id_area = a.id_area;");
+            $resultado->bindParam(':profissao', $local, PDO::PARAM_INT);
+            $resultado->execute();
+            while($row = $resultado->fetch()){
+                $area = $row['id_area'];
+                $link = "cursos.php?profissao=".$row['nome_profissao'];
+                $stmt = $con->prepare("INSERT INTO notificacao (id_usuario, link, id_area, item) VALUES (:user, :link, :area, :item)");
+                $stmt->bindParam(':user', $row['id_usuario'], PDO::PARAM_STR, 50);
+                $stmt->bindParam(':link', $link, PDO::PARAM_STR);
+                $stmt->bindParam(':area', $area, PDO::PARAM_INT);
+                $stmt->bindParam(':item', $item, PDO::PARAM_INT);
+                $stmt->execute();
+                return 1;
+            }
         }
     }catch(Exception $e){
         return 0;

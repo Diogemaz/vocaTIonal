@@ -451,7 +451,7 @@ if(isset($_SESSION['user'])){
                 dataType: "json",
                 data: form,
                 success: function(response){
-                if(response == 1){
+                if(response == 1 || response == 2){
                     window.location.href = "adm-curso.php?profissao="+$('#profissao').val(); 
                 }else if(response == 0){
                     $('.alert-warning').text("Falha ao cadastrar, tente novamente");
@@ -461,7 +461,7 @@ if(isset($_SESSION['user'])){
                         $('.alert-warning').hide('close');
                     }, 5000);
                 }else if(response == -1){
-                    $('.alert-warning').text("Falha ao cadastrar, tente novamente -1");
+                    $('.alert-warning').text("Falha ao cadastrar, tente novamente");
                     $('.alert-warning').show();
                     setInterval(() => {
                         $('.alert-warning').text("");
