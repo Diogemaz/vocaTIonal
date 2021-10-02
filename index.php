@@ -85,6 +85,46 @@
                     </div>
                 </div>
             </div>
+        </section> 
+        <section class="page-section bg-primary3" id="services">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <h2 class="text-white mt-0">Oque é Ti para você?</h2>
+                        <hr class="divider light my-4" />
+                        <p class="text-white-50 mb-4">Existimos para ajudar você a decidir qual caminho seguir e também te indicar como começar a se preparar para ele.</p>
+                        <div class="slideshow-container">
+                        <div class="mySlides fade">
+                        <div class="numbertext">1 / 3</div>
+                        <img src="img_nature_wide.jpg" style="width:100%">
+                        <div class="text"></div>
+                        </div>
+
+                        <div class="mySlides fade">
+                        <div class="numbertext">2 / 3</div>
+                        <img src="img_snow_wide.png" style="width:100%">
+                        <div class="text"></div>
+                        </div>
+
+                        <div class="mySlides fade">
+                        <div class="numbertext">3 / 3</div>
+                        <img src="img_mountains_wide.jpg" style="width:100%">
+                        <div class="text"></div>
+                        </div>
+
+                        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+                        </div>
+                        <br>
+
+                        <div style="text-align:center">
+                        <span class="dot" onclick="currentSlide(1)"></span> 
+                        <span class="dot" onclick="currentSlide(2)"></span> 
+                        <span class="dot" onclick="currentSlide(3)"></span> 
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         <!-- Contact-->
         <?php include_once "includes/contato.php"; ?>

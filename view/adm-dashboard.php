@@ -221,6 +221,10 @@ if(isset($_SESSION['user'])){
                                 href="adm-curso.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                                     class="hide-menu">Cursos</span></a>
                                 </li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="adm-lista.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
+                                    class="hide-menu">Administradores</span></a>
+                                </li>
                             </ul>
                         </li> 
                     </ul>

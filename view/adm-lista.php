@@ -1,9 +1,7 @@
 <?php
 session_start();
 include_once "../model/usuario.php";
-include_once "../model/area.php";
-include_once "../model/profissao.php";
-include_once "../model/curso.php";
+include_once "../model/funcoes.php";
 if(isset($_SESSION['user'])){
     $user = unserialize($_SESSION['user']);
     if($user->getAdm() == 1){
@@ -260,28 +258,7 @@ if(isset($_SESSION['user'])){
             <!-- ============================================================== -->
             <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
-            <div class="page-breadcrumb">
-                <div class="row">
-                    <div class="col-12 d-flex no-block align-items-center">
-                        <select id="areaSelect" name="areaSelect" onchange="profissoes(this.value)">
-                            <option value="0">SELECIONE A ÁREA</option>
-                            <?php 
-                                $areas = new area;
-                                $i = 0;
-                                $resultado = $areas->getAreas();
-                                while($row = $resultado->fetch()){
-                                    $area[$i] = new area;
-                                    $area[$i]->consultarArea($row['id_area']); 
-                            ?>
-                                <option value="<?php echo $area[$i]->getId(); ?>"><h4 class="page-title"><?php echo $area[$i]->getNome(); ?></h4></option>
-                            <?php
-                                $i++;
-                                }
-                            ?>
-                        </select>
-                    </div>
-                </div>
-            </div>
+           
             <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
@@ -294,126 +271,31 @@ if(isset($_SESSION['user'])){
                 <!-- ============================================================== -->
                 <div class="row" id="retorno">
                 </div>
-                <?php 
-                    if(isset($_GET['profissao'])){
-                        $reflect = new ReflectionClass('profissao');
-                        $profissao = $reflect->newInstanceWithoutConstructor();
-                        $profissao->consultarProfissao($_GET['profissao']);
-                        $_SESSION['profissao'] = serialize($profissao);
-                ?>
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Cursos ativos em <?php echo $profissao->getNome(); ?>:</h5>
+                        <h5 class="card-title">Adiministradores</h5>
                     </div>
                     <table class="table">
                         <thead>
                             <tr>
                                 <th scope="col">ID:</th>
                                 <th scope="col">NOME:</th>
-                                <th scope="col">VALOR:</th>
-                                <th scope="col">LINK:</th>
-                                <th scope="col"></th>
+                                <th scope="col">EMAIL:</th>
                             </tr>
                         </thead>
                         <tbody>
                         <?php  
-                           foreach($profissao->getCursos() as $curso){
+                           foreach(listaAdm() as $adm){
                         ?>
                             <tr>
-                                <th scope="row"><?php echo $curso->getId(); ?></th>
-                                <td><?php echo $curso->getNome(); ?></td>
-                                <td><?php if($curso->getPreco() == 0.00){ echo "Gratuito"; }else{echo str_replace(".", ",", $curso->getPreco());} ?></td>
-                                <td><a href="<?php echo $curso->getLink(); ?>"><?php echo $curso->getLink(); ?></a></td>
-                                <td><a href="?profissao=<?php echo $profissao->getId();  ?>&curso=<?php echo $curso->getId(); ?>" class="btn btn-primary">Alterar/Excluir</a></td>
+                                <th scope="row"><?php echo $adm['id_usuario']; ?></th>
+                                <td><?php echo $adm['nome_usuario']; ?></td>
+                                <td><?php echo $adm['email']; ?></td>
                             </tr>
                         <?php } ?>
                         </tbody>
                     </table>
                 </div>
-    <?php } else{}?>
-    <?php if(isset($_GET['profissao']) && !isset($_GET['curso'])){ ?>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card">
-                                <form class="form-horizontal" id="form-curso" onsubmit="cadastrarCurso();" method="POST">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Adicionar curso em <?php echo $profissao->getNome(); ?>:</h4>
-                                        <div class="form-group row">
-                                            <label for="nome" class="col-sm-3 text-end control-label col-form-label">Nome:</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do curso." required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="salario" class="col-sm-3 text-end control-label col-form-label">Preço:</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="preco" name="preco" placeholder="Preço do curso." required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="area" class="col-sm-3 text-end control-label col-form-label">Link:</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="link" name="link" placeholder="Link" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="border-top">
-                                        <div class="card-body">
-                                            <button type="submit" class="btn btn-primary">Enviar</button>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="profissao" id="profissao" value="<?php echo $profissao->getId(); ?>">
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <?php }else if(isset($_GET['curso'])){ 
-                $reflect = new ReflectionClass('curso');
-                $curso = $reflect->newInstanceWithoutConstructor();
-                $curso->consultarCurso($_GET['curso']);
-                $_SESSION['curso'] = serialize($curso);    
-            ?>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card">
-                                <form class="form-horizontal" id="form-curso" action="../controller/cadastrarcurso.php" method="POST">
-                                <div class="card-body">
-                                        <h4 class="card-title">Alterar curso ID: <?php echo $curso->getId(); ?></h4>
-                                        <div class="form-group row">
-                                            <label for="nome" class="col-sm-3 text-end control-label col-form-label">Nome:</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do curso." value="<?php echo $curso->getNome(); ?>" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="salario" class="col-sm-3 text-end control-label col-form-label">Preço:</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="preco" name="preco" placeholder="Preço do curso." value="<?php echo $curso->getPreco(); ?>" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="area" class="col-sm-3 text-end control-label col-form-label">Link:</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="link" name="link" placeholder="link" value="<?php echo $curso->getLink(); ?>" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="border-top">
-                                        <div class="card-body">
-                                            <button onclick="alterarCurso();" class="btn btn-primary">Alterar</button>
-                                            <button onclick="deletarCurso();" class="btn btn-primary">Excluir</button>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="profissao" id="profissao" value="<?php echo $curso->getIdProfissao(); ?>">
-                                </form>
-                            <button class="btn btn-primary"><a href="adm-curso.php" style="text-decoration: none; color: white;">Adicionar novo curso</a></button>  
-                        </div>
-                    </div>
-                </div>
-            <?php } ?>
 
                     <!-- Column -->
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
@@ -527,18 +409,6 @@ if(isset($_SESSION['user'])){
                 }
             });
         };
-        function profissoes(area){
-            $('#retorno').html("");
-            $('#retorno').load("../controller/consultarProfissoes.php", {area : area});
-        }
-        function abriPagina(){
-            if($('#areaSelect option:selected').val() == 0){
-                var elemento = "<h2>Nenhuma Área selecionada</h2>";
-                document.getElementById('retorno').innerHTML = elemento;
-            }else{
-                profissoes($('#areaSelect option:selected').val());
-            }
-        }
     </script>
 </body>
 

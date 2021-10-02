@@ -1,4 +1,4 @@
-<section class="page-section" id="contact">
+<section class="page-section bg-primary4" id="contact">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 ml-auto text-center mb-5 mb-lg-0">

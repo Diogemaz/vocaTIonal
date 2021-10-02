@@ -87,4 +87,16 @@ function notificaUsers($local, $item){
             return $e;
         }
     }
+
+    function listaAdm(){
+        $con = conexao();
+        try{
+            $sql = "SELECT id_usuario, nome_usuario, email FROM usuario WHERE administrador=1";
+            $resultado = $con->prepare($sql);
+            $resultado->execute();
+            return $resultado;
+        }catch(Exception $e){
+            return $e;
+        }
+    }
 ?>

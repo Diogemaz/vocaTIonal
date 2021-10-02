@@ -120,7 +120,7 @@
                 <?php } ?>
             </div>
       </section>
-      <section id="avaliacao">
+      <section class="bg-primary" id="avaliacao">
             <div class="container">
                 <div class="d-flex justify-content-center">
                     <?php if(isset($_SESSION['user'])){ ?>
@@ -144,22 +144,22 @@
                         <div class="progress">
                             <div class="progress-bar" style="width: <?php if($area->getProcAvaliacao() == -1){ echo 0; }else{echo $area->getProcAvaliacao();} ?>%" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="text-center"><?php if($area->getProcAvaliacao() == -1){echo "Área não avaliada";}else{echo number_format($area->getProcAvaliacao(), 2, ",", "") . "%";} ?></div>
+                        <div class="text-center text-white"><?php if($area->getProcAvaliacao() == -1){echo "Área não avaliada";}else{echo number_format($area->getProcAvaliacao(), 2, ",", "") . "%";} ?></div>
                     </div>   
                 </div>     
             </div>
       </section>
       <!--Área de comentario-->
-      <section id="comentarios">
-            <div class="container mt-2">
+      <section class="bg-primary2" id="comentarios">
+            <div class="container pt-2">
                 <form id="comentar" onsubmit="comentar();" method="POST">
                     <div class="form-group">
-                        <label for="comentario">Deixe seu comentário</label>
+                        <label class="text-white" for="comentario">Deixe seu comentário</label>
                         <textarea class="form-control" required id="comentario" data-ls-module="charCounter" oninput="if(this.scrollHeight > this.offsetHeight) this.rows += 1" maxlength="500" name="comentario" rows="1"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
-                <h2 class="text-uppercase text-primary font-weight-bold mb-5 mt-3">Comentários</h2>
+                <h2 class="text-uppercase text-primary font-weight-bold pb-5 pt-3 m-0">Comentários</h2>
                 <div id="retorno">
                 </div>
                 <!--comentario 1-->
@@ -172,7 +172,7 @@
                             $img = "../assets/img/user/" . $comentario['foto'];
                         }
                 ?>
-                <div class="row mt-2">
+                <div class="row pt-2">
                     <div class="col-1"><img class="img-user" src="<?php echo $img; ?>"></div>
                     <div class="comentario pt-0 pl-4 col-11" style="border-radius: 20px;">
                         <div class="h-25 row mb-2 mt-2">
@@ -196,7 +196,7 @@
                                 </div>
                             <?php } ?>
                         </div>
-                        <div class="row mb-2 mt-2">
+                        <div class="row pb-2 pt-2">
                             <div class="col">
                                 <span><?php echo $comentario['comentario']; ?></span>
                             </div>

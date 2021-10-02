@@ -47,16 +47,16 @@
                <div class="col-lg-10 align-self-end">
                   <h1 class="text-uppercase text-white font-weight-bold">Configurações de Usuário</h1>
                </div>
-               <div class="container bg-white">
+               <div class="container bg-white arredondar">
                     <form id="form-altUser" action="../controller/alterarUsuario.php" method="POST" enctype="multipart/form-data">
                         <div class="form-row">
                             <div class="form-group col-md-6 mt-2">
-                            <img class="img-user" src="<?php echo $img; ?>">
+                            <img class="img-user mb-1" src="<?php echo $img; ?>">
                             <div><label id="foto2" for='foto'>Selecionar uma foto</label></div>
-                            <input type="file" class="form-control-file" name="foto" id="foto">
+                            <input type="file" class="form-control-file " name="foto" id="foto">
                             </div>
-                            <div class="form-group col-md-6 mt-3">
-                            <label for="nome">Nome de usuário</label>
+                            <div class="form-group col-md-6 mt-5">
+                            <label class="text-white mb-4" for="nome">Nome de usuário</label>
                             <input type="text" class="form-control" id="nome" name="nome" required placeholder="Nome de usuário" value="<?php echo $user->getNomeUsuario(); ?>" maxlength="25">
                             </div>
                         </div>
