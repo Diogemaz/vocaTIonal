@@ -69,8 +69,42 @@
                 </div>
             </div>
         </header>
-        <!-- areas-->
-        <section class="page-section bg-primary" id="services" style="position: relative; z-index: 0;">
+        <section class="bg-primary" id="opcoes">
+            <div class="container animated fadeIn">
+                <div class="row justify-content-center">       
+                        <button class="borda-btn" id="profissoes" onclick="TrocarFoco('services-profissoes','services-trilhas')">Profissoes</button>
+                        <button class="borda-btn" id="trilhas" onclick="TrocarFoco('services-trilhas','services-profissoes')">Trilhas</button>
+                </div>
+            </div>
+        </section>
+        <!-- trilas-->
+        <section class="page-section bg-primary" id="services-trilhas" style="position: relative; z-index: 0; display:none;">
+            <div class="container animated fadeIn">
+                <div class="row justify-content-center mb-5">       
+                    <button class="circulo" onclick="EscolheItem('1')">1</button>       
+                    <button class="circulo" onclick="EscolheItem('2')">2</button>       
+                    <button class="circulo">3</button>       
+                    <button class="circulo">4</button>
+                </div>
+                <div class="row justify-content-center"> 
+                    <div id="conteudo-1">      
+                        <div class="text-center titulo" id="titulo">1 - O raciocínio lógico</div>
+                        <div class="conteudo" id="texto">
+                            O raciocínio lógico nos acompanha o tempo todo. Por exemplo, para fazer café, precisamos primeiro aquecer a água, depois despejarmos ela quente sobre o pó de café, assim o pó será coado e o café estará pronto para beber. Caso não siga sequência lógica, vai ser difícil saborear um bom café.
+                            A lógica de programação nada mais é do que uma sequência de passos para resolver um problema. Quem vai resolver o problema, nesse caso, é o computador, baseado nas instruções que passamos para ele. Então, precisamos saber quais tipos de instruções o computador entende e qual a melhor forma de passarmos os comandos para nos comunicarmos com ele.
+                        </div>
+                    </div>
+                    <div id="conteudo-1" style="display:none;">      
+                        <div class="text-center titulo" id="titulo">2 - Conhecer o Sistema Operacional</div>
+                        <div class="conteudo" id="texto">
+                            Agora que você molhou os pés no mundo da programação e dos códigos, é importante que você conheça como o computador funciona e como ele interpreta os códigos que criamos. Isso porque, todo código que criamos será executado por uma máquina, então saber como elas funcionam nos ajuda a entender melhor os problemas comuns que toda pessoa na área de tecnologia precisa resolver diariamente.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Profissoes-->
+        <section class="page-section bg-primary" id="services-profissoes" style="position: relative; z-index: 0;">
             <link rel="stylesheet" href="../css/estilo.css">
             <div class="container">
                 <div class="row align-items-center justify-content-center mb-5">

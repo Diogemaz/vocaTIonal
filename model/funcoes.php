@@ -99,4 +99,5 @@ function notificaUsers($local, $item){
             return $e;
         }
     }
+
 ?>

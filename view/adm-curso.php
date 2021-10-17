@@ -1,5 +1,6 @@
 <?php
 session_start();
+$arq = basename(__FILE__);
 include_once "../model/usuario.php";
 include_once "../model/area.php";
 include_once "../model/profissao.php";
@@ -209,40 +210,7 @@ if(isset($_SESSION['user'])){
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
-        <aside class="left-sidebar" data-sidebarbg="skin5">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav" class="pt-4">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="adm-dashboard.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">Dashboard</span></a>
-                                </li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="adm-area.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">Áreas</span></a>
-                                </li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="adm-profissao.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">Profissões</span></a>
-                                </li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="adm-curso.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">Cursos</span></a>
-                                </li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="adm-lista.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">Administradores</span></a>
-                                </li>
-                            </ul>
-                        </li> 
-                    </ul>
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-        </aside>
+        <?php include "../includes/menu-lateral-adm.php" ?>
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
@@ -334,11 +302,11 @@ if(isset($_SESSION['user'])){
     <?php if(isset($_GET['profissao']) && !isset($_GET['curso'])){ ?>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="card">
                                 <form class="form-horizontal" id="form-curso" onsubmit="cadastrarCurso();" method="POST">
                                     <div class="card-body">
-                                        <h4 class="card-title">Adicionar curso em <?php echo $profissao->getNome(); ?>:</h4>
+                                        <h4 class="card-title">Adicionar curso em <?php echo $profissao->getNome(); ?></h4>
                                         <div class="form-group row">
                                             <label for="nome" class="col-sm-3 text-end control-label col-form-label">Nome:</label>
                                             <div class="col-sm-9">
@@ -377,7 +345,7 @@ if(isset($_SESSION['user'])){
             ?>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="card">
                                 <form class="form-horizontal" id="form-curso" action="../controller/cadastrarcurso.php" method="POST">
                                 <div class="card-body">

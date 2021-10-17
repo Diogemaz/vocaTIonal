@@ -707,3 +707,23 @@ function removeNotificacao() {
         }
     });
 }
+
+function TrocarFoco(id, lastid) {
+    document.getElementById(id.split("-")[1]).classList.add('selecionado')
+    document.getElementById(id.split("-")[1]).classList.remove('borda-btn')
+    document.getElementById(lastid.split("-")[1]).classList.remove('selecionado')
+    document.getElementById(lastid.split("-")[1]).classList.add('borda-btn')
+    document.getElementById(id).style.display = "block";
+    document.getElementById(lastid).style.display = "none";
+}
+
+function EscolheItem(item) {
+    conteudos = $("[id^=conteudo]")
+    for (i = 0; i < conteudos.length; i++) {
+        if (i != parseInt(item) - 1) {
+            conteudos[i].style.display = "none";
+        } else {
+            conteudos[i].style.display = "block";
+        }
+    }
+}
