@@ -190,6 +190,18 @@ class Usuario
             return 0;
         }
     }
+    public function tornarADM($nome){
+        $con = conexao();
+        try{
+            $sql = "UPDATE usuario SET administrador = 1 WHERE nome_usuario = :nome";
+            $update = $con->prepare($sql);
+            $update->bindParam(':nome', $nome, PDO::PARAM_STR, 50); 
+            $update->execute();
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+    }
 }
 
 ?>

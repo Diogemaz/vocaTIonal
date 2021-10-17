@@ -320,7 +320,7 @@ if (isset($_SESSION['user'])) {
                             data: form,
                             success: function(response) {
                                 if (response == 1 || response == 2) {
-                                    window.location.href = "adm-curso.php?profissao=" + $('#profissao').val();
+                                    window.location.href = "adm-lista.php";
                                 } else if (response == 0) {
                                     $('.alert-warning').text("Falha ao cadastrar, tente novamente");
                                     $('.alert-warning').show();
