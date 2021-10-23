@@ -5,7 +5,7 @@
         try{
             $reflect = new ReflectionClass('usuario');
             $user = $reflect->newInstanceWithoutConstructor();
-            $nome = $_POST['nome'];
+            $nome = $_POST['pesquisa'];
             $alter = $user->tornarADM($nome);
             if($alter = 1){
                 $response = 1;

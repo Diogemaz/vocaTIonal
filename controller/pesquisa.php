@@ -12,7 +12,7 @@ if($resultado->rowCount() <= 0){
     echo "Nenhum usuário encontrado...";
 }else{
     foreach($resultado as $rows){
-        echo "<li><button type='button' id='item'>".$rows['nome_usuario']." (".$rows['email'].")</button></li>";
+        echo "<option value='".$rows['nome_usuario']."'>".$rows['nome_usuario']." (".$rows['email'].")<option>";
     }
 }
 ?>

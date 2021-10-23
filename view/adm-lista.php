@@ -243,6 +243,7 @@ if (isset($_SESSION['user'])) {
                                         <th scope="col">ID:</th>
                                         <th scope="col">NOME:</th>
                                         <th scope="col">EMAIL:</th>
+                                        <th scope="col">AÇÕES:</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -253,6 +254,7 @@ if (isset($_SESSION['user'])) {
                                             <th scope="row"><?php echo $adm['id_usuario']; ?></th>
                                             <td><?php echo $adm['nome_usuario']; ?></td>
                                             <td><?php echo $adm['email']; ?></td>
+                                            <td> <button onclick="RetirarAdm();" class="btn btn-primary">Retirar</button></td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>
@@ -261,17 +263,15 @@ if (isset($_SESSION['user'])) {
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="card">
-                                    <form class="form-horizontal" autocomplete="off" id="form-adm" action="" method="POST">
+                                    <form class="form-horizontal" autocomplete="off" id="form-adm" action="../controller/ConvidarAdm.php" method="POST">
                                         <div class="card-body">
                                             <h4 class="card-title">Adicionar ADM</h4>
                                             <div class="form-group row">
                                                 <label for="nome" class="col-sm-3 text-end control-label col-form-label">Nome:</label>
                                                 <div class="col-sm-9">
-                                                    <input required type="text" class="form-control" id="pesquisa" maxlength="35" name="pesquisa" placeholder="Nome do usuário." value="">
-                                                    <div class="lista-pesquisa">
-                                                        <ul class="resultado">
-                                                        </ul>
-                                                    </div>
+                                                    <input required type="text" class="form-control" id="pesquisa" list="adms" maxlength="35" name="pesquisa" placeholder="Nome do usuário." autocomplete="off" value="">
+                                                    <datalist id="adms" class="lista-pesquisa">
+                                                    </datalist>
                                                 </div>
                                             </div>
                                         </div>
@@ -310,7 +310,9 @@ if (isset($_SESSION['user'])) {
                 <script src="../assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
                 <script src="../dist/js/pages/chart/chart-page-init.js"></script>
                 <script>
-                    function convidarAdm() {
+                    jQuery(function($){
+                        $("#form-frase").on("submit",function(e){
+                            e.preventDefault(); // impedir o evento submit
                         var form = $('#form-adm').serialize();
                         console.log(form);
                         $.ajax({
@@ -346,15 +348,10 @@ if (isset($_SESSION['user'])) {
                                 }, 5000);
                             }
                         });
-                    };
+                    })});
 
-                    function deletarCurso() {
+                    function RetirarAdm() {
                         var funcao = "Excluir";
-                        alterarDeletarCurso(funcao);
-                    }
-
-                    function alterarCurso() {
-                        var funcao = "Alterar";
                         alterarDeletarCurso(funcao);
                     }
 
@@ -408,20 +405,13 @@ if (isset($_SESSION['user'])) {
                                 $.post('../controller/pesquisa.php', dados, function(retorna) {
                                     console.log("pesquisou")
                                     //Mostra dentro da ul os resultado obtidos 
-                                    $(".resultado").html(retorna);
+                                    $("#adms").html(retorna);
                                 });
                             } else {
-                                $(".resultado").html('');
+                                $("#adms").html('');
                             }
                         });
 
-                    });
-                    $(function(){
-                        $("#item").on("click", function(){
-                            alert('oi')
-                            var pesquisa = $(this).text();
-                            $("#pesquisa").val(pesquisa);
-                        });
                     });
                 </script>
         </body>
