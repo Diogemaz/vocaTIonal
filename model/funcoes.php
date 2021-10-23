@@ -99,5 +99,31 @@ function notificaUsers($local, $item){
             return $e;
         }
     }
+    
+    function listaFrases(){
+        $con = conexao();
+        try{
+            $sql = "SELECT * FROM frase;";
+            $resultado = $con->prepare($sql);
+            $resultado->execute();
+            return $resultado;
+        }catch(Exception $e){
+            return $e;
+        }
+    }
+
+    function cadastrarFrase($nome, $frase, $linkedin){
+        $con = conexao();
+        try{
+            $stmt = $con->prepare("INSERT INTO frase (texto_frase, profissional_frase, linkedin_frase) VALUES (:frase, :nome, :linkedin)");
+            $stmt->bindParam(':nome', $nome, PDO::PARAM_STR, 50);
+            $stmt->bindParam(':frase', $frase, PDO::PARAM_STR, 500);
+            $stmt->bindParam(':linkedin', $linkedin, PDO::PARAM_STR, 200);
+            $stmt->execute();
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+    }
 
 ?>

@@ -7,25 +7,29 @@
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                         href="adm-dashboard.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                             class="hide-menu">Dashboard</span></a>
-                        </li>
+                </li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                         href="adm-area.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                             class="hide-menu">Áreas</span></a>
-                        </li>
+                </li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                         href="adm-profissao.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                             class="hide-menu">Profissões</span></a>
-                        </li>
+                </li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                         href="adm-curso.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                             class="hide-menu">Cursos</span></a>
-                        </li>
+                </li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                         href="adm-lista.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                             class="hide-menu">Administradores</span></a>
-                        </li>
-                    </ul>
-                </li> 
+                </li>
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                        href="adm-frases.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
+                            class="hide-menu">Frases</span></a>
+                </li>
+            </ul>
+            </li>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

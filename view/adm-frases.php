@@ -235,24 +235,26 @@ if (isset($_SESSION['user'])) {
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Adiministradores</h5>
+                                <h5 class="card-title">Frases</h5>
                             </div>
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th scope="col">ID:</th>
-                                        <th scope="col">NOME:</th>
-                                        <th scope="col">EMAIL:</th>
+                                        <th scope="col">FRASE:</th>
+                                        <th scope="col">PROFISSIONAL:</th>
+                                        <th scope="col">LINKEDIN:</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    foreach (listaAdm() as $adm) {
+                                    foreach (listaFrases() as $frases) {
                                     ?>
                                         <tr>
-                                            <th scope="row"><?php echo $adm['id_usuario']; ?></th>
-                                            <td><?php echo $adm['nome_usuario']; ?></td>
-                                            <td><?php echo $adm['email']; ?></td>
+                                            <th scope="row"><?php echo $frases['id_frase']; ?></th>
+                                            <td><?php echo $frases['texto_frase']; ?></td>
+                                            <td><?php echo $frases['profissional_frase']; ?></td>
+                                            <td><?php echo $frases['linkedin_frase']; ?></td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>
@@ -261,23 +263,24 @@ if (isset($_SESSION['user'])) {
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="card">
-                                    <form class="form-horizontal" autocomplete="off" id="form-adm" action="" method="POST">
+                                    <form class="form-horizontal" id="form-frase" action="" method="POST">
                                         <div class="card-body">
-                                            <h4 class="card-title">Adicionar ADM</h4>
+                                            <h4 class="card-title">Adicionar Frase</h4>
                                             <div class="form-group row">
                                                 <label for="nome" class="col-sm-3 text-end control-label col-form-label">Nome:</label>
-                                                <div class="col-sm-9">
-                                                    <input required type="text" class="form-control" id="pesquisa" maxlength="35" name="pesquisa" placeholder="Nome do usuário." value="">
-                                                    <div class="lista-pesquisa">
-                                                        <ul class="resultado">
-                                                        </ul>
-                                                    </div>
+                                                <div class="col-sm-9 mb-2">
+                                                    <input required type="text" class="form-control" id="nome" maxlength="35" name="nome" placeholder="Nome do profissional." value="">
                                                 </div>
-                                            </div>
+                                                <label for="link_linkedin" class="col-sm-3 text-end control-label col-form-label">Linkedin:</label>
+                                                <div class="col-sm-9 mb-2">
+                                                    <input required type="text" class="form-control" id="link_linkedin" maxlength="35" name="link_linkedin" placeholder="linkedin do profissional." value="">
+                                                </div>
+                                                <label for="frase" class="col-sm-12 text-center control-label col-form-label">Frase</label>
+                                                <textarea required id="frase" name="frase" data-ls-module="charCounter" oninput="if(this.scrollHeight > this.offsetHeight) this.rows += 1" maxlength="1000"></textarea>
                                         </div>
                                         <div class="border-top">
                                             <div class="card-body">
-                                                <button onclick="convidarAdm();" class="btn btn-primary">Tornar ADM</button>
+                                                <button class="btn btn-primary">Adicionar frase</button>
                                             </div>
                                         </div>
                                     </form>
@@ -310,31 +313,33 @@ if (isset($_SESSION['user'])) {
                 <script src="../assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
                 <script src="../dist/js/pages/chart/chart-page-init.js"></script>
                 <script>
-                    function convidarAdm() {
-                        var form = $('#form-adm').serialize();
+                    jQuery(function($){
+                        $("#form-frase").on("submit",function(e){
+                            e.preventDefault(); // impedir o evento submit
+                        var form = $('#form-frase').serialize();
                         console.log(form);
                         $.ajax({
                             type: 'POST',
-                            url: '../controller/ConvidarAdm.php',
+                            url: '../controller/cadastrarFrase.php',
                             dataType: "json",
                             data: form,
                             success: function(response) {
                                 if (response == 1) {
-                                    window.location.href = "adm-lista.php";
+                                    window.location.href = "adm-frase.php";
                                 } else if (response == 0) {
                                     $('.alert-warning').text("Falha ao cadastrar, tente novamente");
                                     $('.alert-warning').show();
                                     setInterval(() => {
                                         $('.alert-warning').text("");
                                         $('.alert-warning').hide('close');
-                                    }, 5000);
+                                    }, 10000);
                                 } else if (response == -1) {
                                     $('.alert-warning').text("Falha ao cadastrar, tente novamente");
                                     $('.alert-warning').show();
                                     setInterval(() => {
                                         $('.alert-warning').text("");
                                         $('.alert-warning').hide('close');
-                                    }, 5000);
+                                    }, 10000);
                                 }
                             },
                             error: function(response) {
@@ -343,11 +348,11 @@ if (isset($_SESSION['user'])) {
                                 setInterval(() => {
                                     $('.alert-danger').text("");
                                     $('.alert-danger').hide('close');
-                                }, 5000);
+                                }, 10000);
                             }
                         });
-                    };
-
+                    })});
+                    
                     function deletarCurso() {
                         var funcao = "Excluir";
                         alterarDeletarCurso(funcao);
@@ -373,7 +378,7 @@ if (isset($_SESSION['user'])) {
                                     setInterval(() => {
                                         $('.alert-success').text("");
                                         $('.alert-success').hide('close');
-                                    }, 5000);
+                                    }, 10000);
                                     window.location.href = "adm-curso.php?profissao=" + $('#profissao').val();
                                 } else if (response == 0) {
                                     $('.alert-warning').text("Falha ao alterar, tente novamente");
@@ -381,7 +386,7 @@ if (isset($_SESSION['user'])) {
                                     setInterval(() => {
                                         $('.alert-warning').text("");
                                         $('.alert-warning').hide('close');
-                                    }, 5000);
+                                    }, 10000);
                                 }
                             },
                             error: function(response) {
