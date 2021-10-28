@@ -69,6 +69,20 @@ function notificaUsers($local, $item){
                 $stmt->execute();
                 return 1;
             }
+        }else if($item == 3){
+            $resultado = $con->prepare("SELECT a.nome_area, f.id_usuario FROM favorito_usuario f, area a WHERE f.id_area=:area AND f.id_area = a.id_area");
+            $resultado->bindParam(':area', $local, PDO::PARAM_INT);
+            $resultado->execute();
+            while($row = $resultado->fetch()){
+                $link = "profissoes.php?area=".$row['nome_area'];
+                $stmt = $con->prepare("INSERT INTO notificacao (id_usuario, link, id_area, item) VALUES (:user, :link, :area, :item)");
+                $stmt->bindParam(':user', $row['id_usuario'], PDO::PARAM_STR, 50);
+                $stmt->bindParam(':link', $link, PDO::PARAM_STR);
+                $stmt->bindParam(':area', $local, PDO::PARAM_INT);
+                $stmt->bindParam(':item', $item, PDO::PARAM_INT);
+                $stmt->execute();
+                return 1;
+            }
         }
     }catch(Exception $e){
         return 0;

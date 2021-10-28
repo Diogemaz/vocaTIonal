@@ -8,6 +8,7 @@ class Area
     public $descricao;
     public $favorito;
     public $profissoes = array();
+    public $trilhas = array();
     public $avaliacao;
     public $PorcAvaliacao;
 
@@ -28,6 +29,10 @@ class Area
     }
     public function getProfissoes(){
         return $this->profissoes;
+    }
+
+    public function getTrilhas(){
+        return $this->trilhas;
     }
 
     public function getFavorito(){
@@ -130,6 +135,12 @@ class Area
                         $profissoes->execute();
                         while($profissao = $profissoes->fetch()){
                             $this->profissoes[] = new profissao($profissao['id_profissao'], $profissao['nome_profissao'], $profissao['salario']); 
+                        }
+                        $sql = "SELECT * FROM trilha WHERE id_area=$id_area;";
+                        $trilhas = $con->prepare($sql);
+                        $trilhas->execute();
+                        while($trilha = $trilhas->fetch()){
+                            $this->trilhas[] = new trilhas($trilha['id_trilha'], $trilha['nome_trilha'], $trilha['texto_trilhas']); 
                         }
                         $sql = "SELECT * FROM favorito_usuario WHERE id_area=$id_area";
                         $favs = $con->prepare($sql);
