@@ -109,7 +109,6 @@
         style="position: relative; z-index: 0; display:none;">
         <div class="container animated fadeIn">
         <?php 
-            $cont2 = 0;
             for($j = 0; $j <= $cont; $j++){
         ?>
             <div class="row justify-content-center mb-5" id="Escolha-<?php echo str_replace(' ', '_', $nomeTrilha[$j]); ?>">
@@ -124,16 +123,19 @@
                     $pontos = 0;
                     foreach($AsTrilhas[$j] as $conteudo){
                         preg_match('[(.*?)]',$conteudo, $link);
-                        $conteudo = str_replace("[", "</p><a href='{$link[0]}'>", $conteudo);
-                        $conteudo = str_replace("]", "</a>", $conteudo);
+                        $conteudo = str_replace("[", "<p><a href='{$link[0]}'>", $conteudo);
+                        $conteudo = str_replace("]", "</a></p>", $conteudo);
                 ?>
                 <div class="col-lg-12 align-self-baseline" id="conteudo-<?php echo str_replace(" ", "_", $nomeTrilha[$j])."-".$pontos; ?>" style='display:none;'>
                     <div class="text-center titulo" id="titulo"><?php echo $nomeTrilha[$j];?></div>
-                    <div class="conteudo" id="texto"><p><?php echo $conteudo;?></div>
+                    <div class="conteudo" id="texto">
+                        <div class="text-white-75 font-weight-light mb-5">
+                            <?php echo $conteudo;?>
+                        </div>
+                    </div>
                 </div>
                 <?php 
                     $pontos++;
-                    $cont2++; 
                     } 
                 ?>
             </div>
