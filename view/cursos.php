@@ -65,6 +65,10 @@ if (isset($_GET['profissao'])) {
                         <h1 class="text-uppercase text-white font-weight-bold animated fadeInRight"><?php echo $profissao->getNome(); ?></h1>
                         <hr class="divider my-4 animated fadeInLeft" />
                     </div>
+                    <div class="col-lg-8 align-self-baseline">
+                        <p class="text-white-75 font-weight-light mb-5 animated fadeInRight">
+                            <?php echo $profissao->getDescricao(); ?></p>
+                    </div>
                 </div>
             </div>
         </header>

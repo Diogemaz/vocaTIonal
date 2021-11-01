@@ -9,11 +9,13 @@
         if($user->getAdm() == 1){
             $nome = substr($_POST['nome'], 0, 36);
             $salario = $_POST['salario'];
+            $descricao = $_POST['descricao'];
             $area = $_POST['area'];
             $reflect = new ReflectionClass('profissao');
             $profissao = $reflect->newInstanceWithoutConstructor();
             $profissao->setNome($nome);
             $profissao->setSalario($salario);
+            $profissao->setDescricao($descricao);
             if(!empty(trim($nome))){
                 try{
                     $cadastro = $profissao->cadastrarProfissao($area);

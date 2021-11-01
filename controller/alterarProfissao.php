@@ -10,8 +10,9 @@
             $id = $profissao->getId();
             $nome = substr($_POST['nome'], 0, 36);
             $salario = $_POST['salario'];
+            $descricao = $_POST['descricao'];
             $area = $_POST['area'];
-            $profissao = new profissao($id, $nome, $salario);
+            $profissao = new profissao($id, $nome, $descricao, $salario);
             if(!empty(trim($nome))){
                 try{
                     if($_POST['funcao'] == "Alterar"){

@@ -10815,4 +10815,11 @@ label#foto2 {
 
 .conteudo {
     color: white;
+    width: 95%;
+    white-space: nowrap;
+    word-wrap: break-word;
+}
+
+.conteudo p {
+    word-wrap: break-word;
 }

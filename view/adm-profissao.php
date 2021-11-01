@@ -274,6 +274,9 @@ if(isset($_SESSION['user'])){
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="nome" name="nome" maxlength="35" placeholder="Nome da profissão." required>
                                             </div>
+                                            <label for="descricao" class="col-sm-12 text-center control-label col-form-label">Descrição</label>
+                                            <textarea required id="descricao" name="descricao" data-ls-module="charCounter" oninput="if(this.scrollHeight > this.offsetHeight) this.rows += 1" maxlength="1000"></textarea>
+                                        </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="salario" class="col-sm-3 text-end control-label col-form-label">Salario:</label>
@@ -330,6 +333,9 @@ if(isset($_SESSION['user'])){
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="nome" maxlength="35" name="nome" placeholder="Nome da profissão." required value="<?php echo $profissao->getNome(); ?>">
                                             </div>
+                                            <label for="descricao" class="col-sm-12 text-center control-label col-form-label">Descrição</label>
+                                            <textarea required id="descricao" name="descricao" data-ls-module="charCounter" oninput="if(this.scrollHeight > this.offsetHeight) this.rows += 1" maxlength="1000"><?php echo $profissao->getDescricao(); ?></textarea>
+                                        </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="salario" class="col-sm-3 text-end control-label col-form-label">Salario:</label>

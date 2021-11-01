@@ -713,8 +713,25 @@ function TrocarFoco(id, lastid) {
     document.getElementById(id.split("-")[1]).classList.remove('borda-btn')
     document.getElementById(lastid.split("-")[1]).classList.remove('selecionado')
     document.getElementById(lastid.split("-")[1]).classList.add('borda-btn')
-    document.getElementById(id).style.display = "block";
-    document.getElementById(lastid).style.display = "none";
+    document.getElementById(id).style.display = "";
+    if (document.getElementById(lastid).style.display == "") {
+        document.getElementById(lastid).style.display = "none";
+    }
+    if (lastid == "services-trilhas") {
+        document.getElementById("escolha-trilhas").style.display = "none";
+    }
+}
+
+function EscolheTrilha(item) {
+    conteudos = $("[id^=Escolha]")
+    for (i = 0; i < conteudos.length; i++) {
+        if (i != parseInt(item)) {
+            conteudos[i].style.display = "none";
+        } else {
+            conteudos[i].style.display = "";
+        }
+    }
+    document.getElementById('services-trilhas').style.display = ""
 }
 
 function EscolheItem(item) {

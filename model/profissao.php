@@ -10,13 +10,15 @@ class profissao
     public $cursos = [];
     public $avaliacao;
     public $PorcAvaliacao;
+    public $descricao;
     public $area;
 
-    public function __construct($id, $nome, $salario)
+    public function __construct($id, $nome, $descricao, $salario)
     {
         $this->id = $id;
         $this->nome = $nome;
         $this->salario = $salario;
+        $this->descricao = $descricao;
     }
     
     public function setNome($nome){
@@ -25,6 +27,10 @@ class profissao
     
     public function setSalario($salario){
         $this->salario = $salario;
+    }
+    
+    public function setDescricao($descricao){
+        $this->descricao = $descricao;
     }
 
     public function getNome(){
@@ -43,6 +49,10 @@ class profissao
         return $this->cursos;
     }
     
+    public function getDescricao(){
+        return $this->descricao;
+    }
+
     public function getId(){
         return $this->id;
     }
@@ -58,9 +68,10 @@ class profissao
     public function cadastrarProfissao($area){
         $con = conexao();
         try{
-            $stmt = $con->prepare("INSERT INTO profissao (nome_profissao, salario, id_area) VALUES (:nome, :salario, :area)");
+            $stmt = $con->prepare("INSERT INTO profissao (nome_profissao, salario, descricao, id_area) VALUES (:nome, :salario, :descricao,:area)");
             $stmt->bindParam(':nome', $this->nome, PDO::PARAM_STR, 50);
             $stmt->bindParam(':salario', $this->salario, PDO::PARAM_STR, 50);
+            $stmt->bindParam(':descricao', $this->descricao, PDO::PARAM_STR, 500);
             $stmt->bindParam(':area', $area, PDO::PARAM_INT);
             $stmt->execute();
             return 1;
@@ -72,9 +83,10 @@ class profissao
     public function alterarProfissao($profissao){
         $con = conexao();
         try{
-            $stmt = $con->prepare("UPDATE profissao SET nome_profissao = :nome, salario = :salario WHERE id_profissao = :id");
+            $stmt = $con->prepare("UPDATE profissao SET nome_profissao = :nome, descricao = :descricao, salario = :salario WHERE id_profissao = :id");
             $stmt->bindParam(':nome', $this->nome, PDO::PARAM_STR, 50);
             $stmt->bindParam(':salario', $this->salario, PDO::PARAM_STR, 50);
+            $stmt->bindParam(':descricao', $this->descricao, PDO::PARAM_STR, 500);
             $stmt->bindParam(':id', $profissao, PDO::PARAM_INT);
             $stmt->execute();
             return 1;
@@ -106,6 +118,7 @@ class profissao
                     $this->id = $row['id_profissao'];
                     $this->nome = $row['nome_profissao'];
                     $this->salario = $row['salario'];
+                    $this->descricao = $row['descricao'];
                     $this->area = $row['id_area'];
                     $id = $row['id_profissao'];
                     try{
@@ -137,6 +150,7 @@ class profissao
                     $this->id = $row['id_profissao'];
                     $this->nome = $row['nome_profissao'];
                     $this->salario = $row['salario'];
+                    $this->descricao = $row['descricao'];
                     $id = $row['id_profissao'];
                     try{
                         $sql = "SELECT * FROM curso WHERE id_profissao=$id;";

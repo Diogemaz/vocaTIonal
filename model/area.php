@@ -1,5 +1,6 @@
 <?php
 require_once "funcoes.php";
+require_once "trilha.php";
 
 class Area
 {
@@ -134,13 +135,13 @@ class Area
                         $profissoes = $con->prepare($sql);
                         $profissoes->execute();
                         while($profissao = $profissoes->fetch()){
-                            $this->profissoes[] = new profissao($profissao['id_profissao'], $profissao['nome_profissao'], $profissao['salario']); 
+                            $this->profissoes[] = new profissao($profissao['id_profissao'], $profissao['nome_profissao'], $profissao['descricao'], $profissao['salario']); 
                         }
                         $sql = "SELECT * FROM trilha WHERE id_area=$id_area;";
                         $trilhas = $con->prepare($sql);
                         $trilhas->execute();
                         while($trilha = $trilhas->fetch()){
-                            $this->trilhas[] = new trilhas($trilha['id_trilha'], $trilha['nome_trilha'], $trilha['texto_trilhas']); 
+                            $this->trilhas[] = new trilhas($trilha['id_trilha'], $trilha['nome_trilha'], $trilha['textos_trilha']); 
                         }
                         $sql = "SELECT * FROM favorito_usuario WHERE id_area=$id_area";
                         $favs = $con->prepare($sql);
@@ -192,15 +193,24 @@ class Area
                     $this->id = $row['id_area'];
                     $this->nome = $row['nome_area'];
                     $this->descricao = $row['descricao'];
-                    $this->fevorito = $row['num_favorite'];
                     $id_area = $row['id_area'];
                     try{
                         $sql = "SELECT * FROM profissao WHERE id_area=$id_area;";
                         $profissoes = $con->prepare($sql);
                         $profissoes->execute();
                         while($profissao = $profissoes->fetch()){
-                            $this->profissoes[] = new profissao($profissao['id_area'], $profissao['nome_profissao'], $profissao['salario']); 
+                            $this->profissoes[] = new profissao($profissao['id_profissao'], $profissao['nome_profissao'], $profissao['descricao'], $profissao['salario']); 
                         }
+                        $sql = "SELECT * FROM trilha WHERE id_area=$id_area;";
+                        $trilhas = $con->prepare($sql);
+                        $trilhas->execute();
+                        while($trilha = $trilhas->fetch()){
+                            $this->trilhas[] = new trilhas($trilha['id_trilha'], $trilha['nome_trilha'], $trilha['textos_trilha']); 
+                        }
+                        $sql = "SELECT * FROM favorito_usuario WHERE id_area=$id_area";
+                        $favs = $con->prepare($sql);
+                        $favs->execute();
+                        $this->favorito = $favs->rowCount();
                     }catch(Exception $ex){
                         return $ex;
                     }
