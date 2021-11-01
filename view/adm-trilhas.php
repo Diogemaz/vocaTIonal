@@ -271,8 +271,7 @@ if(isset($_SESSION['user'])){
                 </div>
                 <?php if(!isset($_GET['trilha'])){ ?>
                 <div class="container-fluid">
-                    <form class="form-horizontal" id="form-trilha" onsubmit="cadastrarTrilha();"
-                        action="" method="POST">
+                    <form class="form-horizontal" id="form-trilha" action="../controller/cadastrarTrilha.php" method="POST">
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="card">
@@ -342,7 +341,7 @@ if(isset($_SESSION['user'])){
                     <div class="row">
                         <div class="col-md-5">
                             <div class="card">
-                                <form class="" id="form-trilhas" action="../controller/cadastrarTrilhas.php"
+                                <form class="" id="form-trilhas" action=""
                                     method="POST">
                                     <div class="card-body">
                                         <h4 class="card-title"><?php echo $trilhas->getNome(); ?></h4>

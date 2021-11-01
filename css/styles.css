@@ -10813,13 +10813,18 @@ label#foto2 {
     color: white;
 }
 
-.conteudo {
+.conteudo p {
     color: white;
     width: 95%;
+    height: auto;
     white-space: nowrap;
     word-wrap: break-word;
 }
 
-.conteudo p {
+.conteudo {
+    color: white;
+    width: 95%;
+    height: auto;
+    white-space: nowrap;
     word-wrap: break-word;
 }

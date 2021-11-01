@@ -723,24 +723,24 @@ function TrocarFoco(id, lastid) {
 }
 
 function EscolheTrilha(item) {
+    conteudosAtual = document.getElementById(item)
     conteudos = $("[id^=Escolha]")
     for (i = 0; i < conteudos.length; i++) {
-        if (i != parseInt(item)) {
-            conteudos[i].style.display = "none";
-        } else {
-            conteudos[i].style.display = "";
-        }
+        conteudos[i].style.display = "none";
     }
+    conteudos = $("[id^=conteudo]")
+    for (i = 0; i < conteudos.length; i++) {
+        conteudos[i].style.display = "none";
+    }
+    conteudosAtual.style.display = "";
     document.getElementById('services-trilhas').style.display = ""
 }
 
 function EscolheItem(item) {
+    conteudosAtual = document.getElementById(item)
     conteudos = $("[id^=conteudo]")
     for (i = 0; i < conteudos.length; i++) {
-        if (i != parseInt(item) - 1) {
-            conteudos[i].style.display = "none";
-        } else {
-            conteudos[i].style.display = "block";
-        }
+        conteudos[i].style.display = "none";
     }
+    conteudosAtual.style.display = "";
 }

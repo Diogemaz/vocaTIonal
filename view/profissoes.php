@@ -92,10 +92,10 @@
                 $nomeTrilha = array();
                 $cont = 0;
                 foreach($area->getTrilhas() as $trilhas){
-                    $AsTrilhas = [explode("|", $trilhas->getTexto())];
-                    $nomeTrilha = [$trilhas->getNome()];
+                    $AsTrilhas[] = explode("|", $trilhas->getTexto());
+                    $nomeTrilha[] = $trilhas->getNome();
             ?>
-                <button class="borda-btn" onclick="EscolheTrilha('<?php echo $cont; ?>')"><?php echo $trilhas->getNome(); ?></button>
+                <button class="borda-btn" onclick="EscolheTrilha('<?php echo 'Escolha-'.str_replace(' ', '_', $trilhas->getNome()); ?>')"><?php echo $trilhas->getNome(); ?></button>
             <?php
                     $cont++;
                 }
@@ -110,32 +110,29 @@
         <div class="container animated fadeIn">
         <?php 
             $cont2 = 0;
-            for($j = 0; $j < $cont; $j++){
+            for($j = 0; $j <= $cont; $j++){
         ?>
-            <div class="row justify-content-center mb-5" id="Escolha<?php echo $j; ?>">
+            <div class="row justify-content-center mb-5" id="Escolha-<?php echo str_replace(' ', '_', $nomeTrilha[$j]); ?>">
             <?php
-                for($i = 1; $i <= count($AsTrilhas[$j]); $i++){
+                for($i = 0; $i < count($AsTrilhas[$j]); $i++){
             ?>
-                <button class="circulo" onclick="EscolheItem('<?php echo $i; ?>')"><?php echo $i; ?></button>
+                <button class="circulo" onclick="EscolheItem('<?php echo 'conteudo-'.str_replace(' ', '_', $nomeTrilha[$j]).'-'.$i; ?>')"><?php echo $i+1; ?></button>
             <?php } ?>
             </div>
             <div class="row justify-content-center">
                 <?php
+                    $pontos = 0;
                     foreach($AsTrilhas[$j] as $conteudo){
                         preg_match('[(.*?)]',$conteudo, $link);
-                        echo $link[0];
-                        $conteudo = str_replace("[", "<a href='{$link[0]}'>", $conteudo);
+                        $conteudo = str_replace("[", "</p><a href='{$link[0]}'>", $conteudo);
                         $conteudo = str_replace("]", "</a>", $conteudo);
                 ?>
-                <div class="col-lg-10 align-self-baseline" id="conteudo-<?php echo $cont2; ?>" style='display:none;'>
+                <div class="col-lg-12 align-self-baseline" id="conteudo-<?php echo str_replace(" ", "_", $nomeTrilha[$j])."-".$pontos; ?>" style='display:none;'>
                     <div class="text-center titulo" id="titulo"><?php echo $nomeTrilha[$j];?></div>
-                    <div class='conteudo' id='texto'>
-                        <p class="text-white-75 font-weight-light mb-5 animated fadeInRight">
-                        <?php echo $conteudo; ?>
-                        </p>
-                    </div>"
+                    <div class="conteudo" id="texto"><p><?php echo $conteudo;?></div>
                 </div>
                 <?php 
+                    $pontos++;
                     $cont2++; 
                     } 
                 ?>
