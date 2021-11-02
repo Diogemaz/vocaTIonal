@@ -123,15 +123,15 @@
                     $pontos = 0;
                     foreach($AsTrilhas[$j] as $conteudo){
                         preg_match('[(.*?)]',$conteudo, $link);
-                        $conteudo = str_replace("[", "<p><a href='{$link[0]}'>", $conteudo);
-                        $conteudo = str_replace("]", "</a></p>", $conteudo);
+                        $conteudo = str_replace("[", "<p><iframe width='300' height='265' src='", $conteudo);
+                        $conteudo = str_replace("]", "'></iframe></p>", $conteudo);
                 ?>
                 <div class="col-lg-12 align-self-baseline" id="conteudo-<?php echo str_replace(" ", "_", $nomeTrilha[$j])."-".$pontos; ?>" style='display:none;'>
                     <div class="text-center titulo" id="titulo"><?php echo $nomeTrilha[$j];?></div>
                     <div class="conteudo" id="texto">
-                        <div class="text-white-75 font-weight-light mb-5">
+                        <p>
                             <?php echo $conteudo;?>
-                        </div>
+                        </p>
                     </div>
                 </div>
                 <?php 

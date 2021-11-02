@@ -10814,11 +10814,8 @@ label#foto2 {
 }
 
 .conteudo p {
-    color: white;
-    width: 95%;
-    height: auto;
-    white-space: nowrap;
-    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
 }
 
 .conteudo {
