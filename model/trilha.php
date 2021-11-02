@@ -57,13 +57,14 @@ class trilhas
         }
     }
 
-    public function alterarProfissao($profissao){
+    public function alterarTrilha($trilhas){
         $con = conexao();
         try{
-            $stmt = $con->prepare("UPDATE profissao SET nome_profissao = :nome, salario = :salario WHERE id_profissao = :id");
+            $stmt = $con->prepare("UPDATE trilha SET nome_trilha = :nome, textos_trilha = :textos, id_area = :area WHERE id_trilha = :id");
             $stmt->bindParam(':nome', $this->nome, PDO::PARAM_STR, 50);
-            $stmt->bindParam(':salario', $this->salario, PDO::PARAM_STR, 50);
-            $stmt->bindParam(':id', $profissao, PDO::PARAM_INT);
+            $stmt->bindParam(':textos', $this->texto, PDO::PARAM_STR);
+            $stmt->bindParam(':area', $this->area, PDO::PARAM_INT);
+            $stmt->bindParam(':id', $trilhas, PDO::PARAM_INT);
             $stmt->execute();
             return 1;
         }catch(Exception $e){
@@ -71,41 +72,29 @@ class trilhas
         }
     }
 
-    public function deletarProfissao($profissao){
+    public function deletarTrilha($trilhas){
         $con = conexao();
         try{
-            $stmt = $con->prepare("DELETE FROM profissao WHERE id_profissao = :id");
-            $stmt->bindParam(':id', $profissao, PDO::PARAM_INT);
+            $stmt = $con->prepare("DELETE FROM trilha WHERE id_trilha = :id");
+            $stmt->bindParam(':id', $trilhas, PDO::PARAM_INT);
             $stmt->execute();
             return 1;
         }catch(Exception $e){
             return 0;
         }
     }
-    public function consultarProfissao($profissao){
+    public function consultarTrilha($trilha){
         $con = conexao();
         try{
-            $sql = "SELECT * FROM profissao WHERE id_profissao=:id;";
+            $sql = "SELECT * FROM trilha WHERE id_trilha=:id;";
             $resultado = $con->prepare($sql);
-            $resultado->bindParam(':id', $profissao, PDO::PARAM_INT);
+            $resultado->bindParam(':id', $trilha, PDO::PARAM_INT);
             $resultado->execute();
             if($resultado->rowCount() == 1){
                 while ($row = $resultado->fetch()){
-                    $this->id = $row['id_profissao'];
-                    $this->nome = $row['nome_profissao'];
-                    $this->salario = $row['salario'];
-                    $this->area = $row['id_area'];
-                    $id = $row['id_profissao'];
-                    try{
-                        $sql = "SELECT * FROM curso WHERE id_profissao=$id;";
-                        $cursos = $con->prepare($sql);
-                        $cursos->execute();
-                        while($curso = $cursos->fetch()){
-                            $this->cursos[] = new curso($curso['id_curso'], $curso['nome_curso'], $curso['preco'], $curso['link']); 
-                        }
-                    }catch(Exception $ex){
-                        return $ex;
-                    }
+                    $this->id = $row['id_trilha'];
+                    $this->nome = $row['nome_trilha'];
+                    $this->texto = $row['textos_trilha'];
                 }
             }
         }catch(Exception $e){
@@ -113,7 +102,7 @@ class trilhas
         }
     }
 
-    public function consultarProfissaoNome($profissao){
+    public function consultarTrilhaNome($trilha){
         $con = conexao();
         try{
             $sql = "SELECT * FROM profissao WHERE nome_profissao=:nome;";
@@ -146,7 +135,7 @@ class trilhas
     public function getComentario(){
         $con = conexao();
         try{
-            $sql = "SELECT u.nome_usuario, u.foto, u.id_usuario, c.* FROM comentario_profissao c, usuario u WHERE id_profissao = :profissao AND u.id_usuario = c.id_usuario  ORDER BY id_comentarioProfissao DESC";
+            $sql = "SELECT u.nome_usuario, u.foto, u.id_usuario, c.* FROM comentario_profissao c, usuario u WHERE id_profissao = :profissao AND u.id_usuario = c.id_usuario  ORDER BY id_comentarioTrilha DESC";
             $resultado = $con->prepare($sql);
             $resultado->bindParam(':profissao', $this->id, PDO::PARAM_INT);
             $resultado->execute();
@@ -174,7 +163,7 @@ class trilhas
     public function excluirComentario($id){
         $con = conexao();
         try{
-            $stmt = $con->prepare("DELETE FROM comentario_profissao WHERE id_comentarioProfissao = :id");
+            $stmt = $con->prepare("DELETE FROM comentario_profissao WHERE id_comentarioTrilha = :id");
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
             return 1;

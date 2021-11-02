@@ -1,4 +1,3 @@
-var contadorTextos = 0;
 $(document).ready(function() {
     abriPagina();
 });
@@ -45,14 +44,16 @@ $("#form-trilhas").on("submit", function(e) {
 })
 jQuery(function($) {
     $("#botao_ponto").on("click", function() {
+        contadorTextos = $("[id^=botao-seletor]").length
         $("#pontos").append(
-            "<button type='button' class='circulo' onclick='EscolheItem(" + (
+            "<button type='button' class='circulo' id='botao-seletor' onclick='EscolheItem(" + (
                 contadorTextos + 1) + ")'>" + (contadorTextos + 1) +
             "</button> ")
         $("#texto-pontos").append(
             "<div class='form-group row' id='edit-ponto'><label for='texto' class='col-sm-12 text-center control-label col-form-label'>Texto " +
             (contadorTextos + 1) +
-            "</label><textarea rows='70' required id='texto' name='texto" +
+            "<button type='button' class='close' onclick='excluirPonto(" + (
+                contadorTextos + 1) + ")'><span aria-hidden='true'>&times;</span></button></label><textarea rows='70' required id='texto' name='texto" +
             contadorTextos +
             "' data-ls-module='charCounter' oninput='if(this.scrollHeight > this.offsetHeight) this.rows += 1'></textarea></div>"
         )
@@ -64,17 +65,27 @@ jQuery(function($) {
     })
 })
 
+function excluirPonto(item) {
+    conteudos = $("[id^='edit-ponto']");
+    pontos = $("[id^=botao-seletor]");
+    for (i = 0; i < conteudos.length; i++) {
+        if (i == parseInt(item) - 1) {
+            conteudos[i].parentNode.removeChild(conteudos[i]);
+            pontos[i].parentNode.removeChild(pontos[i]);
+        }
+    }
+}
+
 function EscolheItem(item) {
     conteudos = $("[id^='edit-ponto']");
     for (i = 0; i < conteudos.length; i++) {
         if (i != parseInt(item) - 1) {
             conteudos[i].style.display = "none";
         } else {
-            conteudos[i].style.display = "block";
+            conteudos[i].style.display = "";
         }
     }
 }
-
 
 function deletarProfissao() {
     var funcao = "Excluir";
@@ -87,11 +98,60 @@ function alterarProfissao() {
 }
 
 function alterarDeletarProfissao(funcao) {
-    var form = $('#form-trilha').serialize() + '&funcao=' + funcao;
+    var form = $('#form-profissao').serialize() + '&funcao=' + funcao;
     console.log(form);
     $.ajax({
         type: 'POST',
         url: '../controller/alterarProfissao.php',
+        dataType: "json",
+        data: form,
+        success: function(response) {
+            if (response == 1) {
+                $('.alert-success').text("Alterado/deletado com sucesso!");;
+                $('.alert-success').show();
+                setInterval(() => {
+                    $('.alert-success').text("");
+                    $('.alert-success').hide('close');
+                }, 5000);
+                profissao($('#area option:selected').val());
+            } else if (response == 0) {
+                $('.alert-warning').text("Falha ao alterar, tente novamente");
+                $('.alert-warning').show();
+                setInterval(() => {
+                    $('.alert-warning').text("");
+                    $('.alert-warning').hide('close');
+                }, 5000);
+            }
+        },
+        error: function(response) {
+            $('.alert-danger').text("ERRO!" + response);
+            $('.alert-danger').show();
+            setInterval(() => {
+                $('.alert-danger').text("");
+                $('.alert-danger').hide('close');
+            }, 5000);
+        }
+    });
+};
+
+
+function deletarTrilha() {
+    var funcao = "Excluir";
+    alterarDeletarTrilha(funcao);
+}
+
+function alterarTrilha() {
+    var funcao = "Alterar";
+    alterarDeletarTrilha(funcao);
+}
+
+function alterarDeletarTrilha(funcao) {
+    alert("oi")
+    var form = $('#form-trilha-at').serialize() + '&funcao=' + funcao;
+    console.log(form);
+    $.ajax({
+        type: 'POST',
+        url: '../controller/alterarTrilha.php',
         dataType: "json",
         data: form,
         success: function(response) {
@@ -119,13 +179,15 @@ function alterarDeletarProfissao(funcao) {
                 $('.alert-danger').text("");
                 $('.alert-danger').hide('close');
             }, 5000);
+            console.log(response)
         }
     });
 };
 
-function trilha(area) {
+
+function trilhas(area) {
     $('#retorno').html("");
-    $('#retorno').load("../controller/consultarProfissoes.php", {
+    $('#retorno').load("../controller/consultarTrilhas.php", {
         area: area
     });
 }

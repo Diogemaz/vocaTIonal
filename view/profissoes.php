@@ -122,7 +122,6 @@
                 <?php
                     $pontos = 0;
                     foreach($AsTrilhas[$j] as $conteudo){
-                        preg_match('[(.*?)]',$conteudo, $link);
                         $conteudo = str_replace("[", "<p><iframe width='300' height='265' src='", $conteudo);
                         $conteudo = str_replace("]", "'></iframe></p>", $conteudo);
                 ?>

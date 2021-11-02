@@ -101,7 +101,22 @@ function notificaUsers($local, $item){
             return $e;
         }
     }
-
+    function excluirNotificacao($ids){
+        $con = conexao();
+        try{
+            $ids = json_decode(stripslashes($ids));
+            foreach($ids as $id){
+                $sql = "DELETE FROM notificacao WHERE id_notificacao=:notificacao;";
+                $resultado = $con->prepare($sql);
+                $resultado->bindParam(':notificacao', $id, PDO::PARAM_INT);
+                $resultado->execute();
+            }
+            return 1;
+        }catch(Exception $e){
+            return 2;
+        }
+    }
+    
     function listaAdm(){
         $con = conexao();
         try{

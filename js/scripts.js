@@ -695,19 +695,32 @@ function alterUser() {
     var regex = new RegExp("^[a-zA-Z0-9àèìòùáéíóúâêîôûãõ\b]+$");
 }
 
-function removeNotificacao() {
-    $.ajax({
-        type: 'POST',
-        url: '../controller/notificacaoVisualizada.php',
-        dataType: 'json',
-        data: 1,
-        error: function(response) {
-            alert("erro");
-            console.log("erro" + response);
+$("#fechar").on("click", function(e) {
+    if (localArray[localArray.length - 1] == 'index.php') {
+        url = 'controller/notificacaoVisualizada.php';
+    } else {
+        url = '../controller/notificacaoVisualizada.php';
+    }
+    array = $("[id^=id_notificacao]")
+    ids = []
+    if (array.length > 0) {
+        for (i = 0; i < array.length; i++) {
+            ids.push(array[i].innerText)
         }
-    });
-}
+        ids = JSON.stringify(ids);
+        alert(ids)
+        $.ajax({
+            type: 'POST',
+            url: url,
+            dataType: 'json',
+            data: { data: ids },
+            success: function(response) {},
+            error: function(response) {}
+        });
+    }
+});
 
+//trilhas
 function TrocarFoco(id, lastid) {
     document.getElementById(id.split("-")[1]).classList.add('selecionado')
     document.getElementById(id.split("-")[1]).classList.remove('borda-btn')
