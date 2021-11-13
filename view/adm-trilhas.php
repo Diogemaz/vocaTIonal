@@ -260,7 +260,7 @@ if (isset($_SESSION['user'])) {
                         </div>
                         <?php if (!isset($_GET['trilha'])) { ?>
                             <div class="container-fluid">
-                                <form class="form-horizontal" id="form-trilha" action="../controller/cadastrarTrilha.php" method="POST">
+                                <form class="form-horizontal" id="form-trilhas" action="../controller/cadastrarTrilha.php" method="POST">
                                     <div class="row">
                                         <div class="col-md-5">
                                             <div class="card">
@@ -402,7 +402,7 @@ if (isset($_SESSION['user'])) {
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </label>
-                                                    <textarea rows="70" required id="texto" name="texto<?php echo $count + 1; ?>" data-ls-module='charCounter' oninput='if(this.scrollHeight > this.offsetHeight) this.rows += 1'>
+                                                    <textarea rows="70" required id="texto" name="texto<?php echo $count; ?>" data-ls-module='charCounter' oninput='if(this.scrollHeight > this.offsetHeight) this.rows += 1'>
                                                         <?php echo $pontos; ?>
                                                     </textarea>
                                                 </div>

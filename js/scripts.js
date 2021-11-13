@@ -166,7 +166,119 @@ $("#senha, #conteudo").click(function(e) {
     e.stopPropagation();
 });
 
-/* REALIZA O CADASTRO NA PAGINA DE CADASTRO DE USUARIO */
+$("#form-recupera").on("submit", function(e) {
+    e.preventDefault();
+    var form = $('#form-recupera').serialize();
+    console.log(form)
+    $.ajax({
+        type: 'POST',
+        url: '../controller/recuperarSenha.php',
+        data: form,
+        datatype: 'json',
+        beforeSend: function() {
+            $('#loader').show();
+        },
+        success: function(response) {
+            if (response == 0) {
+                $('.alert-warning').text("Falha, tente novamente");
+                $('.alert-warning').show();
+                setInterval(() => {
+                    $('.alert-warning').text("");
+                    $('.alert-warning').hide('close');
+                }, 10000);
+                $('#loader').hide();
+            } else if (response == 1) {
+                console.log(response);
+                $('.alert-success').text("Email enviado, verifique seu email");
+                $('.alert-success').show();
+                setInterval(() => {
+                    $('.alert-success').text("");
+                    $('.alert-success').hide('close');
+                }, 10000);
+                $('#form-recupera').each(function() {
+                    this.reset();
+                });
+                $('#loader').hide();
+            }
+        },
+        error: function(response) {
+            console.log("erro" + response);
+            $('#loader').hide();
+        }
+    })
+})
+
+
+$("#form-senha").on("submit", function(e) {
+        e.preventDefault();
+        var query = location.search.slice(1);
+        var partes = query.split('&');
+        var data = {};
+        partes.forEach(function(parte) {
+            var chaveValor = parte.split('=');
+            var chave = chaveValor[0];
+            var valor = chaveValor[1];
+            data[chave] = valor;
+        });
+        var form = $('#form-senha').serialize() + "&token=" + data['token'] + "&email=" + data['email'];
+        console.log(form)
+        $.ajax({
+            type: 'POST',
+            async: true,
+            url: '../controller/senhaRecuperada.php',
+            data: form,
+            datatype: 'json',
+            cache: true,
+            global: false,
+            beforeSend: function() {
+                $('#loader').show();
+            },
+            success: function(response) {
+                if (response == 0) {
+                    $('.alert-warning').text("Falha, tente novamente");
+                    $('.alert-warning').show();
+                    setInterval(() => {
+                        $('.alert-warning').text("");
+                        $('.alert-warning').hide('close');
+                    }, 10000);
+                    $('#loader').hide();
+                } else if (response == -1) {
+                    console.log(response);
+                    $('.alert-warning').text("Senhas não correspondem");
+                    $('.alert-warning').show();
+                    setInterval(() => {
+                        $('.alert-warning').text("");
+                        $('.alert-warning').hide('close');
+                    }, 10000);
+                    $('#form-recupera').each(function() {
+                        this.reset();
+                    });
+                    $('#loader').hide();
+                } else if (response == 1) {
+                    console.log(response);
+                    $('.alert-success').text("Email enviado, verifique seu email");
+                    $('.alert-success').show();
+                    setInterval(() => {
+                        $('.alert-success').text("");
+                        $('.alert-success').hide('close');
+                    }, 10000);
+                    $('#form-senha').each(function() {
+                        this.reset();
+                    });
+                    $('#loader').hide();
+                    window.location.href = "../view/entra.php";
+                } else {
+                    console.log(response)
+                    $('#loader').hide();
+                }
+            },
+            error: function(response) {
+                console.log("erro" + response);
+                $('#loader').hide();
+            }
+        })
+    })
+    /* REALIZA O CADASTRO NA PAGINA DE CADASTRO DE USUARIO */
 function cadastrar() {
     if (verifica()) {
         var form = $('#form-cadastro').serialize();
@@ -312,15 +424,6 @@ function verifica() {
             $('.alert-warning').hide('close');
         }, 10000);
         $('#senha').focus();
-        return false;
-    } else if (!regex.test($('#nome').val())) {
-        $('#resposta').text('Nome não deve ter caracter especial.');
-        $('.alert-warning').show();
-        setInterval(() => {
-            $('#resposta').text("");
-            $('.alert-warning').hide('close');
-        }, 10000);
-        $('#nome').focus();
         return false;
     } else {
         return true;

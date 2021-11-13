@@ -2,47 +2,49 @@ $(document).ready(function() {
     abriPagina();
 });
 
-$("#form-trilhas").on("submit", function(e) {
-    e.preventDefault(); // impedir o evento submit
-    var form = $('#form-trilha').serialize();
-    $.ajax({
-        type: 'POST',
-        url: '../controller/cadastrarTrilha.php',
-        dataType: "json",
-        data: form,
-        success: function(response) {
-            if (response == 1 || response == 2) {
-                trilha($('#area option:selected').val());
-                $('#form-trilha').each(function() {
-                    this.reset();
-                });
-            } else if (response == 0) {
-                $('.alert-warning').text("Falha ao cadastrar, tente novamente");
-                $('.alert-warning').show();
+jQuery(function($) {
+    $("#form-trilha").on("submit", function(e) {
+        e.preventDefault(); // impedir o evento submit
+        var form = $('#form-trilha').serialize();
+        $.ajax({
+            type: 'POST',
+            url: '../controller/cadastrarTrilha.php',
+            dataType: "json",
+            data: form,
+            success: function(response) {
+                if (response == 1 || response == 2) {
+                    trilha($('#area option:selected').val());
+                    $('#form-trilha').each(function() {
+                        this.reset();
+                    });
+                } else if (response == 0) {
+                    console.log(form)
+                    $('.alert-warning').text("Falha ao cadastrar, tente novamente");
+                    $('.alert-warning').show();
+                    setInterval(() => {
+                        $('.alert-warning').text("");
+                        $('.alert-warning').hide('close');
+                    }, 5000);
+                } else if (response == -2) {
+                    $('.alert-warning').text("Nome da trilha deve ter letras");
+                    $('.alert-warning').show();
+                    setInterval(() => {
+                        $('.alert-warning').text("");
+                        $('.alert-warning').hide('close');
+                    }, 5000);
+                }
+            },
+            error: function(response) {
+                $('.alert-danger').text("ERRO!" + response);
+                $('.alert-danger').show();
                 setInterval(() => {
-                    $('.alert-warning').text("");
-                    $('.alert-warning').hide('close');
-                }, 5000);
-            } else if (response == -2) {
-                $('.alert-warning').text("Nome da profissão deve ter letras");
-                $('.alert-warning').show();
-                setInterval(() => {
-                    $('.alert-warning').text("");
-                    $('.alert-warning').hide('close');
+                    $('.alert-danger').text("");
+                    $('.alert-danger').hide('close');
                 }, 5000);
             }
-        },
-        error: function(response) {
-            $('.alert-danger').text("ERRO!" + response);
-            $('.alert-danger').show();
-            setInterval(() => {
-                $('.alert-danger').text("");
-                $('.alert-danger').hide('close');
-            }, 5000);
-        }
-    });
-})
-jQuery(function($) {
+        });
+    })
+
     $("#botao_ponto").on("click", function() {
         contadorTextos = $("[id^=botao-seletor]").length
         $("#pontos").append(
@@ -146,7 +148,6 @@ function alterarTrilha() {
 }
 
 function alterarDeletarTrilha(funcao) {
-    alert("oi")
     var form = $('#form-trilha-at').serialize() + '&funcao=' + funcao;
     console.log(form);
     $.ajax({

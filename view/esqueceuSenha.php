@@ -13,7 +13,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <title>Entrar - vocaTIonal</title>
+        <title>Início - vocaTIonal</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
@@ -29,7 +29,9 @@
     <body id="page-top">
         <div class="container" style="position: relative; z-index: 1;">
             <div class="d-flex justify-content-center h-100">
+                <div class="alert alert-warning resposta" role="alert" id="resposta" style="display: none"></div>
                 <div class="alert alert-danger resposta" role="alert" id="resposta" style="display: none"></div>
+                <div class="alert alert-success resposta" role="alert" id="resposta" style="display: none"></div>
             </div>
         </div>
         <!-- Navigation-->
@@ -47,17 +49,13 @@
                 </div>
             </div>
         </nav>
-        <form id="form-login" onSubmit="login();" method="POST" action="../controller/login.php">
+        <form id="form-recupera" method="POST" action="">
         <section class="page-section entrar" id="form">
             <div class="container">
                 <div class="d-flex justify-content-center h-100">
                     <div class="card">
                         <div class="card-header">
-                            <h3>Entrar</h3>
-                            <div class="d-flex justify-content-end social_icon">
-                                <span><i class="fab fa-facebook-square"></i></span>
-                                <span><i class="fab fa-google-plus-square"></i></span>
-                            </div>
+                            <h3>Esqueceu a senha</h3>
                         </div>
                         <div class="card-body">
                             <div class="input-group form-group">
@@ -66,22 +64,13 @@
                                 </div>
                                 <input type="email" id="email" name="email" class="form-control" placeholder="Email">
                             </div>
-                            <div class="input-group form-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                </div>
-                                <input type="password" id="senha" name="senha" class="form-control" placeholder="Senha">
-                            </div>
                             <div class="form-group">
-                                <button type="submit" class="btn float-right login_btn">Logar</button>
+                                <button type="submit" class="btn float-right login_btn">Enviar <img style="display: none;" id="loader" src="https://res.cloudinary.com/sivadass/image/upload/v1498134389/icons/loader.gif" alt="loading"></button>
                             </div>
                         </div>
                         <div class="card-footer">
                             <div class="d-flex justify-content-center links">
-                                Não tem uma conta?<a href="cadastro.php">Cadastrar</a>
-                            </div>
-                            <div class="d-flex justify-content-center">
-                                <a href="esqueceuSenha.php">Esqueceu sua senha?</a>
+                                <a href="entra.php">Logar</a>
                             </div>
                         </div>
                     </div>
@@ -100,7 +89,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
         <!-- Core theme JS-->
         <script src="../js/scripts.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </body>
 </html>

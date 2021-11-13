@@ -10,6 +10,7 @@ class Usuario
     private $adm = 0;
     private $areas = array(); 
     private $img;
+    private $token_recuperacao;
 
     public function setEmail($email){
         $this->email = $email;
@@ -17,6 +18,10 @@ class Usuario
     public function setNomeUsuario($foto)
     {
         $this->nomeUsuario = $foto;
+    }
+    public function setTokenRecuperacao($token)
+    {
+        $this->token_recuperacao = $token;
     }
     public function setAreas($areas)
     {
@@ -61,6 +66,11 @@ class Usuario
     {
         return $this->areas;
     }
+    
+    public function getTokenRecuperacao()
+    {
+        return $this->token_recuperacao;
+    }
 
     public function getId()
     {
@@ -88,6 +98,49 @@ class Usuario
             }
         }catch(Exception $e){
             return -1;
+        }
+    }
+    public function RecuperacaoSenha($email){
+        $con = conexao();
+        try{
+            $sql = "SELECT token_recuperacao, nome_usuario FROM usuario WHERE email = :email;";
+            $resultado = $con->prepare($sql);
+            $resultado->bindParam(':email', $email, PDO::PARAM_STR);
+            $resultado->execute();
+            if($resultado->rowCount() == 1){
+                while ($row = $resultado->fetch()){
+                    $this->nomeUsuario = $row['nome_usuario'];
+                    $this->email = $email;
+                    if(is_null($row['token_recuperacao'])){
+                        $token = md5($email);
+                        try{
+                            $sql2 = "UPDATE usuario SET token_recuperacao = :token WHERE email = :email";
+                            $update = $con->prepare($sql2);
+                            $update->bindParam(':token', $token, PDO::PARAM_STR, 32);
+                            $update->bindParam(':email', $email, PDO::PARAM_STR); 
+                            $update->execute();
+                        }catch(Exception $e){
+                            return 0;
+                        }
+                        $this->token_recuperacao = $token;
+                    }else{
+                        $token = md5($row['token_recuperacao']);
+                        try{
+                            $sql2 = "UPDATE usuario SET token_recuperacao = :token WHERE email = :email";
+                            $update = $con->prepare($sql2);
+                            $update->bindParam(':token', $token, PDO::PARAM_STR, 32);
+                            $update->bindParam(':email', $email, PDO::PARAM_STR); 
+                            $update->execute();
+                        }catch(Exception $e){
+                            return 0;
+                        }
+                        $this->token_recuperacao = $token;
+                    }
+                }
+                return 1;
+            }
+        }catch(Exception $e){
+            return 0;
         }
     }
     public function confUser($token)
@@ -171,6 +224,21 @@ class Usuario
             $sql = "UPDATE usuario SET senha = :senha WHERE id_usuario = ".$this->id."";
             $update = $con->prepare($sql);
             $update->bindParam(':senha', $senha, PDO::PARAM_STR, 32); 
+            $update->execute();
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+    }
+    public function alterarSenhaToken($senha, $Token, $email){
+        $con = conexao();
+        $senha = md5($senha);
+        try{
+            $sql = "UPDATE usuario SET senha = :senha WHERE token_recuperacao = :token AND email = :email";
+            $update = $con->prepare($sql);
+            $update->bindParam(':senha', $senha, PDO::PARAM_STR, 32); 
+            $update->bindParam(':token', $Token, PDO::PARAM_STR, 32); 
+            $update->bindParam(':email', $email, PDO::PARAM_STR); 
             $update->execute();
             return 1;
         }catch(Exception $e){
