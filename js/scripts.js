@@ -179,7 +179,7 @@ $("#form-recupera").on("submit", function(e) {
             $('#loader').show();
         },
         success: function(response) {
-            if (response == 0) {
+            if (response.slice(-1) == 0) {
                 $('.alert-warning').text("Falha, tente novamente");
                 $('.alert-warning').show();
                 setInterval(() => {
@@ -187,19 +187,21 @@ $("#form-recupera").on("submit", function(e) {
                     $('.alert-warning').hide('close');
                 }, 10000);
                 $('#loader').hide();
-            } else if (response == 1) {
+            } else if (response.slice(-1) == 1) {
                 console.log(response);
                 $('.alert-success').text("Email enviado, verifique seu email");
                 $('.alert-success').show();
                 setInterval(() => {
                     $('.alert-success').text("");
                     $('.alert-success').hide('close');
-                }, 10000);
+                }, 7000);
                 $('#form-recupera').each(function() {
                     this.reset();
                 });
                 $('#loader').hide();
             }
+            console.log(response.slice(-1))
+            $('#loader').hide();
         },
         error: function(response) {
             console.log("erro" + response);
@@ -256,7 +258,7 @@ $("#form-senha").on("submit", function(e) {
                     $('#loader').hide();
                 } else if (response == 1) {
                     console.log(response);
-                    $('.alert-success').text("Email enviado, verifique seu email");
+                    $('.alert-success').text("Senha recuperada com sucesso!");
                     $('.alert-success').show();
                     setInterval(() => {
                         $('.alert-success').text("");
@@ -811,7 +813,6 @@ $("#fechar").on("click", function(e) {
             ids.push(array[i].innerText)
         }
         ids = JSON.stringify(ids);
-        alert(ids)
         $.ajax({
             type: 'POST',
             url: url,

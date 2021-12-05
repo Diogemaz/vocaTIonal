@@ -14,7 +14,7 @@ if ($arq == "index.php") {
                         <?php echo $user->getNomeUsuario(); ?>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="view/areaUsuario.php#services">Suas áreas</a>
+                        <a class="dropdown-item" href="view/areaUsuario.php">Suas áreas</a>
                         <?php if ($user->getAdm() == 1) { ?>
                             <a class="dropdown-item" href="view/adm-dashboard.php">Voltar a Adm</a>
                         <?php } ?>
@@ -62,7 +62,7 @@ if ($arq == "index.php") {
                         <?php echo $user->getNomeUsuario(); ?>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="areaUsuario.php#services">Suas áreas</a>
+                        <a class="dropdown-item" href="areaUsuario.php">Suas áreas</a>
                         <?php if ($user->getAdm() == 1) { ?>
                             <a class="dropdown-item" href="adm-dashboard.php">Voltar a Adm</a>
                         <?php } ?>
@@ -110,7 +110,7 @@ if ($arq == "index.php") {
                         <?php echo $user->getNomeUsuario(); ?>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="areaUsuario.php#services">Suas áreas</a>
+                        <a class="dropdown-item" href="areaUsuario.php">Suas áreas</a>
                         <?php if ($user->getAdm() == 1) { ?>
                             <a class="dropdown-item" href="adm-dashboard.php">Voltar a Adm</a>
                         <?php } ?>

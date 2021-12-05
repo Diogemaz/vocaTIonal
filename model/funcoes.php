@@ -54,7 +54,7 @@ function RecuperarSenha($email, $nomeUser, $token){
     $mail->Password = "suporteVocational$%1";
     $mail->SetFrom("suporte@vocational.com.br");
     $mail->Subject = "Recuperação de conta";
-    $mail->Body = "Olá ".$nomeUser." aqui está o link para recuperação da sua conta <br><br> Token: https://vocational.com.br/view/resetpassword.php?email=".$email."&token=".$token."";
+    $mail->Body = "Olá ".$nomeUser." aqui está o link para recuperação da sua conta <br><br> Token: https://vocational.com.br/view/recuperacao.php?email=".$email."&token=".$token."";
     $mail->AddAddress($email);
      if(!$mail->Send()) {
         return 1;

@@ -24,6 +24,7 @@ if(isset($_SESSION['user'])){
       <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
       <!-- Core theme CSS (includes Bootstrap)-->
       <link href="../css/styles.css" rel="stylesheet" />
+        <link href="../css/cards.css" rel="stylesheet" />
    </head>
    <body id="page-top">
       <!-- Navigation-->
@@ -49,39 +50,39 @@ if(isset($_SESSION['user'])){
             </div>
          </div>
       </header>
-      <!-- About-->
-      <section class="page-section bg-primary" id="services">
-         <link rel="stylesheet" href="../css/estilo.css">
-         <nav class="categories--home">
-         <div class="categories__elements--home">
-            <?php
-                $area = new area; 
-                $resultado = $area->consultarAreaFavoritada($user->getId());  
-                while($row = $resultado->fetch()){
+      <section class="page-section bg-primary" id="services" style="position: relative; z-index: 0;">
+        <div class="container">
+            <div class="row align-items-center justify-content-center mb-5">
+               <?php
+                     $area = new area; 
+                     $resultado = $area->consultarAreaFavoritada($user->getId());  
+                     while($row = $resultado->fetch()){
 
-            ?>
-            <div class="categories__wrapper__links--home --<?php $row['nome_area']; ?>" style="--color-var: #ffba05">
-                <a class="categories__link--home" href="profissoes.php?area=<?php echo $row['nome_area']; ?>">
-                <div class="categories__link-wrapper--home">
-                    <div class="categories__svg-wrapper--home" style="background:#ffba0552;"></div>
-                    <div class="categories__texts" style="color:#ffba05;">
-                        <h4 class="categories__link__category-name"><?php echo ucfirst($row['nome_area']); ?></h4>
+               ?>
+                    <div class="card borda animated fadeInRight" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $row['nome_area']; ?></h5>
+                            <p class="card-text link-card">
+                                <?php echo substr($row['descricao'], 0, 70); ?>...
+                            </p>
+                            <div class="text-center">
+                                <a href="profissoes.php?area=<?php echo $row['nome_area']; ?>" class="text-center">Ver mais</a>
+                            </div>
+                            <div class="row avaliacao">
+                                <div class="col-1"><img src="../assets/img/star1.png" width="30" height="30"></div>
+                                <div class="col mt-1">
+                                    <h6 class="text-white-75 font-weight-light mt-1">
+                                        <?php echo $row['num_favorite']; ?>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                </a>
-                <nav class="categories__calls--home">
-                <a href="profissoes.php?area=<?php echo $row['nome_area']; ?>" class="categories__calls__description--home">
-                        
-                </a>
-                <a href="profissoes.php?area=<?php echo $row['nome_area']; ?>" class="categories__calls__description--home">
-                    Ver mais
-                </a>
-                </nav>
+                <?php
+                  }
+                ?>
             </div>
-        <?php
-            }
-        ?>
-        </div>
+         </div>
       </section>
       <!-- Contact-->
       <?php include_once "../includes/contato.php" ?>

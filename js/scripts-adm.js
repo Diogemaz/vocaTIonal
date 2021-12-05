@@ -2,6 +2,49 @@ $(document).ready(function() {
     abriPagina();
 });
 
+//FRASES
+jQuery(function($) {
+    $("#form-frase").on("submit", function(e) {
+        e.preventDefault(); // impedir o evento submit
+        var form = $('#form-frase').serialize();
+        console.log(form);
+        $.ajax({
+            type: 'POST',
+            url: '../controller/cadastrarFrase.php',
+            dataType: "json",
+            data: form,
+            success: function(response) {
+                if (response == 1) {
+                    window.location.href = "adm-frases.php";
+                } else if (response == 0) {
+                    $('.alert-warning').text("Falha ao cadastrar, tente novamente");
+                    $('.alert-warning').show();
+                    setInterval(() => {
+                        $('.alert-warning').text("");
+                        $('.alert-warning').hide('close');
+                    }, 10000);
+                } else if (response == -1) {
+                    $('.alert-warning').text("Falha ao cadastrar, tente novamente");
+                    $('.alert-warning').show();
+                    setInterval(() => {
+                        $('.alert-warning').text("");
+                        $('.alert-warning').hide('close');
+                    }, 10000);
+                }
+            },
+            error: function(response) {
+                $('.alert-danger').text("ERRO!" + response);
+                $('.alert-danger').show();
+                setInterval(() => {
+                    $('.alert-danger').text("");
+                    $('.alert-danger').hide('close');
+                }, 10000);
+            }
+        });
+    })
+});
+
+//TRILHAS
 jQuery(function($) {
     $("#form-trilha").on("submit", function(e) {
         e.preventDefault(); // impedir o evento submit
