@@ -1,12 +1,11 @@
 <?php 
     session_start();
     include_once "../model/usuario.php";
+    include_once "../model/funcoes.php";
     if(isset($_SESSION['user'])){
         try{
-            $reflect = new ReflectionClass('usuario');
-            $user = $reflect->newInstanceWithoutConstructor();
-            $nome = $_POST['pesquisa'];
-            $alter = $user->tornarADM($nome);
+            $id = $_POST['id_frase'];
+            $alter = DeletaFrase($id);
             if($alter = 1){
                 $response = 1;
             }else{

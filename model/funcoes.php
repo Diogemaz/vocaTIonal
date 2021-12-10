@@ -157,7 +157,7 @@ function notificaUsers($local, $item){
     function listaFrases(){
         $con = conexao();
         try{
-            $sql = "SELECT * FROM frase;";
+            $sql = "SELECT * FROM frase AS r1 JOIN (SELECT CEIL(RAND() * (SELECT MAX(id_frase) FROM frase)) AS id) AS r2 WHERE r1.id_frase >= r2.id ORDER BY r1.id_frase ASC LIMIT 3";
             $resultado = $con->prepare($sql);
             $resultado->execute();
             return $resultado;
@@ -165,7 +165,18 @@ function notificaUsers($local, $item){
             return $e;
         }
     }
-
+    function DeletaFrase($id){
+        $con = conexao();
+        try{
+            $sql = "DELETE FROM frase WHERE id_frase=:frase;";
+            $resultado = $con->prepare($sql);
+            $resultado->bindParam(':frase', $id, PDO::PARAM_INT);
+            $resultado->execute();
+            return 1;
+        }catch(Exception $e){
+            return 2;
+        }
+    }
     function cadastrarFrase($nome, $frase, $linkedin){
         $con = conexao();
         try{

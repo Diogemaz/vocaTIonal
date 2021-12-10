@@ -251,10 +251,10 @@ if (isset($_SESSION['user'])) {
                                     foreach (listaAdm() as $adm) {
                                     ?>
                                         <tr>
-                                            <th scope="row"><?php echo $adm['id_usuario']; ?></th>
+                                            <th scope="row" id="adm_id"><?php echo $adm['id_usuario']; ?></th>
                                             <td><?php echo $adm['nome_usuario']; ?></td>
                                             <td><?php echo $adm['email']; ?></td>
-                                            <td> <button onclick="RetirarAdm();" class="btn btn-primary">Retirar</button></td>
+                                            <td> <button onclick="RetirarAdm('<?php echo $adm['id_usuario']; ?>');" class="btn btn-primary">Retirar</button></td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>
@@ -263,7 +263,7 @@ if (isset($_SESSION['user'])) {
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="card">
-                                    <form class="form-horizontal" autocomplete="off" id="form-adm" action="../controller/ConvidarAdm.php" method="POST">
+                                    <form class="form-horizontal" autocomplete="off" id="form-adm" action="" method="POST">
                                         <div class="card-body">
                                             <h4 class="card-title">Adicionar ADM</h4>
                                             <div class="form-group row">
@@ -277,7 +277,7 @@ if (isset($_SESSION['user'])) {
                                         </div>
                                         <div class="border-top">
                                             <div class="card-body">
-                                                <button onclick="convidarAdm();" class="btn btn-primary">Tornar ADM</button>
+                                                <button class="btn btn-primary">Tornar ADM</button>
                                             </div>
                                         </div>
                                     </form>
@@ -311,7 +311,7 @@ if (isset($_SESSION['user'])) {
                 <script src="../dist/js/pages/chart/chart-page-init.js"></script>
                 <script>
                     jQuery(function($){
-                        $("#form-frase").on("submit",function(e){
+                        $("#form-adm").on("submit",function(e){
                             e.preventDefault(); // impedir o evento submit
                         var form = $('#form-adm').serialize();
                         console.log(form);
@@ -350,30 +350,30 @@ if (isset($_SESSION['user'])) {
                         });
                     })});
 
-                    function RetirarAdm() {
+                    function RetirarAdm(number) {
                         var funcao = "Excluir";
-                        alterarDeletarCurso(funcao);
+                        TirarAdm(number);
                     }
 
-                    function alterarDeletarCurso(funcao) {
-                        var form = $('#form-curso').serialize() + '&funcao=' + funcao;
+                    function TirarAdm(number) {
+                        var form = "adm_id=" + number;
                         console.log(form);
                         $.ajax({
                             type: 'POST',
-                            url: '../controller/alterarCurso.php',
+                            url: '../controller/RetirarAdm.php',
                             dataType: "json",
                             data: form,
                             success: function(response) {
                                 if (response == 1) {
-                                    $('.alert-success').text("Alterado/deletado com sucesso!");;
+                                    $('.alert-success').text("Retirado com sucesso!");;
                                     $('.alert-success').show();
                                     setInterval(() => {
                                         $('.alert-success').text("");
                                         $('.alert-success').hide('close');
                                     }, 5000);
-                                    window.location.href = "adm-curso.php?profissao=" + $('#profissao').val();
+                                    window.location.href = "adm-lista.php";
                                 } else if (response == 0) {
-                                    $('.alert-warning').text("Falha ao alterar, tente novamente");
+                                    $('.alert-warning').text("Falha ao retirar, tente novamente");
                                     $('.alert-warning').show();
                                     setInterval(() => {
                                         $('.alert-warning').text("");

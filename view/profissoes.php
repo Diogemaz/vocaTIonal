@@ -81,7 +81,7 @@
         <div class="container animated fadeIn">
             <div class="row justify-content-center pb-2">
                 <button class="borda-btn" id="profissoes"
-                    onclick="TrocarFoco('services-profissoes','services-trilhas')">Profissoes</button>
+                    onclick="TrocarFoco('services-profissoes','services-trilhas')">Profissões</button>
                 <button class="borda-btn" id="trilhas"
                     onclick="TrocarFoco('escolha-trilhas','services-profissoes')">Trilhas</button>
             </div>
@@ -154,7 +154,7 @@
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $profissao->getNome(); ?></h5>
                         <p class="card-text link-card">
-                            Média salarial: <?php echo $profissao->getSalario(); ?>
+                            Média salarial: R$<?php echo $profissao->getSalario(); ?>
                         </p>
                         <div class="text-center">
                             <a href="cursos.php?profissao=<?php echo $profissao->getNome(); ?>" class="text-center">Ver

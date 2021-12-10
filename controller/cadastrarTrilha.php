@@ -23,7 +23,6 @@
             $trilhas = $reflect->newInstanceWithoutConstructor();
             $trilhas->setNome($nome);
             $trilhas->setTexto($textos);
-            if(!empty(trim($nome))){
                 try{
                     $cadastro = $trilhas->cadastrarTrilhas($area);
                     if($cadastro == 1){
@@ -39,9 +38,6 @@
                 }catch (Exception $e){
                     $response = -1;
                 }
-            }else{
-                $response = -2;
-            }
             
             echo json_encode($response);
         }}else{

@@ -44,11 +44,50 @@ jQuery(function($) {
     })
 });
 
+function alterarDeletarFrase(number) {
+    var form = "id_frase=" + number;
+    console.log(form);
+    $.ajax({
+        type: 'POST',
+        url: '../controller/alterarFrase.php',
+        dataType: "json",
+        data: form,
+        success: function(response) {
+            if (response == 1) {
+                $('.alert-success').text("Alterado/deletado com sucesso!");;
+                $('.alert-success').show();
+                setInterval(() => {
+                    $('.alert-success').text("");
+                    $('.alert-success').hide('close');
+                }, 5000);
+                window.location.href = "adm-frases.php";
+            } else if (response == 0) {
+                $('.alert-warning').text("Falha ao alterar, tente novamente");
+                $('.alert-warning').show();
+                setInterval(() => {
+                    $('.alert-warning').text("");
+                    $('.alert-warning').hide('close');
+                }, 5000);
+            }
+        },
+        error: function(response) {
+            $('.alert-danger').text("ERRO!" + response);
+            $('.alert-danger').show();
+            setInterval(() => {
+                $('.alert-danger').text("");
+                $('.alert-danger').hide('close');
+            }, 5000);
+        }
+    });
+};
+
+
 //TRILHAS
 jQuery(function($) {
-    $("#form-trilha").on("submit", function(e) {
+    $("#form-trilhas").on("submit", function(e) {
         e.preventDefault(); // impedir o evento submit
-        var form = $('#form-trilha').serialize();
+        var form = $('#form-trilhas').serialize();
+        console.log(form)
         $.ajax({
             type: 'POST',
             url: '../controller/cadastrarTrilha.php',
@@ -56,10 +95,11 @@ jQuery(function($) {
             data: form,
             success: function(response) {
                 if (response == 1 || response == 2) {
-                    trilha($('#area option:selected').val());
-                    $('#form-trilha').each(function() {
+                    trilhas($('#area option:selected').val());
+                    $('#form-trilhas').each(function() {
                         this.reset();
                     });
+                    window.location.href = "adm-trilhas.php";
                 } else if (response == 0) {
                     console.log(form)
                     $('.alert-warning').text("Falha ao cadastrar, tente novamente");
@@ -132,6 +172,61 @@ function EscolheItem(item) {
     }
 }
 
+function trilhas(area) {
+    $('#retorno').html("");
+    $('#retorno').load("../controller/consultarProfissoes.php", { area: area });
+}
+
+/* PROFISSAO */
+$(document).ready(function() {
+    abriPagina();
+});
+form = document.getElementById('form-profissao');
+form.addEventListener('submit', e => {
+    e.preventDefault()
+})
+
+function cadastrarProfissao() {
+    var form = $('#form-profissao').serialize();
+    console.log(form);
+    $.ajax({
+        type: 'POST',
+        url: '../controller/cadastrarProfissao.php',
+        dataType: "json",
+        data: form,
+        success: function(response) {
+            if (response == 1 || response == 2) {
+                profissoes($('#area option:selected').val());
+                $('#form-profissao').each(function() {
+                    this.reset();
+                });
+            } else if (response == 0) {
+                $('.alert-warning').text("Falha ao cadastrar, tente novamente");
+                $('.alert-warning').show();
+                setInterval(() => {
+                    $('.alert-warning').text("");
+                    $('.alert-warning').hide('close');
+                }, 5000);
+            } else if (response == -2) {
+                $('.alert-warning').text("Nome da profissão deve ter letras");
+                $('.alert-warning').show();
+                setInterval(() => {
+                    $('.alert-warning').text("");
+                    $('.alert-warning').hide('close');
+                }, 5000);
+            }
+        },
+        error: function(response) {
+            $('.alert-danger').text("ERRO!" + response);
+            $('.alert-danger').show();
+            setInterval(() => {
+                $('.alert-danger').text("");
+                $('.alert-danger').hide('close');
+            }, 5000);
+        }
+    });
+};
+
 function deletarProfissao() {
     var funcao = "Excluir";
     alterarDeletarProfissao(funcao);
@@ -158,7 +253,7 @@ function alterarDeletarProfissao(funcao) {
                     $('.alert-success').text("");
                     $('.alert-success').hide('close');
                 }, 5000);
-                profissao($('#area option:selected').val());
+                profissoes($('#area option:selected').val());
             } else if (response == 0) {
                 $('.alert-warning').text("Falha ao alterar, tente novamente");
                 $('.alert-warning').show();
@@ -179,7 +274,21 @@ function alterarDeletarProfissao(funcao) {
     });
 };
 
+function profissoes(area) {
+    $('#retorno').html("");
+    $('#retorno').load("../controller/consultarProfissoes.php", { area: area });
+}
 
+function abriPagina() {
+    if ($('#areaSelect option:selected').val() == 0) {
+        var elemento = "<h2>Nenhuma Área selecionada</h2>";
+        document.getElementById('retorno').innerHTML = elemento;
+    } else {
+        profissoes($('#areaSelect option:selected').val());
+    }
+}
+
+//TRILHA
 function deletarTrilha() {
     var funcao = "Excluir";
     alterarDeletarTrilha(funcao);

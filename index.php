@@ -118,16 +118,15 @@
                             <?php
                             $contador = 1;
                             foreach (listaFrases() as $frases) {
-                                if($contador>1){
+                                if($contador == 1){
                         ?>
                             <div class="carousel-item active">
-                                <div style="height: 75px;"></div>
+                                <div style="height: 75px;"><?php echo $inicial; ?></div>
                                 <p class="text-white d-block w-100" style="height: 100px;">
                                     <?php echo $frases['texto_frase'];?> - Por:
                                     <?php echo $frases['profissional_frase'];?>
                                 </p>
                             </div>
-
                             <?php 
                                 }else{
                         ?>
@@ -142,7 +141,7 @@
                             <?php
                                 }
                                 $contador++;
-                                if ($contador == 3){
+                                if ($contador == 4){
                                     break;
                                 }
                             } 

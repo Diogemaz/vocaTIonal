@@ -244,6 +244,7 @@ if (isset($_SESSION['user'])) {
                                         <th scope="col">FRASE:</th>
                                         <th scope="col">PROFISSIONAL:</th>
                                         <th scope="col">LINKEDIN:</th>
+                                        <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -255,6 +256,7 @@ if (isset($_SESSION['user'])) {
                                             <td><?php echo $frases['texto_frase']; ?></td>
                                             <td><?php echo $frases['profissional_frase']; ?></td>
                                             <td><?php echo $frases['linkedin_frase']; ?></td>
+                                            <td><button onclick="alterarDeletarFrase('<?php echo $frases['id_frase']; ?>');" class="btn btn-primary">Excluir</button></td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>

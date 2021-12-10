@@ -260,7 +260,7 @@ if (isset($_SESSION['user'])) {
                         </div>
                         <?php if (!isset($_GET['trilha'])) { ?>
                             <div class="container-fluid">
-                                <form class="form-horizontal" id="form-trilhas" action="../controller/cadastrarTrilha.php" method="POST">
+                                <form class="form-horizontal" id="form-trilhas" action="" method="POST">
                                     <div class="row">
                                         <div class="col-md-5">
                                             <div class="card">
@@ -302,7 +302,7 @@ if (isset($_SESSION['user'])) {
                                                 </div>
                                                 <div class="border-top">
                                                     <div class="card-body">
-                                                        <button type="submit" class="btn btn-primary">Enviar</button>
+                                                        <button class="btn btn-primary">Enviar</button>
                                                     </div>
                                                 </div>
 

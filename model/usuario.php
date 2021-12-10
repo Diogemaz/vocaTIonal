@@ -270,6 +270,18 @@ class Usuario
             return 0;
         }
     }
+    public function RetirarADM($adm){
+        $con = conexao();
+        try{
+            $sql = "UPDATE usuario SET administrador = 0 WHERE id_usuario = :adm";
+            $update = $con->prepare($sql);
+            $update->bindParam(':adm', $adm, PDO::PARAM_INT); 
+            $update->execute();
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+    }
 }
 
 ?>
